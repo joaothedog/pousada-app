@@ -1,0 +1,1 @@
+adicionar os itens do estoque consumidos por cada quarto ao preço total a se pagar, ou entao criar um campo gastos extras - basicamente associar o estoque aos quartos (caso consumido)
