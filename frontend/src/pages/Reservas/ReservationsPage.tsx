@@ -1,6 +1,6 @@
 import React from 'react';
-import ReservationForm from '../components/forms/ReservationForm';
-import ReservationTable from '../components/tables/ReservationTable';
+import ReservationForm from '../../components/forms/ReservationForm';
+import ReservationTable from '../../components/tables/ReservationTable';
 
 
 const ReservationsPage: React.FC = () => (

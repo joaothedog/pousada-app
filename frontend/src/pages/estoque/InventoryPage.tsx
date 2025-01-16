@@ -1,6 +1,6 @@
 import React from 'react';
-import InventoryItemForm from '../components/forms/InventoryItemForm';
-import InventoryTable from '../components/tables/InventoryTable';
+import InventoryItemForm from '../../components/forms/InventoryItemForm';
+import InventoryTable from '../../components/tables/InventoryTable';
 
 const InventoryPage: React.FC = () => (
     <div>

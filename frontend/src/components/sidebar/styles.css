@@ -1,0 +1,38 @@
+@media (min-width: 1441px) and (max-width: 1920px) {
+    .user-container {
+      margin-top: 60%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: #f5f7f9;
+      transition: 0.2s;
+  
+      &:hover {
+        transform: scale(1.04);
+      }
+    }
+  }
+  
+  
+  
+  @media (min-width: 1367px) and (max-width: 1440px) {
+    .user-container {
+      margin-top: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: #f5f7f9;
+      transition: 0.2s;
+  
+      &:hover {
+        transform: scale(1.04);
+      }
+    }
+  
+  
+  
+  }

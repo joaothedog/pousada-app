@@ -1,6 +1,6 @@
 import React from 'react';
-import RoomTable from '../components/tables/RoomTable';
-import RoomForm from '../components/forms/RoomForm';
+import RoomTable from '../../components/tables/RoomTable';
+import RoomForm from '../../components/forms/RoomForm';
 
 const RoomsPage: React.FC = () => (
     <div>
