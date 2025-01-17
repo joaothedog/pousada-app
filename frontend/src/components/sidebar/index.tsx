@@ -41,7 +41,7 @@ export function SidebarComponent() {
 
           <Sidebutton tittle="Quartos" onClick={() => navigate('/rooms')} />
 
-          <Sidebutton tittle="Reservas" onClick={() => navigate('reservations')} />
+          <Sidebutton tittle="Reservas" onClick={() => navigate('/reservations')} />
 
 
 
