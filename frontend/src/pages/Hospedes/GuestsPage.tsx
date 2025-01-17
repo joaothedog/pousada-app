@@ -149,7 +149,7 @@ export function GerenciaHospedes() {
                     <div className="search-bar">
                         <input
                             type="text"
-                            placeholder="Digite o nome do hóspede"
+                            placeholder="Buscar..."
                             value={searchName}
                             onChange={handleSearchChange}
                             onKeyDown={handleSearch}
