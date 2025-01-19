@@ -119,6 +119,7 @@ export function GerenciaHospedes() {
                                 <div className="input">
                                     <label htmlFor="phone">Telefone:</label>
                                     <input
+                                        placeholder='ex:(77)78898989'
                                         type="text"
                                         name="phone"
                                         value={formData.phone}
@@ -166,7 +167,7 @@ export function GerenciaHospedes() {
                                         <img src='/icon.png' alt='logo' className='user'>
                                         </img>
                                         <p className="nome" style={{ marginLeft: "10%" }}>
-                                            <strong>Nome:</strong> {guest.name}
+                                            <strong>Nome:</strong><br></br> {guest.name}
                                         </p>
                                         <p className="phone" style={{ marginLeft: "10%" }} >
                                             <strong>Telefone:</strong> {guest.phone}

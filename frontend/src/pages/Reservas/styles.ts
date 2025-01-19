@@ -17,13 +17,12 @@ export const Container = styled.div`
     }
 `;
 
-export const Containerr = styled.div <{ isAvailable: boolean }>`
-  width: 67%;
+export const Containerr = styled.div `
+  width: 75%;
   height: 15%;
   display: flex;
   border-radius:3px;
   flex-direction: row;
-   background-color: ${(props) => (props.isAvailable ? "#d4edda" : "#FA8072")};
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
   margin-top: 20px;
   .image {
