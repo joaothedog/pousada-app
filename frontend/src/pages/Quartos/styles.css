@@ -104,14 +104,47 @@
    
   }
   
-  .lixeira{
+  .lixo{
    
     color:black;
     &:hover{
-      color: #800000;
+      color: black;
       cursor:pointer;
     }
  
+
+    
+
   }
 
+  .detail{
+      
+    color:black;
+    &:hover{
+      color: gray;
+      cursor:pointer;
+    }
+ 
+    }
+
+    .closeModal{
+      margin-top:15%;
+      font-size: 18px;
+      margin-left: 39%;
+      width: 20%;
+      height: 2rem;
+      border-radius: 5px;
+      background:#007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+     .reservasCad{
+      margin-left: 13%;
+     }
   

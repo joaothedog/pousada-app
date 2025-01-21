@@ -18,7 +18,7 @@ export const Container = styled.div`
 `;
 
 export const Containerr = styled.div`
-  width: 54%;
+  width: 65%;
   height: 14%;
   display: flex;
   border-radius:3px;

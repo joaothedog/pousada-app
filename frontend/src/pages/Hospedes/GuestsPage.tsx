@@ -166,7 +166,7 @@ export function GerenciaHospedes() {
                                     <div className="row">
                                         <img src='/icon.png' alt='logo' className='user'>
                                         </img>
-                                        <p className="nome" style={{ marginLeft: "10%" }}>
+                                        <p className="nomeHosp" style={{ marginLeft: "10%" }}>
                                             <strong>Nome:</strong><br></br> {guest.name}
                                         </p>
                                         <p className="phone" style={{ marginLeft: "10%" }} >

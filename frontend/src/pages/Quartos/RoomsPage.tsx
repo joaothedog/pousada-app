@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { getRooms, deleteRoom, createRoom } from '../../services/api';
+import { getRooms, deleteRoom, createRoom, getReservations, getGuests } from '../../services/api';
 import { PageContainer } from '../../components/PageContainer';
 import { SidebarComponent } from '../../components/sidebar/index';
 import { Container, Containerr } from './styles';
 import "./styles.css";
 import { FaTrashAlt } from 'react-icons/fa';
+import { TbListDetails } from "react-icons/tb";
 
 export function GerenciaQuartos() {
     interface Room {
@@ -14,6 +15,19 @@ export function GerenciaQuartos() {
         capacity: number;
         daily_rate: number;
         is_available: boolean;
+    }
+
+    interface Reservation {
+        id: number;
+        room: number;
+        guest: number;
+        check_in: string;
+        check_out: string;
+    }
+
+    interface Guest {
+        id: number;
+        name: string;
     }
 
     const [formData, setFormData] = useState({
@@ -27,9 +41,14 @@ export function GerenciaQuartos() {
     const [filteredRooms, setFilteredRooms] = useState<Room[]>([]);
     const [searchName, setSearchName] = useState('');
     const [loading, setLoading] = useState(false);
+    const [reservations, setReservations] = useState<Reservation[]>([]);
+    const [guests, setGuests] = useState<Guest[]>([]);
+    const [selectedRoomReservations, setSelectedRoomReservations] = useState<Reservation[] | null>(null);
 
     useEffect(() => {
         carregarQuartos();
+        carregarReservas();
+        carregarHospedes();
     }, []);
 
     const carregarQuartos = async () => {
@@ -42,6 +61,31 @@ export function GerenciaQuartos() {
             console.error('Erro ao carregar quartos:', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const carregarReservas = async () => {
+        try {
+            const data = await getReservations();
+            const reservations: Reservation[] = data.map((item: any) => ({
+                id: item.id,
+                room: item.room,
+                guest: item.guest,
+                check_in: item.check_in,
+                check_out: item.check_out,
+            }));
+            setReservations(reservations);
+        } catch (error) {
+            console.error('Erro ao carregar reservas:', error);
+        }
+    };
+
+    const carregarHospedes = async () => {
+        try {
+            const data = await getGuests();
+            setGuests(data);
+        } catch (error) {
+            console.error('Erro ao carregar hóspedes:', error);
         }
     };
 
@@ -105,6 +149,20 @@ export function GerenciaQuartos() {
         }
     };
 
+    const handleShowRoomDetails = (roomId: number) => {
+        const relatedReservations = reservations.filter((reservation) => reservation.room === roomId);
+        setSelectedRoomReservations(relatedReservations);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedRoomReservations(null);
+    };
+
+    const getGuestName = (guestId: number): string => {
+        const guest = guests.find((g) => g.id === guestId);
+        return guest ? guest.name : 'Hóspede não encontrado';
+    };
+
     return (
         <PageContainer padding="0px">
             <div className="main2">
@@ -115,7 +173,7 @@ export function GerenciaQuartos() {
                         <div className="cadastro">
                             <div className="row">
                                 <div className="input">
-                                    <label htmlFor="name">Número  do Quarto:</label>
+                                    <label htmlFor="name">Número do Quarto:</label>
                                     <input
                                         type="text"
                                         name="name"
@@ -161,11 +219,10 @@ export function GerenciaQuartos() {
                                         <option value="LUXO">Luxo</option>
                                     </select>
                                 </div><br></br>
-                                
                             </div>
                         </div>
                         <button type="submit" className="button-cadastro">
-                            Cadastrar 
+                            Cadastrar
                         </button>
                     </form>
                 </div>
@@ -198,21 +255,55 @@ export function GerenciaQuartos() {
                                             <strong>Capacidade:</strong> {room.capacity} pessoas
                                         </p>
                                         <p className="diaria">
-                                        <strong>Diária:</strong> R$ {Number(room.daily_rate).toFixed(2)}
-                                       </p>
+                                            <strong>Diária:</strong> R$ {Number(room.daily_rate).toFixed(2)}
+                                        </p>
 
                                         <p className="disponivel">
                                             <strong>Disponível:</strong> {room.is_available ? 'Sim' : 'Não'}
                                         </p>
                                     </div>
                                     <div className='buttons'>
-                                        <FaTrashAlt className='lixeira' size={20} onClick={() => handleDelete(room.id)} />
+                                       <TbListDetails 
+                                           className='detail' 
+                                           size={20} 
+                                           onClick={() => handleShowRoomDetails(room.id)} 
+                                       />
+                                       <FaTrashAlt 
+                                           className='lixeira' 
+                                           size={20} 
+                                           onClick={() => handleDelete(room.id)} 
+                                       />
                                     </div>
                                 </Containerr>
                             )).reverse()}
                         </Container>
                     )}
                 </div>
+
+                {selectedRoomReservations && (
+                    <div className="modal-overlay" onClick={handleCloseModal}>
+                        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                            <div className='faixa'>
+                            <h2>Reservas Relacionadas</h2>
+                            </div>
+                            
+                            {selectedRoomReservations.length > 0 ? (
+                                <ul>
+                                    {selectedRoomReservations.map((reservation) => (
+                                        <li key={reservation.id}>
+                                            <strong>Hóspede:</strong> {getGuestName(reservation.guest)} -
+                                            <strong> Check-in:</strong> {new Date(reservation.check_in).toLocaleDateString('pt-BR')} -
+                                            <strong> Check-out:</strong> {new Date(reservation.check_out).toLocaleDateString('pt-BR')}
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p>Não há reservas para este quarto.</p>
+                            )}
+                            <button className='closeModal' onClick={handleCloseModal}>Fechar</button>
+                        </div>
+                    </div>
+                )}
             </div>
         </PageContainer>
     );

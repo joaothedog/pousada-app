@@ -480,7 +480,7 @@ const resolveRoomDailyRate = (roomId: number) => {
                         </div>
                     ))}
             </div>
-            <button onClick={handleFecharModal}>Fechar</button>
+            <button className='closeModal' onClick={handleFecharModal}>Fechar</button>
         </div>
     </div>
 )}

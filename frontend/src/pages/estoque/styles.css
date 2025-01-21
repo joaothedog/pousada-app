@@ -84,17 +84,22 @@
     }
   }
 
-  .buttons {
+  .buttons-inv {
     height: 100%;
     width: 20%;
     display: flex;
     justify-content: space-evenly;
-    margin-top: 7%;
+    margin-top: 13%;
+    margin-left: 0%;
    
  
    
 
 
+  }
+
+  .preco{
+    margin-left: 4%;
   }
 
   .user{
@@ -114,8 +119,11 @@
  
   }
 
-  .nomeHosp{
-    margin-top: 10%;
+  .edit{
+    color:black;
+    &:hover{
+      color: #007bff ;
+      cursor:pointer;
+    }
   }
-
   
