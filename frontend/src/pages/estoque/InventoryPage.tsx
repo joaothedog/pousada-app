@@ -30,9 +30,11 @@ export function GerenciaInventario() {
     });
 
     const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>([]);
+    const [filteredItems, setFilteredItems] = useState<InventoryItem[]>([]);
     const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
     const [reductions, setReductions] = useState<{ [key: number]: InventoryReduction[] }>({});
     const [reductionData, setReductionData] = useState({ quantity: 0, date: '' });
+    const [newQuantity, setNewQuantity] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -48,6 +50,7 @@ export function GerenciaInventario() {
                     originalQuantity: item.quantity, // Define a quantidade original na carga inicial
                 }));
                 setInventoryItems(sanitizedItems);
+                setFilteredItems(sanitizedItems);
 
                 const storedReductions = localStorage.getItem('reductions');
                 if (storedReductions) {
@@ -117,6 +120,7 @@ export function GerenciaInventario() {
     const handleOpenModal = (item: InventoryItem) => {
         setSelectedItem(item);
         setReductionData({ quantity: 0, date: '' });
+        setNewQuantity(null);
     };
 
     const handleReductionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,6 +129,10 @@ export function GerenciaInventario() {
             ...reductionData,
             [name]: name === 'quantity' ? parseInt(value) || 0 : value,
         });
+    };
+
+    const handleNewQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewQuantity(parseInt(e.target.value) || 0);
     };
 
     const handleConfirmReduction = () => {
@@ -146,10 +154,26 @@ export function GerenciaInventario() {
                     : item
             );
             setInventoryItems(updatedInventoryItems);
+            setFilteredItems(updatedInventoryItems);
 
             localStorage.setItem('inventoryItems', JSON.stringify(updatedInventoryItems));
 
             setReductionData({ quantity: 0, date: '' });
+        }
+    };
+
+    const handleConfirmNewQuantity = () => {
+        if (selectedItem && newQuantity !== null) {
+            const updatedInventoryItems = inventoryItems.map((item) =>
+                item.id === selectedItem.id
+                    ? { ...item, quantity: newQuantity }
+                    : item
+            );
+            setInventoryItems(updatedInventoryItems);
+            setFilteredItems(updatedInventoryItems);
+            localStorage.setItem('inventoryItems', JSON.stringify(updatedInventoryItems));
+            setNewQuantity(null);
+            alert('Quantidade do estoque atualizada com sucesso!');
         }
     };
 
@@ -171,6 +195,7 @@ export function GerenciaInventario() {
         );
 
         setInventoryItems(updatedInventoryItems);
+        setFilteredItems(updatedInventoryItems);
         localStorage.setItem('inventoryItems', JSON.stringify(updatedInventoryItems));
     };
 
@@ -178,12 +203,16 @@ export function GerenciaInventario() {
         setSelectedItem(null);
     };
 
+    const handleFilter = (location: string) => {
+        setFilteredItems(inventoryItems.filter((item) => item.location === location));
+    };
+
     return (
         <PageContainer padding="0px">
             <div className="main2">
                 <SidebarComponent />
                 <div className="criar">
-                    <h1>Cadastro de Itens do Estoque</h1>
+                    <h1>Cadastrar  Itens do Estoque</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="cadastro">
                             <div className="row">
@@ -243,15 +272,20 @@ export function GerenciaInventario() {
                 </div>
                 <div className="separator" />
                 <div className="gerenciar">
-                    <h1>Itens do Estoque</h1>
+                    <h1>Gerenciar Itens do Estoque</h1>
+                    <div className="filters">
+                        <button onClick={() => setFilteredItems(inventoryItems)}>Todos</button>
+                        <button onClick={() => handleFilter('RECEPCAO')}>Recepção</button>
+                        <button onClick={() => handleFilter('COZINHA')}>Cozinha</button>
+                    </div>
                     {loading ? (
                         <p>Carregando...</p>
                     ) : error ? (
                         <p>{error}</p>
                     ) : (
                         <Container>
-                            {inventoryItems.length > 0 ? (
-                                inventoryItems.map((item) => (
+                            {filteredItems.length > 0 ? (
+                                filteredItems.map((item) => (
                                     <Containerr key={item.id} className="banner">
                                         <div className="row">
                                             <p className="nome">
@@ -287,43 +321,70 @@ export function GerenciaInventario() {
                 {selectedItem && (
                     <div className="modal-overlay" onClick={handleCloseModal}>
                         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                            <h2>Dar Baixa no Estoque</h2>
-                            <p>
-                                <strong>Item:</strong> {selectedItem.name}
-                            </p>
-                            <label>
-                                Quantidade:
-                                <input
-                                    type="number"
-                                    name="quantity"
-                                    value={reductionData.quantity}
-                                    onChange={handleReductionChange}
-                                    min="1"
-                                    max={selectedItem.quantity}
-                                    required
-                                />
-                            </label>
-                            <label>
-                                Data:
-                                <input
-                                    type="date"
-                                    name="date"
-                                    value={reductionData.date}
-                                    onChange={handleReductionChange}
-                                    required
-                                />
-                            </label>
-                            <button onClick={handleConfirmReduction}>Confirmar Baixa</button>
-                            <button onClick={handleCloseModal}>Cancelar</button>
+                            <div className='faixa'>
+                                <h2> Estoque {selectedItem.name}</h2>
+                            </div>
+                          
+                            <div className='reductionsad'>
+                                <h3>Adicionar Baixas:</h3>
+                                <div className='input'>
+                                    <label>
+                                        Data:
+                                        <input
+                                            type="date"
+                                            name="date"
+                                            value={reductionData.date}
+                                            onChange={handleReductionChange}
+                                            required
+                                        />
+                                    </label>  
+                                </div>
+                                <div className='input' >
+                                    <label>
+                                        Qntd:
+                                        <input
+                                            style={{width:"19.6%"}}
+                                            type="number"
+                                            name="quantity"
+                                            value={reductionData.quantity}
+                                            onChange={handleReductionChange}
+                                            min="1"
+                                            max={selectedItem.quantity}
+                                            required
+                                        />
+                                    </label>
+                                </div>
+                                <br></br>
+                                <button className='confBaixa' onClick={handleConfirmReduction}>Confirmar</button>
+                            </div>
+
+                            <div className='ajuste-qntd'>
+                                <h3>Nova Quantidade:</h3>
+                                <label>
+                                    Nova Qntd:
+                                    <input
+                                     style={{width:"13%"}}
+                                        type="number"
+                                        value={newQuantity || ''}
+                                        onChange={handleNewQuantityChange}
+                                        min="0"
+                                    />
+                                </label><br></br>
+                                <button  className='att-qntd' onClick={handleConfirmNewQuantity}>Atualizar</button>
+                                
+                            </div>
                             <div className="reductions">
                                 <h3>Baixas Realizadas:</h3>
-                                <ul>
-                                    {(reductions[selectedItem.id] || []).map((reduction, index) => (
-                                        <li key={index}>
-                                            <strong>Data:</strong> {reduction.date} - <strong>Quantidade:</strong> {reduction.quantity} <button onClick={() => handleDeleteReduction(selectedItem.id, index)}>Excluir</button>
-                                        </li>
-                                    ))}
-                                </ul>
+                                {(reductions[selectedItem.id] || []).map((reduction, index) => (
+                                    <div key={index}>
+                                        <FaTrashAlt
+                                            className="lixoBaixa"
+                                            onClick={() => handleDeleteReduction(selectedItem.id, index)}
+                                        />
+                                        <strong>Data:</strong> {reduction.date} - <strong>Qntd:</strong> {reduction.quantity}  
+                                    </div>
+                                ))}
+                                <button className='closeModalinv' onClick={handleCloseModal}>Fechar</button>
                             </div>
                         </div>
                     </div>

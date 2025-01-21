@@ -105,7 +105,7 @@
   }
   
   .lixo{
-   
+    transition: calc(0.3s);
     color:black;
     &:hover{
       color: black;
@@ -118,7 +118,7 @@
   }
 
   .detail{
-      
+    transition: calc(0.3s);
     color:black;
     &:hover{
       color: gray;

@@ -8,15 +8,12 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-      
- 
-    & :hover{
-      transform: scale(1.1);
-      transition:0.5s
-     
-    }
-`;
 
+  > *:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
+  }
+`;
 export const Containerr = styled.div `
   width: 75%;
   height: 15%;

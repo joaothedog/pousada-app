@@ -91,10 +91,8 @@
     justify-content: space-evenly;
     margin-top: 13%;
     margin-left: 0%;
-   
- 
-   
-
+    
+  
 
   }
 
@@ -112,6 +110,7 @@
   .lixeira{
    
     color:black;
+    transition: calc(0.3s);
     &:hover{
       color: #800000;
       cursor:pointer;
@@ -120,10 +119,81 @@
   }
 
   .edit{
+    transition: calc(0.3s);
     color:black;
     &:hover{
       color: #007bff ;
       cursor:pointer;
     }
   }
+
+  .confBaixa{
+    margin-left: 7%;
+    width: 21%;
+    cursor: pointer;
+  }
+
+  .reductions{
+    margin-left: 57%;
+    margin-top: -40.6%;
+    bottom: 40%;
+  }
   
+
+  .lixoBaixa{
+    margin-right: 5%;
+ 
+    &:hover{
+      transition: calc(0.5s);
+      color: #800000;
+      cursor:pointer;
+    }
+  
+  }
+
+
+  .reductionsad{
+    margin-left: 10%;
+  }
+
+
+  .closeModalinv{
+    margin-top:88%;
+      font-size: 18px;
+      margin-left:-32%;
+      width: 30%;
+      height: 2rem;
+      border-radius: 5px;
+      background:#007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+      &:hover {
+        background-color: #0056b3;
+      }
+  }
+
+  .ajuste-qntd{
+    margin-left: 10%;
+  }
+
+  .att-qntd{
+    width: 14.5%;
+    margin-left: 14%;
+    cursor: pointer;
+  }
+
+  .filters button{
+    cursor: pointer;
+     width: 10%;
+     height: 1.5rem;
+    background:#007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: #0056b3;
+    }
+  }

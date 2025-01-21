@@ -99,6 +99,7 @@
 
 
   .details{
+    transition: calc(0.3s);
     color:black;
     &:hover{
       color: #007bff ;
@@ -108,7 +109,7 @@
 
   
   .lixeira{
-   
+    transition: calc(0.3s);
     color:black;
     &:hover{
       color: #800000;

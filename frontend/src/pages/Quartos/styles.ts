@@ -8,15 +8,12 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-      
- 
-    & :hover{
-      transform: scale(1.1);
-      transition:0.5s
-     
-    }
-`;
 
+  > *:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
+  }
+`;
 export const Containerr = styled.div <{ isAvailable: boolean }>`
   width: 67%;
   height: 15%;
@@ -26,6 +23,7 @@ export const Containerr = styled.div <{ isAvailable: boolean }>`
    background-color: ${(props) => (props.isAvailable ? "#d4edda" : "#FA8072")};
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
   margin-top: 20px;
+  
   .image {
     
     width: 20%;
