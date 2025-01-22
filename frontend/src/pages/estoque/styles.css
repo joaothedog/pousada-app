@@ -134,8 +134,8 @@
   }
 
   .reductions{
-    margin-left: 57%;
-    margin-top: -40.6%;
+    margin-left: 62%;
+    margin-top: -62.5%;
     bottom: 40%;
   }
   
@@ -158,10 +158,10 @@
 
 
   .closeModalinv{
-    margin-top:88%;
+    margin-top:54%;
       font-size: 18px;
-      margin-left:-32%;
-      width: 30%;
+      margin-left:38%;
+      width: 20%;
       height: 2rem;
       border-radius: 5px;
       background:#007bff;
@@ -197,3 +197,58 @@
       background-color: #0056b3;
     }
   }
+
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+
+.divider-horizontal {
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+.divider-vertical{
+  margin-top: -45%;
+  width: 1px;
+  margin-left: 47%;
+  height: 300px;
+  background-color: #ccc;
+  
+}
+
+
+
+
+.total{
+  margin-top: 120%;
+  margin-left: -74%;
+margin-bottom: -135%;
+}
+

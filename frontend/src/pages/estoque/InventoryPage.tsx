@@ -13,7 +13,7 @@ interface InventoryItem {
     location: string;
     quantity: number;
     price: number;
-    originalQuantity: number; // Adicionado para rastrear a quantidade original
+    originalQuantity: number;
 }
 
 interface InventoryReduction {
@@ -37,6 +37,7 @@ export function GerenciaInventario() {
     const [newQuantity, setNewQuantity] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [totalReductionsValue, setTotalReductionsValue] = useState<number | null>(null);
 
     const fetchInventoryItems = async () => {
         setLoading(true);
@@ -47,20 +48,25 @@ export function GerenciaInventario() {
                 const sanitizedItems = items.map((item) => ({
                     ...item,
                     price: typeof item.price === 'number' ? item.price : parseFloat(item.price) || 0,
-                    originalQuantity: item.quantity, // Define a quantidade original na carga inicial
+                    originalQuantity: item.quantity,
                 }));
-                setInventoryItems(sanitizedItems);
-                setFilteredItems(sanitizedItems);
-
+    
+                // Carregar itens do localStorage, se disponíveis
+                const storedInventory = localStorage.getItem('inventoryItems');
+                if (storedInventory) {
+                    setInventoryItems(JSON.parse(storedInventory));
+                    setFilteredItems(JSON.parse(storedInventory));
+                } else {
+                    setInventoryItems(sanitizedItems);
+                    setFilteredItems(sanitizedItems);
+                }
+    
                 const storedReductions = localStorage.getItem('reductions');
                 if (storedReductions) {
                     setReductions(JSON.parse(storedReductions));
                 }
-
-                const storedInventory = localStorage.getItem('inventoryItems');
-                if (storedInventory) {
-                    setInventoryItems(JSON.parse(storedInventory));
-                }
+    
+                calculateTotalReductionsValue(sanitizedItems, JSON.parse(storedReductions || '{}'));
             } else {
                 throw new Error('Formato de dados inesperado');
             }
@@ -71,6 +77,7 @@ export function GerenciaInventario() {
             setLoading(false);
         }
     };
+    
 
     useEffect(() => {
         fetchInventoryItems();
@@ -135,6 +142,20 @@ export function GerenciaInventario() {
         setNewQuantity(parseInt(e.target.value) || 0);
     };
 
+    const calculateTotalReductionsValue = (items: InventoryItem[], reductionsData: { [key: number]: InventoryReduction[] }) => {
+        let total = 0;
+        Object.entries(reductionsData).forEach(([itemId, reductionsList]) => {
+            const item = items.find((item) => item.id === parseInt(itemId));
+            if (item) {
+                reductionsList.forEach((reduction) => {
+                    total += reduction.quantity * item.price;
+                });
+            }
+        });
+        setTotalReductionsValue(total > 0 ? total : null);
+        localStorage.setItem('totalReductionsValue', JSON.stringify(total));
+    };
+
     const handleConfirmReduction = () => {
         if (selectedItem) {
             const formattedDate = new Date(reductionData.date).toLocaleDateString('pt-BR');
@@ -155,10 +176,10 @@ export function GerenciaInventario() {
             );
             setInventoryItems(updatedInventoryItems);
             setFilteredItems(updatedInventoryItems);
-
             localStorage.setItem('inventoryItems', JSON.stringify(updatedInventoryItems));
 
             setReductionData({ quantity: 0, date: '' });
+            calculateTotalReductionsValue(updatedInventoryItems, updatedReductions);
         }
     };
 
@@ -171,32 +192,37 @@ export function GerenciaInventario() {
             );
             setInventoryItems(updatedInventoryItems);
             setFilteredItems(updatedInventoryItems);
+    
+            // Atualizar o localStorage com o novo estado
             localStorage.setItem('inventoryItems', JSON.stringify(updatedInventoryItems));
+    
             setNewQuantity(null);
             alert('Quantidade do estoque atualizada com sucesso!');
         }
     };
+    
 
     const handleDeleteReduction = (itemId: number, reductionIndex: number) => {
+        const reductionToRemove = reductions[itemId][reductionIndex];
         const updatedReductions = {
             ...reductions,
             [itemId]: reductions[itemId].filter((_, index) => index !== reductionIndex),
         };
-
-        const restoredQuantity = reductions[itemId][reductionIndex].quantity;
 
         setReductions(updatedReductions);
         localStorage.setItem('reductions', JSON.stringify(updatedReductions));
 
         const updatedInventoryItems = inventoryItems.map((item) =>
             item.id === itemId
-                ? { ...item, quantity: item.quantity + restoredQuantity }
+                ? { ...item, quantity: item.quantity + reductionToRemove.quantity }
                 : item
         );
 
         setInventoryItems(updatedInventoryItems);
         setFilteredItems(updatedInventoryItems);
         localStorage.setItem('inventoryItems', JSON.stringify(updatedInventoryItems));
+
+        calculateTotalReductionsValue(updatedInventoryItems, updatedReductions);
     };
 
     const handleCloseModal = () => {
@@ -212,7 +238,7 @@ export function GerenciaInventario() {
             <div className="main2">
                 <SidebarComponent />
                 <div className="criar">
-                    <h1>Cadastrar  Itens do Estoque</h1>
+                    <h1>Cadastrar Itens do Estoque</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="cadastro">
                             <div className="row">
@@ -226,7 +252,7 @@ export function GerenciaInventario() {
                                         placeholder="Ex.: Cadeira de Escritório"
                                         required
                                     />
-                                </div><br></br>
+                                </div><br />
                                 <div className="input">
                                     <label htmlFor="location">Localização:</label>
                                     <select
@@ -237,7 +263,7 @@ export function GerenciaInventario() {
                                         <option value="RECEPCAO">Recepção</option>
                                         <option value="COZINHA">Cozinha</option>
                                     </select>
-                                </div><br></br>
+                                </div><br />
                                 <div className="input">
                                     <label htmlFor="quantity">Quantidade:</label>
                                     <input
@@ -249,7 +275,7 @@ export function GerenciaInventario() {
                                         placeholder="Ex.: 10"
                                         required
                                     />
-                                </div><br></br>
+                                </div><br />
                                 <div className="input">
                                     <label htmlFor="price">Preço Unitário (R$):</label>
                                     <input
@@ -262,12 +288,10 @@ export function GerenciaInventario() {
                                         placeholder="Ex.: 50.00"
                                         required
                                     />
-                                </div><br></br>
+                                </div><br />
                             </div>
                         </div>
-                        <button type="submit" className="button-cadastro">
-                            Cadastrar 
-                        </button>
+                        <button type="submit" className="button-cadastro">Cadastrar</button>
                     </form>
                 </div>
                 <div className="separator" />
@@ -324,7 +348,6 @@ export function GerenciaInventario() {
                             <div className='faixa'>
                                 <h2> Estoque {selectedItem.name}</h2>
                             </div>
-                          
                             <div className='reductionsad'>
                                 <h3>Adicionar Baixas:</h3>
                                 <div className='input'>
@@ -354,10 +377,9 @@ export function GerenciaInventario() {
                                         />
                                     </label>
                                 </div>
-                                <br></br>
+                                <br />
                                 <button className='confBaixa' onClick={handleConfirmReduction}>Confirmar</button>
                             </div>
-
                             <div className='ajuste-qntd'>
                                 <h3>Nova Quantidade:</h3>
                                 <label>
@@ -369,11 +391,12 @@ export function GerenciaInventario() {
                                         onChange={handleNewQuantityChange}
                                         min="0"
                                     />
-                                </label><br></br>
+                                </label><br />
                                 <button  className='att-qntd' onClick={handleConfirmNewQuantity}>Atualizar</button>
-                                
                             </div>
-                            <div className="reductions">
+                            <div className='divider-vertical'></div>
+                            <div className="divider-horizontal">  </div>
+                             <div className="reductions">
                                 <h3>Baixas Realizadas:</h3>
                                 {(reductions[selectedItem.id] || []).map((reduction, index) => (
                                     <div key={index}>
@@ -382,10 +405,18 @@ export function GerenciaInventario() {
                                             onClick={() => handleDeleteReduction(selectedItem.id, index)}
                                         />
                                         <strong>Data:</strong> {reduction.date} - <strong>Qntd:</strong> {reduction.quantity}  
+                                        {totalReductionsValue !== null && (
+                                    <h4 className='total'>
+                                        Total das Baixas: R$ {totalReductionsValue.toFixed(2)}
+                                    </h4>
+                                )}
                                     </div>
+                                    
                                 ))}
-                                <button className='closeModalinv' onClick={handleCloseModal}>Fechar</button>
+                                
+                                
                             </div>
+                            <button className='closeModalinv' onClick={handleCloseModal}>Fechar</button>
                         </div>
                     </div>
                 )}
