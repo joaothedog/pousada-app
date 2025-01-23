@@ -346,13 +346,16 @@ export function GerenciaInventario() {
                     <div className="modal-overlay" onClick={handleCloseModal}>
                         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                             <div className='faixa'>
-                                <h2> Estoque {selectedItem.name}</h2>
+                                <h2 style={{marginTop:"1%"}}> Estoque {selectedItem.name}</h2>
                             </div>
                             <div className='reductionsad'>
                                 <h3>Adicionar Baixas:</h3>
-                                <div className='input'>
+                                <div className='cadastro'>
+                                <div className='row'>
+                                 <div className='input' style={{marginLeft:"-160%"}}>
                                     <label>
                                         Data:
+                                        </label>
                                         <input
                                             type="date"
                                             name="date"
@@ -360,13 +363,13 @@ export function GerenciaInventario() {
                                             onChange={handleReductionChange}
                                             required
                                         />
-                                    </label>  
-                                </div>
-                                <div className='input' >
+                                 </div>
+                                <div className='input' style={{marginLeft:"-160%"}}>
                                     <label>
-                                        Qntd:
+                                        Quantidade:
+                                        </label>
                                         <input
-                                            style={{width:"19.6%"}}
+                                            style={{width:"99%"}}
                                             type="number"
                                             name="quantity"
                                             value={reductionData.quantity}
@@ -375,24 +378,30 @@ export function GerenciaInventario() {
                                             max={selectedItem.quantity}
                                             required
                                         />
-                                    </label>
+                                    
                                 </div>
                                 <br />
                                 <button className='confBaixa' onClick={handleConfirmReduction}>Confirmar</button>
+                               
                             </div>
                             <div className='ajuste-qntd'>
                                 <h3>Nova Quantidade:</h3>
+                                <div className='input'style={{marginLeft:"6%"}} >
                                 <label>
-                                    Nova Qntd:
+                                    Novo Valor:
+                                    </label>
                                     <input
-                                     style={{width:"13%"}}
+                                     style={{width:"64%"}}
                                         type="number"
                                         value={newQuantity || ''}
                                         onChange={handleNewQuantityChange}
                                         min="0"
                                     />
-                                </label><br />
+                                    </div>
+                                <br />
                                 <button  className='att-qntd' onClick={handleConfirmNewQuantity}>Atualizar</button>
+                            </div>
+                            </div>
                             </div>
                             <div className='divider-vertical'></div>
                             <div className="divider-horizontal">  </div>
@@ -408,11 +417,15 @@ export function GerenciaInventario() {
                                         {totalReductionsValue !== null && (
                                     <h4 className='total'>
                                         Total das Baixas: R$ {totalReductionsValue.toFixed(2)}
+                                        <div className="divider-horizontal" style={{marginLeft:"-24%"}}>  </div>
                                     </h4>
+                                    
                                 )}
+                                
                                     </div>
                                     
                                 ))}
+                                
                                 
                                 
                             </div>

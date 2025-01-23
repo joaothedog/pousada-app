@@ -22,12 +22,13 @@ export const Sidebar = styled.div`
 
   .top {
     width: 100%;
-    height: 14%;
+    height: 15%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    margin-left: -10% ;
   }
 
   

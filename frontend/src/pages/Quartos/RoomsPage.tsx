@@ -284,7 +284,7 @@ export function GerenciaQuartos() {
                     <div className="modal-overlay" onClick={handleCloseModal}>
                         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                             <div className='faixa'>
-                            <h2>Reservas Relacionadas</h2>
+                            <h2   style={{marginTop:"1%"}}>Reservas Relacionadas</h2>
                             </div>
                             
                             {selectedRoomReservations.length > 0 ? (
@@ -298,7 +298,7 @@ export function GerenciaQuartos() {
                                     ))}
                                 </ul>
                             ) : (
-                                <p>Não há reservas para este quarto.</p>
+                                <p className="msg-n">Não há reservas para este quarto.</p>
                             )}
                             <button className='closeModal' onClick={handleCloseModal}>Fechar</button>
                         </div>

@@ -128,15 +128,15 @@
   }
 
   .confBaixa{
-    margin-left: 7%;
-    width: 21%;
+    margin-left: -160.4%;
+    width: 90%;
     cursor: pointer;
   }
 
   .reductions{
     margin-left: 62%;
-    margin-top: -62.5%;
-    bottom: 40%;
+    margin-top: -72%;
+    bottom: 70%;
   }
   
 
@@ -158,7 +158,7 @@
 
 
   .closeModalinv{
-    margin-top:54%;
+    margin-top:59%;
       font-size: 18px;
       margin-left:38%;
       width: 20%;
@@ -175,12 +175,12 @@
   }
 
   .ajuste-qntd{
-    margin-left: 10%;
+    margin-left: -67%;
   }
 
   .att-qntd{
-    width: 14.5%;
-    margin-left: 14%;
+    width: 60%;
+    margin-left: 6%;
     cursor: pointer;
   }
 
@@ -235,10 +235,10 @@
 }
 
 .divider-vertical{
-  margin-top: -45%;
+  margin-top: -59%;
   width: 1px;
   margin-left: 47%;
-  height: 300px;
+  height: 350px;
   background-color: #ccc;
   
 }
@@ -247,7 +247,7 @@
 
 
 .total{
-  margin-top: 120%;
+  margin-top: 154%;
   margin-left: -74%;
 margin-bottom: -135%;
 }

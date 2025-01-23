@@ -420,14 +420,17 @@ const resolveRoomDailyRate = (roomId: number) => {
                 {DetalhesSelecionados && (
     <div className="modal-overlay" onClick={handleFecharModal}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className='faixa'> <h2>Detalhes da Reserva</h2>
+            <div className='faixa'> 
+                <h2 style={{marginTop:"1%"}}>Detalhes da Reserva</h2>
             </div>
-            
+           
+           
             <div>
                 {filteredReservations
                     .filter((reservation) => reservation.id === DetalhesSelecionados.id)
                     .map((reservation) => (
                         <div key={reservation.id}>
+                           <div className='userdados'>
                             <p>
                                 <strong>Hóspede:</strong> {resolveGuestName(reservation.guest as unknown as number)}
                             </p>
@@ -446,24 +449,33 @@ const resolveRoomDailyRate = (roomId: number) => {
                                     ? new Date(reservation.check_out).toLocaleDateString("pt-BR")
                                     : "Não informado"}
                             </p>
-                            <p>
+                            <p className='totalPrice'>
                                 <strong>Preço Total:</strong> R${" "}
                                 {typeof reservation.total_price === "number"
                                     ? reservation.total_price.toFixed(2)
                                     : "N/A"}
+                                    <div className="divider-horizontal" style={{marginLeft:"-29%"}}>  </div>
                             </p>
+                            
+                            </div>
+                            <div className='gastosex'> 
                             <p>
-                                <strong>Gastos Extras:</strong> R${" "}
-                                {typeof reservation.extra_charges === "number"
+                                <strong>Gastos Extras:</strong> 
+
+                                {/*{typeof reservation.extra_charges === "number"
                                     ? reservation.extra_charges.toFixed(2)
-                                    : "0,00"}
+                                    : "0,00"}*/}
                             </p>
-                            <p>
+                             {/*<p>
                                 <strong>Detalhes Extras:</strong> {reservation.extra_details || "Nenhum"}
-                            </p>
+                            </p> */}
+                            
                             <p>
                                 <strong>Itens Consumidos:</strong>
                             </p>
+                            
+
+                           
                             {reservation.consumed_items && reservation.consumed_items.length > 0 ? (
                                 <ul>
                                     {reservation.consumed_items.map((item: ReservationItem) => (
@@ -478,17 +490,15 @@ const resolveRoomDailyRate = (roomId: number) => {
                                 <p>Nenhum item consumido</p>
                             )}
                         </div>
+                        </div>
                     ))}
+                     <div className='divider-vertical-reservation'></div>
+                     <div className="divider-horizontal-reservation">  </div>
             </div>
             <button className='closeModal' onClick={handleFecharModal}>Fechar</button>
-        </div>
-    </div>
-)}
-
-
-
-
-
+          </div>
+          </div>
+              )}
 
             </div>
 

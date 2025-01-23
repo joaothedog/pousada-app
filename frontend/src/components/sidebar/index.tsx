@@ -23,7 +23,7 @@ export function SidebarComponent() {
   return (
     <Sidebar>
    <div className="top">
- 
+   <img src="/logoItu.jpg" alt="Logo" className="top-image" />
 </div>
 
 
