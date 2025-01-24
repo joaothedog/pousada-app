@@ -168,6 +168,7 @@ export function GerenciaQuartos() {
             <div className="main2">
                 <SidebarComponent />
                 <div className="criar">
+                    {/*Aba para cadastrar os cards dos quartos*/}
                     <h1>Cadastro de Quartos</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="cadastro">
@@ -228,6 +229,7 @@ export function GerenciaQuartos() {
                 </div>
                 <div className="separator" />
                 <div className="gerenciar">
+                    {/*Aba para exibir os cards dos quartos*/}
                     <h1>Gerenciar Quartos</h1>
                     <div className="search-bar">
                         <input
@@ -279,7 +281,7 @@ export function GerenciaQuartos() {
                         </Container>
                     )}
                 </div>
-
+                {/*Modal para exibir reservas relacionadas ao quarto selecionado*/}
                 {selectedRoomReservations && (
                     <div className="modal-overlay" onClick={handleCloseModal}>
                         <div className="modal-content" onClick={(e) => e.stopPropagation()}>

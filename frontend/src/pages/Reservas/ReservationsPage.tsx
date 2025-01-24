@@ -6,8 +6,9 @@ import { Container, Containerr } from './styles';
 import "./styles.css";
 import { FaTrashAlt } from 'react-icons/fa';
 import { CgDetailsMore } from "react-icons/cg";
-import {  Guest, Room, ReservationItem, Reservation } from '../../types/types';
-import { createInventoryItem } from '../../services/api'; 
+import {  Guest, Room, ReservationItem, Reservation, InventoryItem } from '../../types/types';
+import { createInventoryItem,getInventoryItems } from '../../services/api'; 
+
 
 
 
@@ -17,7 +18,8 @@ import { createInventoryItem } from '../../services/api';
 export function GerenciaReservas() {
 
 
-    
+    const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>([]); // Tipando o estado corretamente como InventoryItem[]
+
     const [reservations, setReservations] = useState<Reservation[]>([]);
     const [filteredReservations, setFilteredReservations] = useState<Reservation[]>([]);
     const [rooms, setRooms] = useState<Room[]>([]);
@@ -38,11 +40,70 @@ export function GerenciaReservas() {
     
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [guests, setGuests] = useState<Guest[]>([]);
     const [DetalhesSelecionados, setDetalhesSelecionados] = useState<any | null>(null);
     const currentDate = new Date().toISOString().split('T')[0];
       const [isAddingConsumption, setIsAddingConsumption] = useState<boolean>(false); // Controle para exibir o formulário de consumo
+      const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
+       const [itemQuantity, setItemQuantity] = useState<number>(1);
+
+      
+// Atualiza o item selecionado
+const handleItemSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedItemId = parseInt(e.target.value);
+    const item = inventoryItems.find(item => item.id === selectedItemId);
+    setSelectedItem(item || null);
+  };
+  
+  // Atualiza a quantidade
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setItemQuantity(parseInt(e.target.value));
+  };
+
+
+  useEffect(() => {
+    const fetchInventoryItems = async () => {
+        try {
+            const items = await getInventoryItems();
+            const receptionItems = items.map((item) => ({
+                ...item,
+                price: typeof item.price === 'number' ? item.price : 0, // Define o preço como 0 se não for um número
+            })).filter((item) => item.location === 'RECEPCAO');
+            setInventoryItems(receptionItems);
+        } catch (error) {
+            console.error('Erro ao carregar itens do inventário:', error);
+        }
+    };
+
+    fetchInventoryItems();
+}, []);
+
+
+const handleAddConsumedItem = () => {
+    if (!selectedItem || itemQuantity <= 0) {
+        alert('Selecione um item e insira uma quantidade válida.');
+        return;
+    }
+
+    const consumedItem: ReservationItem = {
+        id: Date.now(), // Gera um ID único
+        reservation: reservationData, // Referência à reserva associada
+        item: selectedItem, // Item do inventário consumido
+        item_details: selectedItem, // Detalhes do item consumido
+        quantity: itemQuantity, // Quantidade informada
+        total_price: itemQuantity * selectedItem.price, // Calcula o preço total
+    };
+
+    setReservationData((prev) => ({
+        ...prev,
+        consumed_items: [...(prev.consumed_items || []), consumedItem],
+    }));
+
+    // Reseta os campos de seleção
+    setSelectedItem(null);
+    setItemQuantity(1);
+};
+
 
       
 
@@ -238,6 +299,16 @@ export function GerenciaReservas() {
         }
     };
     
+    const handleDeleteConsumedItem = (index: number) => {
+        setReservationData((prev) => {
+            const updatedConsumedItems = [...(prev.consumed_items || [])];
+            updatedConsumedItems.splice(index, 1); // Remove o item pelo índice
+            return { ...prev, consumed_items: updatedConsumedItems };
+        });
+    };
+    
+
+
 
 // Funções para resolver dados do hóspede
 const resolveGuestName = (guestId: number) => {
@@ -287,6 +358,7 @@ const resolveRoomDailyRate = (roomId: number) => {
             <div className="main2">
                 <SidebarComponent />
                 <div className="criar">
+                    {/*Aba de cadastro dos cards das reservas */}
                     <h1>Cadastrar Reserva</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="cadastro">
@@ -367,6 +439,7 @@ const resolveRoomDailyRate = (roomId: number) => {
                 </div>
                 <div className="separator" />
                 <div className="gerenciar">
+                    {/*Aba onde é exibido os cards das reservas*/}
                     <h1>Gerenciar Reservas</h1>
                     <div className="search-bar">
                         <input
@@ -417,15 +490,16 @@ const resolveRoomDailyRate = (roomId: number) => {
                         </Container>
                     )}
                 </div>
+                {/*Modal para exibir detalhes da reserva*/}
                 {DetalhesSelecionados && (
-    <div className="modal-overlay" onClick={handleFecharModal}>
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className='faixa'> 
-                <h2 style={{marginTop:"1%"}}>Detalhes da Reserva</h2>
-            </div>
+                <div className="modal-overlay" onClick={handleFecharModal}>
+                <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                <div className='faixa'> 
+                 <h2 style={{marginTop:"1%"}}>Detalhes da Reserva</h2>
+                </div>
            
            
-            <div>
+              <div>
                 {filteredReservations
                     .filter((reservation) => reservation.id === DetalhesSelecionados.id)
                     .map((reservation) => (
@@ -435,8 +509,26 @@ const resolveRoomDailyRate = (roomId: number) => {
                                 <strong>Hóspede:</strong> {resolveGuestName(reservation.guest as unknown as number)}
                             </p>
                             <p>
+                                <strong>Telefone:</strong> {resolveGuestPhone(reservation.room as unknown as number)}
+                            </p>
+                            <p>
+                                <strong>CPF:</strong> {resolveGuestCPF(reservation.room as unknown as number)}
+                            </p>
+                            <p>
                                 <strong>Quarto:</strong> {resolveRoomName(reservation.room as unknown as number)}
                             </p>
+                            <p>
+                                <strong>Tipo :</strong> {resolveRoomType(reservation.room as unknown as number)}
+                            </p>
+                            <p>
+                                <strong>Capacidade  :</strong> {resolveRoomCapacity(reservation.room as unknown as number)} pessoas
+                            </p>
+                          
+                            <p>
+                            <strong>Diária:</strong> R${resolveRoomDailyRate(reservation.room.id)}
+                            </p>
+
+                           
                             <p>
                                 <strong>Check-in:</strong>{" "}
                                 {reservation.check_in
@@ -459,38 +551,62 @@ const resolveRoomDailyRate = (roomId: number) => {
                             
                             </div>
                             <div className='gastosex'> 
-                            <p>
-                                <strong>Gastos Extras:</strong> 
+                            <p><strong>Gastos Extras:</strong></p>
 
-                                {/*{typeof reservation.extra_charges === "number"
-                                    ? reservation.extra_charges.toFixed(2)
-                                    : "0,00"}*/}
-                            </p>
-                             {/*<p>
-                                <strong>Detalhes Extras:</strong> {reservation.extra_details || "Nenhum"}
-                            </p> */}
-                            
-                            <p>
-                                <strong>Itens Consumidos:</strong>
-                            </p>
-                            
+                           <select onChange={handleItemSelect} value={selectedItem?.id || ''}>
+                           <option value="">Selecione um item</option>
+                             {inventoryItems.map((item) => (
+                            <option key={item.id} value={item.id}>
+                            {item.name} 
+                           </option>
+                             ))}
+                           </select>
+                           <br />
 
-                           
-                            {reservation.consumed_items && reservation.consumed_items.length > 0 ? (
-                                <ul>
-                                    {reservation.consumed_items.map((item: ReservationItem) => (
-                                        <li key={item.id}>
-                                            {item.item_details?.name || "Desconhecido"} - {item.quantity || 0} x R${" "}
-                                            {(item.item_details?.price || 0).toFixed(2)} = R${" "}
-                                            {(item.total_price || 0).toFixed(2)}
-                                        </li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <p>Nenhum item consumido</p>
-                            )}
-                        </div>
-                        </div>
+                         <input 
+                          style={{ marginTop: "4%", width: "52.7%" }}
+                          type="number"
+                          value={itemQuantity}
+                          onChange={handleQuantityChange}
+                          min="1"
+                          max="100"
+                          placeholder="Quantidade"
+                          />
+                         <br />
+
+                         <button 
+                           style={{ marginTop: "4%", width: "56%", cursor: "pointer" }} 
+                           onClick={handleAddConsumedItem}>
+                           Adicionar
+                        </button>
+
+                        <h3>Itens Consumidos:</h3>
+    <div className="consumed-items-list">
+        {reservation.consumed_items && reservation.consumed_items.length > 0 ? (
+            reservation.consumed_items.map((item, index) => (
+                <div key={index} className="consumed-item">
+                    <p>
+                        <strong>Item:</strong> {item.item_details?.name || "Desconhecido"}
+                    </p>
+                    <p>
+                        <strong>Quantidade:</strong> {item.quantity || 0}
+                    </p>
+                    <FaTrashAlt
+                        className="delete-icon"
+                        onClick={() => handleDeleteConsumedItem(index)}
+                    />
+                    <hr />
+                </div>
+            ))
+        ) : (
+            <p>Nenhum item consumido registrado.</p>
+        )}
+    </div>
+
+
+         </div>
+
+                 </div>
                     ))}
                      <div className='divider-vertical-reservation'></div>
                      <div className="divider-horizontal-reservation">  </div>

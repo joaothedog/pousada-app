@@ -405,30 +405,31 @@ export function GerenciaInventario() {
                             </div>
                             <div className='divider-vertical'></div>
                             <div className="divider-horizontal">  </div>
-                             <div className="reductions">
-                                <h3>Baixas Realizadas:</h3>
-                                {(reductions[selectedItem.id] || []).map((reduction, index) => (
-                                    <div key={index}>
-                                        <FaTrashAlt
-                                            className="lixoBaixa"
-                                            onClick={() => handleDeleteReduction(selectedItem.id, index)}
-                                        />
-                                        <strong>Data:</strong> {reduction.date} - <strong>Qntd:</strong> {reduction.quantity}  
-                                        {totalReductionsValue !== null && (
-                                    <h4 className='total'>
-                                        Total das Baixas: R$ {totalReductionsValue.toFixed(2)}
-                                        <div className="divider-horizontal" style={{marginLeft:"-24%"}}>  </div>
-                                    </h4>
-                                    
-                                )}
-                                
-                                    </div>
-                                    
-                                ))}
-                                
-                                
-                                
-                            </div>
+                            <div className="reductions">
+                               <h3>Baixas Realizadas:</h3>
+                           <div>
+                              {(reductions[selectedItem.id] || []).map((reduction, index) => (
+                              <div key={index} className="reduction-item" >
+                             <FaTrashAlt
+                                className="lixoBaixa"
+                                onClick={() => handleDeleteReduction(selectedItem.id, index)}
+                                 />
+                                  <p style={{marginTop:"-9%",marginLeft:"9%"}}>
+                                  <strong>Data:</strong> {reduction.date} - <strong>Qntd:</strong> {reduction.quantity}
+                                 </p>
+                             </div>
+                            ))}
+                          </div>
+                          {totalReductionsValue !== null && (
+                        <div className="total">
+                          <h4>
+                               Total das Baixas: R$ {totalReductionsValue.toFixed(2)}
+                         </h4>
+                         <div className="divider-horizontal" style={{marginLeft:"-27%"}}>  </div>
+                       </div>
+                         )}
+                        </div>
+
                             <button className='closeModalinv' onClick={handleCloseModal}>Fechar</button>
                         </div>
                     </div>
