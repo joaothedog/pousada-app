@@ -94,18 +94,27 @@ const handleAddConsumedItem = () => {
         total_price: itemQuantity * selectedItem.price, // Calcula o preço total
     };
 
+    // Atualiza os itens consumidos na reserva
+    const updatedConsumedItems = [...(reservationData.consumed_items || []), consumedItem];
+
+    // Atualiza a reserva selecionada e os dados principais
     setReservationData((prev) => ({
         ...prev,
-        consumed_items: [...(prev.consumed_items || []), consumedItem],
+        consumed_items: updatedConsumedItems,
     }));
+
+    if (DetalhesSelecionados) {
+        setDetalhesSelecionados((prev: Reservation) => ({
+            ...prev,
+            consumed_items: updatedConsumedItems,
+        }));
+    }
 
     // Reseta os campos de seleção
     setSelectedItem(null);
     setItemQuantity(1);
 };
 
-
-      
 
  useEffect(() => {
         carregarDados();
@@ -300,11 +309,21 @@ const handleAddConsumedItem = () => {
     };
     
     const handleDeleteConsumedItem = (index: number) => {
-        setReservationData((prev) => {
-            const updatedConsumedItems = [...(prev.consumed_items || [])];
-            updatedConsumedItems.splice(index, 1); // Remove o item pelo índice
-            return { ...prev, consumed_items: updatedConsumedItems };
-        });
+        const updatedConsumedItems = [...(reservationData.consumed_items || [])];
+        updatedConsumedItems.splice(index, 1); // Remove o item pelo índice
+    
+        // Atualiza os itens consumidos na reserva
+        setReservationData((prev) => ({
+            ...prev,
+            consumed_items: updatedConsumedItems,
+        }));
+    
+        if (DetalhesSelecionados) {
+            setDetalhesSelecionados((prev: Reservation) => ({
+                ...prev,
+                consumed_items: updatedConsumedItems,
+            }));
+        }
     };
     
 
@@ -551,7 +570,7 @@ const resolveRoomDailyRate = (roomId: number) => {
                             
                             </div>
                             <div className='gastosex'> 
-                            <p><strong>Gastos Extras:</strong></p>
+                            <h3 className='gasto-titulo'>Gastos Extras</h3>
 
                            <select onChange={handleItemSelect} value={selectedItem?.id || ''}>
                            <option value="">Selecione um item</option>
@@ -580,30 +599,29 @@ const resolveRoomDailyRate = (roomId: number) => {
                            Adicionar
                         </button>
 
-                        <h3>Itens Consumidos:</h3>
-    <div className="consumed-items-list">
-        {reservation.consumed_items && reservation.consumed_items.length > 0 ? (
-            reservation.consumed_items.map((item, index) => (
-                <div key={index} className="consumed-item">
-                    <p>
-                        <strong>Item:</strong> {item.item_details?.name || "Desconhecido"}
-                    </p>
-                    <p>
-                        <strong>Quantidade:</strong> {item.quantity || 0}
-                    </p>
-                    <FaTrashAlt
-                        className="delete-icon"
-                        onClick={() => handleDeleteConsumedItem(index)}
-                    />
-                    <hr />
+                        <h3>Itens Consumidos</h3>
+                        <div className="consumed-items-list">
+                     {DetalhesSelecionados.consumed_items && DetalhesSelecionados.consumed_items.length > 0 ? (
+                      DetalhesSelecionados.consumed_items.map((item: ReservationItem, index: number) => (
+                       <div key={index} className="consumed-item banner" >
+                       <div className="row">
+                       <p style={{marginLeft:"9%"}}>
+                        <strong>item:</strong> {item.item_details?.name} - <strong>Qntd:</strong> {item.quantity}
+                        </p>
+                    <div className="buttons-re">
+                        <FaTrashAlt
+                            className="lixeira-re"
+                            size={18}
+                            onClick={() => handleDeleteConsumedItem(index)}
+                        />
+                    </div>
                 </div>
-            ))
-        ) : (
-            <p>Nenhum item consumido registrado.</p>
-        )}
-    </div>
-
-
+            </div>
+        ))
+    ) : (
+        <p style={{ textAlign: "center", marginTop: "10px" }}>Nenhum item consumido registrado.</p>
+    )}
+</div>
          </div>
 
                  </div>

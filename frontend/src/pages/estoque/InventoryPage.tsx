@@ -349,14 +349,15 @@ export function GerenciaInventario() {
                                 <h2 style={{marginTop:"1%"}}> Estoque {selectedItem.name}</h2>
                             </div>
                             <div className='reductionsad'>
-                                <h3>Adicionar Baixas:</h3>
+                                <h3>Adicionar Baixas</h3>
                                 <div className='cadastro'>
                                 <div className='row'>
-                                 <div className='input' style={{marginLeft:"-160%"}}>
+                                 <div className='input' style={{marginLeft:"-160%",marginTop:"-20%"}}>
                                     <label>
                                         Data:
                                         </label>
                                         <input
+                                        
                                             type="date"
                                             name="date"
                                             value={reductionData.date}
@@ -364,7 +365,7 @@ export function GerenciaInventario() {
                                             required
                                         />
                                  </div>
-                                <div className='input' style={{marginLeft:"-160%"}}>
+                                 <div className='input' style={{marginLeft:"-160%"}}>
                                     <label>
                                         Quantidade:
                                         </label>
@@ -385,10 +386,10 @@ export function GerenciaInventario() {
                                
                             </div>
                             <div className='ajuste-qntd'>
-                                <h3>Nova Quantidade:</h3>
+                                <h3>Nova Quantidade</h3>
                                 <div className='input'style={{marginLeft:"6%"}} >
                                 <label>
-                                    Novo Valor:
+                                    Novo Valor
                                     </label>
                                     <input
                                      style={{width:"64%"}}
@@ -406,8 +407,8 @@ export function GerenciaInventario() {
                             <div className='divider-vertical'></div>
                             <div className="divider-horizontal">  </div>
                             <div className="reductions">
-                               <h3>Baixas Realizadas:</h3>
-                           <div>
+                               <h3>Baixas Realizadas</h3>
+                           <div className='baixas-list'>
                               {(reductions[selectedItem.id] || []).map((reduction, index) => (
                               <div key={index} className="reduction-item" >
                              <FaTrashAlt

@@ -135,7 +135,7 @@
 
   .reductions{
     margin-left: 62%;
-    margin-top: -72%;
+    margin-top: -68.1%;
     bottom: 70%;
   }
   
@@ -158,7 +158,7 @@
 
 
   .closeModalinv{
-    margin-top:59%;
+    margin-top:13%;
       font-size: 18px;
       margin-left:38%;
       width: 20%;
@@ -247,8 +247,18 @@
 
 
 .total{
-  margin-top: 154%;
+  margin-top: 25%;
   margin-left: -74%;
-margin-bottom: -135%;
+margin-bottom: -34%;
 }
 
+.baixas-list{
+  margin-left: -20%;
+  min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
+  height: 273px; /* Limita a altura da lista para não empurrar o preço total */
+  overflow-y: auto; /* Garante que o scroll sempre apareça */
+  border: 1px solid #ccc; /* Opcional: Adiciona um contorno para melhor visualização */
+  padding: 5px;
+  width: 240px;
+  background-color: white;
+}
