@@ -103,7 +103,7 @@
     display: flex;
     justify-content: space-evenly;
     margin-top: -14%;
-    margin-left: -7%;
+    margin-left: -3%;
    
  
    
@@ -176,7 +176,7 @@
 
   .gastosex{
     margin-left: 60%;
-    margin-top: -84%;
+    margin-top: -80%;
   }
 
   .gasto-titulo{
@@ -203,7 +203,7 @@
 }
 
   .totalPrice{
-    margin-top:30%;
+    margin-top:26%;
     margin-bottom: -20%;
     margin-left: 30%;
     
@@ -216,6 +216,7 @@
 
 
   .consumed-items-list {
+    margin-top: -5%;
     margin-left: -20%;
     min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
     height: 175px; /* Limita a altura da lista para não empurrar o preço total */
@@ -224,4 +225,10 @@
     padding: 5px;
     width: 240px;
     background-color: white;
+}
+
+.closeModal{
+
+  margin-top: 8%;
+  
 }

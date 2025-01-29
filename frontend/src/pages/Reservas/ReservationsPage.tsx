@@ -565,7 +565,7 @@ const resolveRoomDailyRate = (roomId: number) => {
                                 {typeof reservation.total_price === "number"
                                     ? reservation.total_price.toFixed(2)
                                     : "N/A"}
-                                    <div className="divider-horizontal" style={{marginLeft:"-29%"}}>  </div>
+                                   
                             </p>
                             
                             </div>
@@ -605,7 +605,7 @@ const resolveRoomDailyRate = (roomId: number) => {
                       DetalhesSelecionados.consumed_items.map((item: ReservationItem, index: number) => (
                        <div key={index} className="consumed-item banner" >
                        <div className="row">
-                       <p style={{marginLeft:"9%"}}>
+                       <p style={{marginLeft:"13%"}}>
                         <strong>item:</strong> {item.item_details?.name} - <strong>Qntd:</strong> {item.quantity}
                         </p>
                     <div className="buttons-re">
@@ -619,7 +619,7 @@ const resolveRoomDailyRate = (roomId: number) => {
             </div>
         ))
     ) : (
-        <p style={{ textAlign: "center", marginTop: "10px" }}>Nenhum item consumido registrado.</p>
+        <p></p>
     )}
 </div>
          </div>

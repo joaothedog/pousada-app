@@ -415,7 +415,7 @@ export function GerenciaInventario() {
                                 className="lixoBaixa"
                                 onClick={() => handleDeleteReduction(selectedItem.id, index)}
                                  />
-                                  <p style={{marginTop:"-9%",marginLeft:"9%"}}>
+                                  <p style={{marginTop:"-9%",marginLeft:"17%"}}>
                                   <strong>Data:</strong> {reduction.date} - <strong>Qntd:</strong> {reduction.quantity}
                                  </p>
                              </div>
@@ -426,7 +426,8 @@ export function GerenciaInventario() {
                           <h4>
                                Total das Baixas: R$ {totalReductionsValue.toFixed(2)}
                          </h4>
-                         <div className="divider-horizontal" style={{marginLeft:"-27%"}}>  </div>
+                         {/*<div className="divider-horizontal" style={{marginLeft:"-27%"}}>  </div> */}
+                         
                        </div>
                          )}
                         </div>
