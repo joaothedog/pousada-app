@@ -7,7 +7,8 @@ import "./styles.css";
 import { FaTrashAlt } from 'react-icons/fa';
 import { CgDetailsMore } from "react-icons/cg";
 import {  Guest, Room, ReservationItem, Reservation, InventoryItem } from '../../types/types';
-import { createInventoryItem,getInventoryItems } from '../../services/api'; 
+import { createInventoryItem,getInventoryItems,updateReservation } from '../../services/api'; 
+import AddConsumptionForm from '../../components/forms/AddConsumptionForm';
 
 
 
@@ -43,22 +44,10 @@ export function GerenciaReservas() {
     const [guests, setGuests] = useState<Guest[]>([]);
     const [DetalhesSelecionados, setDetalhesSelecionados] = useState<any | null>(null);
     const currentDate = new Date().toISOString().split('T')[0];
-      const [isAddingConsumption, setIsAddingConsumption] = useState<boolean>(false); // Controle para exibir o formulário de consumo
-      const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
-       const [itemQuantity, setItemQuantity] = useState<number>(1);
-
-      
-// Atualiza o item selecionado
-const handleItemSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedItemId = parseInt(e.target.value);
-    const item = inventoryItems.find(item => item.id === selectedItemId);
-    setSelectedItem(item || null);
-  };
-  
-  // Atualiza a quantidade
-  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setItemQuantity(parseInt(e.target.value));
-  };
+    const [isAddingConsumption, setIsAddingConsumption] = useState<boolean>(false); 
+    const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
+    const [itemQuantity, setItemQuantity] = useState<number>(1);
+    const [selectedGuestId, setSelectedGuestId] = useState<number | null>(null); // ID do hóspede selecionado
 
 
   useEffect(() => {
@@ -67,7 +56,7 @@ const handleItemSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
             const items = await getInventoryItems();
             const receptionItems = items.map((item) => ({
                 ...item,
-                price: typeof item.price === 'number' ? item.price : 0, // Define o preço como 0 se não for um número
+                price: typeof item.price === 'number' ? item.price : 0, 
             })).filter((item) => item.location === 'RECEPCAO');
             setInventoryItems(receptionItems);
         } catch (error) {
@@ -77,43 +66,6 @@ const handleItemSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
 
     fetchInventoryItems();
 }, []);
-
-
-const handleAddConsumedItem = () => {
-    if (!selectedItem || itemQuantity <= 0) {
-        alert('Selecione um item e insira uma quantidade válida.');
-        return;
-    }
-
-    const consumedItem: ReservationItem = {
-        id: Date.now(), // Gera um ID único
-        reservation: reservationData, // Referência à reserva associada
-        item: selectedItem, // Item do inventário consumido
-        item_details: selectedItem, // Detalhes do item consumido
-        quantity: itemQuantity, // Quantidade informada
-        total_price: itemQuantity * selectedItem.price, // Calcula o preço total
-    };
-
-    // Atualiza os itens consumidos na reserva
-    const updatedConsumedItems = [...(reservationData.consumed_items || []), consumedItem];
-
-    // Atualiza a reserva selecionada e os dados principais
-    setReservationData((prev) => ({
-        ...prev,
-        consumed_items: updatedConsumedItems,
-    }));
-
-    if (DetalhesSelecionados) {
-        setDetalhesSelecionados((prev: Reservation) => ({
-            ...prev,
-            consumed_items: updatedConsumedItems,
-        }));
-    }
-
-    // Reseta os campos de seleção
-    setSelectedItem(null);
-    setItemQuantity(1);
-};
 
 
  useEffect(() => {
@@ -147,71 +99,80 @@ const handleAddConsumedItem = () => {
            fetchRooms();
        }, []);
    
-       const handleInputChange = (
-           e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-       ) => {
-           const { name, value } = e.target;
-   
-           // Verifica se o campo é do tipo guest ou room
-           if (name.startsWith('guest.')) {
-               const guestKey = name.split('.')[1]; // Ex: name, cpf, phone
-               setReservationData((prevData) => ({
-                   ...prevData,
-                   guest: { ...prevData.guest, [guestKey]: value },
-               }));
-           } else if (name === 'room') {
-               const selectedRoom = rooms.find((room) => room.id === parseInt(value))!;
-               setReservationData((prevData) => ({
-                   ...prevData,
-                   room: selectedRoom,
-               }));
-           } else {
-               setReservationData((prevData) => ({
-                   ...prevData,
-                   [name]: value,
-               }));
-           }
-       };
-   
-       const handleSubmit = async (e: React.FormEvent) => {
-           e.preventDefault();
-   
-           // Primeiro, cria o hóspede
-           try {
-               let guestId = reservationData.guest.id;
-   
-               if (guestId === 0) { // Se o hóspede não existe (id 0), cria um novo
-                   const guestPayload: Guest = {
-                       name: reservationData.guest.name,
-                       cpf: reservationData.guest.cpf,
-                       phone: reservationData.guest.phone,
-                       email: reservationData.guest.email,
-                       id: reservationData.guest.id
-                   };
-   
-                   const guestResponse = await createGuest(guestPayload); // Cria o hóspede
-                   guestId = guestResponse.data.id; // Obtém o ID do hóspede criado
-               }
-   
-               // Após criar o hóspede, cria a reserva
-               const reservationPayload = {
-                   ...reservationData,
-                   guest: guestId, // Passa o ID do hóspede
-                   room: reservationData.room.id, // Passa o ID do quarto
-               };
-               const newReservation = await createReservation(reservationPayload);
-
-                  // Adiciona a nova reserva à lista local
-        setReservations((prev) => [newReservation, ...prev]);
-        setFilteredReservations((prev) => [newReservation, ...prev]);
-               const reservationResponse = await createReservation(reservationPayload); // Cria a reserva
-               console.log('Reserva criada com sucesso:', reservationResponse.data);
-               alert('Reserva criada com sucesso!');
-           } catch (error) {
-               console.error('Erro ao criar reserva ou hóspede:', error);
-               alert('Erro ao criar reserva ou hóspede! Verifique os dados.');
-           }
-       };
+       const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+    
+        if (name === "existingGuest") { // Quando o usuário escolhe um hóspede existente
+            const selectedGuest = guests.find((guest) => guest.id === parseInt(value));
+            setSelectedGuestId(parseInt(value) || null);
+            if (selectedGuest) {
+                setReservationData((prevData) => ({
+                    ...prevData,
+                    guest: { ...selectedGuest } // Preenche os campos automaticamente
+                }));
+            }
+        } else if (name.startsWith("guest.")) { // Permite edição manual caso necessário
+            const guestKey = name.split(".")[1];
+            setReservationData((prevData) => ({
+                ...prevData,
+                guest: { ...prevData.guest, [guestKey]: value },
+            }));
+        } else if (name === "room") { // Seleção de quarto
+            const selectedRoom = rooms.find((room) => room.id === parseInt(value));
+            setReservationData((prevData) => ({
+                ...prevData,
+                room: selectedRoom || prevData.room,
+            }));
+        } else {
+            setReservationData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }));
+        }
+    };
+    
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+    
+        try {
+            let guestId = selectedGuestId; // Se um hóspede existente foi selecionado, usa o ID dele
+    
+            if (!guestId) { // Se nenhum hóspede foi selecionado, cria um novo
+                const guestResponse = await createGuest(reservationData.guest);
+                guestId = guestResponse.data.id;
+            }
+    
+            if (!guestId) {
+                alert("Erro ao selecionar ou criar um hóspede.");
+                return;
+            }
+    
+            const reservationPayload = {
+                guest: guestId,
+                room: reservationData.room.id,
+                check_in: reservationData.check_in,
+                check_out: reservationData.check_out,
+                payment_status: "PENDENTE",
+                total_price: reservationData.total_price,
+                extra_charges: reservationData.extra_charges,
+                extra_details: reservationData.extra_details,
+                consumed_items: [],
+            };
+    
+            const newReservation = await createReservation(reservationPayload);
+    
+            setReservations((prev) => [newReservation, ...prev]);
+            setFilteredReservations((prev) => [newReservation, ...prev]);
+    
+            alert("Reserva criada com sucesso!");
+        } catch (error) {
+            console.error("Erro ao criar reserva:", error);
+            alert("Erro ao criar reserva! Verifique os dados.");
+        }
+    };
+    
+    
+    
 
 
 
@@ -308,24 +269,7 @@ const handleAddConsumedItem = () => {
         }
     };
     
-    const handleDeleteConsumedItem = (index: number) => {
-        const updatedConsumedItems = [...(reservationData.consumed_items || [])];
-        updatedConsumedItems.splice(index, 1); // Remove o item pelo índice
-    
-        // Atualiza os itens consumidos na reserva
-        setReservationData((prev) => ({
-            ...prev,
-            consumed_items: updatedConsumedItems,
-        }));
-    
-        if (DetalhesSelecionados) {
-            setDetalhesSelecionados((prev: Reservation) => ({
-                ...prev,
-                consumed_items: updatedConsumedItems,
-            }));
-        }
-    };
-    
+
 
 
 
@@ -366,10 +310,8 @@ const resolveRoomCapacity = (roomId: number) => {
     return room ? room.capacity : 0;
 };
 
-const resolveRoomDailyRate = (roomId: number) => {
-    const room = rooms.find((r) => r.id === roomId);
-    return room ? room.daily_rate.toFixed(2) : '0,00';
-};
+
+
 
 
     return (
@@ -414,12 +356,41 @@ const resolveRoomDailyRate = (roomId: number) => {
                                     />
                                 </div><br></br>
                                 <div className="input">
+                                    <label htmlFor="guest.email">Email:</label>
+                                    <input
+                                        placeholder='ex:@email.com'
+                                        type="text"
+                                        name="guest.email"
+                                        value={reservationData.guest.email}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div><br></br>
+                                <div className="input">
+                                    <label htmlFor="Guest">Hóspede  Existente:</label>
+                                    <select 
+                                     name="existingGuest" 
+                                     value={selectedGuestId || ""}
+                                     onChange={handleInputChange}
+                                     required
+                                     style={{width:"109%"}}
+                                     >
+                                        <option value="">Selecione um Hóspede</option>
+                                        {guests.map((guest) => (
+                                            <option key={guest.id} value={guest.id} >
+                                                {guest.name} 
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div><br></br>
+                                <div className="input">
                                     <label htmlFor="room">Quarto:</label>
                                     <select
                                         name="room"
                                         value={reservationData.room.id}
                                         onChange={handleInputChange}
                                         required
+                                        style={{width:"109%"}}
                                     >
                                         <option value="">Selecione um quarto</option>
                                         {rooms.map((room) => (
@@ -524,14 +495,15 @@ const resolveRoomDailyRate = (roomId: number) => {
                     .map((reservation) => (
                         <div key={reservation.id}>
                            <div className='userdados'>
+                            <h3>Informações</h3>
                             <p>
                                 <strong>Hóspede:</strong> {resolveGuestName(reservation.guest as unknown as number)}
                             </p>
                             <p>
-                                <strong>Telefone:</strong> {resolveGuestPhone(reservation.room as unknown as number)}
+                                <strong>Telefone:</strong> {resolveGuestPhone(reservation.guest as unknown as number)}
                             </p>
                             <p>
-                                <strong>CPF:</strong> {resolveGuestCPF(reservation.room as unknown as number)}
+                                <strong>CPF:</strong> {resolveGuestCPF(reservation.guest as unknown as number)}
                             </p>
                             <p>
                                 <strong>Quarto:</strong> {resolveRoomName(reservation.room as unknown as number)}
@@ -543,9 +515,7 @@ const resolveRoomDailyRate = (roomId: number) => {
                                 <strong>Capacidade  :</strong> {resolveRoomCapacity(reservation.room as unknown as number)} pessoas
                             </p>
                           
-                            <p>
-                            <strong>Diária:</strong> R${resolveRoomDailyRate(reservation.room.id)}
-                            </p>
+                            
 
                            
                             <p>
@@ -572,58 +542,17 @@ const resolveRoomDailyRate = (roomId: number) => {
                             <div className='gastosex'> 
                             <h3 className='gasto-titulo'>Gastos Extras</h3>
 
-                           <select onChange={handleItemSelect} value={selectedItem?.id || ''}>
-                           <option value="">Selecione um item</option>
-                             {inventoryItems.map((item) => (
-                            <option key={item.id} value={item.id}>
-                            {item.name} 
-                           </option>
-                             ))}
-                           </select>
-                           <br />
-
-                         <input 
-                          style={{ marginTop: "4%", width: "52.7%" }}
-                          type="number"
-                          value={itemQuantity}
-                          onChange={handleQuantityChange}
-                          min="1"
-                          max="100"
-                          placeholder="Quantidade"
-                          />
-                         <br />
-
-                         <button 
-                           style={{ marginTop: "4%", width: "56%", cursor: "pointer" }} 
-                           onClick={handleAddConsumedItem}>
-                           Adicionar
-                        </button>
-
-                        <h3>Itens Consumidos</h3>
-                        <div className="consumed-items-list">
-                     {DetalhesSelecionados.consumed_items && DetalhesSelecionados.consumed_items.length > 0 ? (
-                      DetalhesSelecionados.consumed_items.map((item: ReservationItem, index: number) => (
-                       <div key={index} className="consumed-item banner" >
-                       <div className="row">
-                       <p style={{marginLeft:"13%"}}>
-                        <strong>item:</strong> {item.item_details?.name} - <strong>Qntd:</strong> {item.quantity}
-                        </p>
-                    <div className="buttons-re">
-                        <FaTrashAlt
-                            className="lixeira-re"
-                            size={18}
-                            onClick={() => handleDeleteConsumedItem(index)}
-                        />
-                    </div>
-                </div>
-            </div>
-        ))
-    ) : (
-        <p></p>
-    )}
-</div>
-         </div>
-
+                            <AddConsumptionForm
+                             reservationId={DetalhesSelecionados.id}
+                             onClose={() => setIsAddingConsumption(false)}
+                             onItemsAdded={(updatedItems) => {
+                             setDetalhesSelecionados((prev: Reservation) => ({
+                            ...prev,
+                            consumed_items: updatedItems,
+                           }));
+                            }}
+                           />
+                        </div>
                  </div>
                     ))}
                      <div className='divider-vertical-reservation'></div>

@@ -214,6 +214,7 @@ export function GerenciaQuartos() {
                                         name="room_type"
                                         value={formData.room_type}
                                         onChange={handleInputChange}
+                                        style={{width:"109%"}}
                                     >
                                         <option value="SIMPLES">Simples</option>
                                         <option value="DUPLO">Duplo</option>

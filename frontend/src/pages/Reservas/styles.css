@@ -180,7 +180,7 @@
   }
 
   .gasto-titulo{
-    margin-left: 4%;
+    margin-left: 14%;
   }
 
 
@@ -203,7 +203,7 @@
 }
 
   .totalPrice{
-    margin-top:26%;
+    margin-top:27%;
     margin-bottom: -20%;
     margin-left: 30%;
     
@@ -217,7 +217,7 @@
 
   .consumed-items-list {
     margin-top: -5%;
-    margin-left: -20%;
+    margin-left: -14%;
     min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
     height: 175px; /* Limita a altura da lista para não empurrar o preço total */
     overflow-y: auto; /* Garante que o scroll sempre apareça */

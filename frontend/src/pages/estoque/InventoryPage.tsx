@@ -47,26 +47,12 @@ export function GerenciaInventario() {
             if (Array.isArray(items)) {
                 const sanitizedItems = items.map((item) => ({
                     ...item,
-                    price: typeof item.price === 'number' ? item.price : parseFloat(item.price) || 0,
+                    price: isNaN(Number(item.price)) ? 0 : Number(item.price), // 🔥 Converte para número
                     originalQuantity: item.quantity,
                 }));
     
-                // Carregar itens do localStorage, se disponíveis
-                const storedInventory = localStorage.getItem('inventoryItems');
-                if (storedInventory) {
-                    setInventoryItems(JSON.parse(storedInventory));
-                    setFilteredItems(JSON.parse(storedInventory));
-                } else {
-                    setInventoryItems(sanitizedItems);
-                    setFilteredItems(sanitizedItems);
-                }
-    
-                const storedReductions = localStorage.getItem('reductions');
-                if (storedReductions) {
-                    setReductions(JSON.parse(storedReductions));
-                }
-    
-                calculateTotalReductionsValue(sanitizedItems, JSON.parse(storedReductions || '{}'));
+                setInventoryItems(sanitizedItems);
+                setFilteredItems(sanitizedItems);
             } else {
                 throw new Error('Formato de dados inesperado');
             }
@@ -77,6 +63,7 @@ export function GerenciaInventario() {
             setLoading(false);
         }
     };
+    
     
 
     useEffect(() => {
@@ -259,6 +246,7 @@ export function GerenciaInventario() {
                                         name="location"
                                         value={formData.location}
                                         onChange={handleInputChange}
+                                        style={{width:"109%"}}
                                     >
                                         <option value="RECEPCAO">Recepção</option>
                                         <option value="COZINHA">Cozinha</option>
@@ -322,8 +310,9 @@ export function GerenciaInventario() {
                                                 <strong>Quantidade:</strong> {item.quantity}
                                             </p>
                                             <p className="preco">
-                                                <strong>Preço:</strong> R$ {item.price.toFixed(2)}
+                                             <strong>Preço:</strong> R$ {typeof item.price === 'number' ? item.price.toFixed(2) : "N/A"}
                                             </p>
+
                                             <div className="buttons-inv">
                                                 <FaPencil className='edit' size={20} onClick={() => handleOpenModal(item)} />
                                                 <FaTrashAlt
