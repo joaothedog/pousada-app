@@ -23,7 +23,7 @@ export interface InventoryItem {
     price: number;
 }
 
-export type PaymentStatus = 'CONFIRMADA' | 'PENDENTE' | 'CANCELADA';
+export type PaymentStatus =  'CONFIRMADA' | 'PENDENTE' | 'CANCELADA';
 
 export interface Reservation {
     id: number;

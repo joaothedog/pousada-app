@@ -324,7 +324,24 @@ const resolveRoomCapacity = (roomId: number) => {
                     <form onSubmit={handleSubmit}>
                         <div className="cadastro">
                             <div className="row">
-                                <div className="input">
+                            <div className="input" style={{marginLeft:"-50%"}}>
+                                    <label htmlFor="Guest">Hóspede  Existente:</label>
+                                    <select 
+                                     name="existingGuest" 
+                                     value={selectedGuestId || ""}
+                                     onChange={handleInputChange}
+                                     required
+                                     style={{width:"247%",height:"25px"}}
+                                     >
+                                        <option value="">Selecione um Hóspede</option>
+                                        {guests.map((guest) => (
+                                            <option key={guest.id} value={guest.id} >
+                                                {guest.name} 
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div><br></br>
+                                <div className="input" style={{marginLeft:"-50%"}}>
                                     <label htmlFor="guest.name">Nome do Hóspede:</label>
                                     <input
                                         type="text"
@@ -334,7 +351,7 @@ const resolveRoomCapacity = (roomId: number) => {
                                         required
                                     />
                                 </div><br></br>
-                                <div className="input">
+                                <div className="input" style={{marginLeft:"-50%"}}>
                                     <label htmlFor="guest.cpf">CPF:</label>
                                     <input
                                         type="text"
@@ -344,7 +361,7 @@ const resolveRoomCapacity = (roomId: number) => {
                                         required
                                     />
                                 </div><br></br>
-                                <div className="input">
+                                <div className="input" style={{marginLeft:"-50%"}}>
                                     <label htmlFor="guest.phone">Telefone:</label>
                                     <input
                                         placeholder='ex:(77)78898989'
@@ -355,7 +372,7 @@ const resolveRoomCapacity = (roomId: number) => {
                                         required
                                     />
                                 </div><br></br>
-                                <div className="input">
+                                <div className="input" style={{marginLeft:"-50%"}}>
                                     <label htmlFor="guest.email">Email:</label>
                                     <input
                                         placeholder='ex:@email.com'
@@ -366,31 +383,15 @@ const resolveRoomCapacity = (roomId: number) => {
                                         required
                                     />
                                 </div><br></br>
-                                <div className="input">
-                                    <label htmlFor="Guest">Hóspede  Existente:</label>
-                                    <select 
-                                     name="existingGuest" 
-                                     value={selectedGuestId || ""}
-                                     onChange={handleInputChange}
-                                     required
-                                     style={{width:"109%"}}
-                                     >
-                                        <option value="">Selecione um Hóspede</option>
-                                        {guests.map((guest) => (
-                                            <option key={guest.id} value={guest.id} >
-                                                {guest.name} 
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div><br></br>
-                                <div className="input">
+                                
+                                <div className="input" style={{marginLeft:"60%",marginTop:"-144%"}}>
                                     <label htmlFor="room">Quarto:</label>
                                     <select
                                         name="room"
                                         value={reservationData.room.id}
                                         onChange={handleInputChange}
                                         required
-                                        style={{width:"109%"}}
+                                        style={{width:"109%",height:"30px"}}
                                     >
                                         <option value="">Selecione um quarto</option>
                                         {rooms.map((room) => (
@@ -400,7 +401,22 @@ const resolveRoomCapacity = (roomId: number) => {
                                         ))}
                                     </select>
                                 </div><br></br>
-                                <div className="input">
+                                <div className="input" style={{marginLeft:"60%"}}>
+                                    <label htmlFor="payment_status">Tipo de Pagamento:</label>
+                                    <select
+                                        name="paymant_status"
+                                        value={reservationData.payment_status}
+                                        onChange={handleInputChange}
+                                        required
+                                        style={{width:"109%",height:"30px"}}
+                                    >
+                                        <option value="PENDENTE">Selecione a Forma</option>
+                                        <option value="CONFIRMADA">Cartão</option>
+                                        <option value="CONFIRMADA">Pix</option>
+                                        <option value="PENDENTE">Fiado</option>
+                                    </select>
+                                </div><br></br>
+                                <div className="input" style={{marginLeft:"60%"}}>
                                     <label htmlFor="check_in">Data de Check-in:</label>
                                     <input
                                         type="date"
@@ -410,7 +426,7 @@ const resolveRoomCapacity = (roomId: number) => {
                                         required
                                     />
                                 </div><br></br>
-                                <div className="input">
+                                <div className="input" style={{marginLeft:"60%"}}>
                                     <label htmlFor="check_out">Data de Check-out:</label>
                                     <input
                                         type="date"

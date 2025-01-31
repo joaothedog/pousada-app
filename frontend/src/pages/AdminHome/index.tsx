@@ -39,10 +39,11 @@ export function AdminHome() {
       <div className="right">
           <div className="search">
             <input type="text" placeholder="Pesquise aqui.." />
-            <AiOutlineSearch />
+            <AiOutlineSearch /> 
           </div>
         </div>
       </TopContainer>
+      
      
 
       <div className='dash' >
