@@ -32,7 +32,7 @@ export function GerenciaReservas() {
         room_details: { id: 0, room_type: 'SIMPLES', name: '', capacity: 0, daily_rate: 0, is_available: true },
         check_in: '',
         check_out: '',
-        payment_status: 'PENDENTE',
+        payment_status: 'CONFIRMADA',
         total_price: null,
         extra_charges: 0,
         extra_details: '',
@@ -152,7 +152,7 @@ export function GerenciaReservas() {
                 room: reservationData.room.id,
                 check_in: reservationData.check_in,
                 check_out: reservationData.check_out,
-                payment_status: "PENDENTE",
+                payment_status: reservationData.payment_status,
                 total_price: reservationData.total_price,
                 extra_charges: reservationData.extra_charges,
                 extra_details: reservationData.extra_details,
@@ -401,21 +401,21 @@ const resolveRoomCapacity = (roomId: number) => {
                                         ))}
                                     </select>
                                 </div><br></br>
-                                <div className="input" style={{marginLeft:"60%"}}>
-                                    <label htmlFor="payment_status">Tipo de Pagamento:</label>
-                                    <select
-                                        name="paymant_status"
-                                        value={reservationData.payment_status}
-                                        onChange={handleInputChange}
-                                        required
-                                        style={{width:"109%",height:"30px"}}
-                                    >
-                                        <option value="PENDENTE">Selecione a Forma</option>
-                                        <option value="CONFIRMADA">Cartão</option>
-                                        <option value="CONFIRMADA">Pix</option>
-                                        <option value="PENDENTE">Fiado</option>
-                                    </select>
-                                </div><br></br>
+                                <div className="input" style={{ marginLeft: "60%" }}>
+                                <label htmlFor="payment_status">Tipo de Pagamento:</label>
+                                <select
+                                 name="payment_status"
+                                 value={reservationData.payment_status}
+                                 onChange={handleInputChange}
+                                 required
+                                 style={{ width: "109%", height: "30px" }}
+                                  >
+                              <option value="">Selecione a Forma</option>
+                              <option value="CONFIRMADA">Cartão</option>
+                              <option value="CANCELADA">Pix</option>
+                              <option value="PENDENTE">Fiado</option>
+                              </select>
+                              </div><br></br>
                                 <div className="input" style={{marginLeft:"60%"}}>
                                     <label htmlFor="check_in">Data de Check-in:</label>
                                     <input
@@ -531,7 +531,13 @@ const resolveRoomCapacity = (roomId: number) => {
                                 <strong>Capacidade  :</strong> {resolveRoomCapacity(reservation.room as unknown as number)} pessoas
                             </p>
                           
-                            
+                            <p>
+                         <strong>Pagamento :</strong> {reservation.payment_status === "CONFIRMADA" 
+                               ? "Cartão" 
+                               : reservation.payment_status === "PENDENTE"
+                               ? "Fiado"
+                               : "Pix"}
+                                </p>
 
                            
                             <p>
