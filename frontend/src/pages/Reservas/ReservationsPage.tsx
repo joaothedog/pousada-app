@@ -147,11 +147,18 @@ export function GerenciaReservas() {
                 return;
             }
     
+            // Ajuste para garantir que as datas sejam enviadas corretamente
+            const checkInDate = new Date(reservationData.check_in);
+            checkInDate.setMinutes(checkInDate.getMinutes() + checkInDate.getTimezoneOffset());
+    
+            const checkOutDate = new Date(reservationData.check_out);
+            checkOutDate.setMinutes(checkOutDate.getMinutes() + checkOutDate.getTimezoneOffset());
+    
             const reservationPayload = {
                 guest: guestId,
                 room: reservationData.room.id,
-                check_in: reservationData.check_in,
-                check_out: reservationData.check_out,
+                check_in: checkInDate.toISOString().split('T')[0], // Garantir que a data fique correta
+                check_out: checkOutDate.toISOString().split('T')[0],
                 payment_status: reservationData.payment_status,
                 total_price: reservationData.total_price,
                 extra_charges: reservationData.extra_charges,
@@ -170,6 +177,7 @@ export function GerenciaReservas() {
             alert("Erro ao criar reserva! Verifique os dados.");
         }
     };
+    
     
     
     
@@ -383,8 +391,28 @@ const resolveRoomCapacity = (roomId: number) => {
                                         required
                                     />
                                 </div><br></br>
-                                
                                 <div className="input" style={{marginLeft:"60%",marginTop:"-144%"}}>
+                                    <label htmlFor="check_in">Data de Check-in:</label>
+                                    <input
+                                        type="date"
+                                        name="check_in"
+                                        value={reservationData.check_in}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div><br></br>
+                                <div className="input" style={{marginLeft:"60%"}}>
+                                    <label htmlFor="check_out">Data de Check-out:</label>
+                                    <input
+                                        type="date"
+                                        name="check_out"
+                                        value={reservationData.check_out}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div><br></br>
+                                
+                                <div className="input" style={{marginLeft:"60%"}}>
                                     <label htmlFor="room">Quarto:</label>
                                     <select
                                         name="room"
@@ -412,30 +440,12 @@ const resolveRoomCapacity = (roomId: number) => {
                                   >
                               <option value="">Selecione a Forma</option>
                               <option value="CONFIRMADA">Cartão</option>
+                              {/* por esta no backend setado (confirmada,cancelada,pedente) tive que usar cancelada para pix*/}
                               <option value="CANCELADA">Pix</option>
                               <option value="PENDENTE">Fiado</option>
                               </select>
                               </div><br></br>
-                                <div className="input" style={{marginLeft:"60%"}}>
-                                    <label htmlFor="check_in">Data de Check-in:</label>
-                                    <input
-                                        type="date"
-                                        name="check_in"
-                                        value={reservationData.check_in}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
-                                </div><br></br>
-                                <div className="input" style={{marginLeft:"60%"}}>
-                                    <label htmlFor="check_out">Data de Check-out:</label>
-                                    <input
-                                        type="date"
-                                        name="check_out"
-                                        value={reservationData.check_out}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
-                                </div>
+                                
                             </div>
                         </div>
                         <button type="submit" className="button-cadastro">
@@ -470,11 +480,12 @@ const resolveRoomCapacity = (roomId: number) => {
                                             <strong>Quarto:</strong> {resolveRoomName(reservation.room as unknown as number)}
                                         </p>
                                         <p className="check-in" style={{ marginLeft: "10%" }}>
-                                        <strong>Check-in:</strong> {new Date(reservation.check_in).toLocaleDateString('pt-BR')}
-                                        </p>
-                                        <p className="check-out" style={{ marginLeft: "10%" }}>
-                                       <strong>Check-out:</strong> {new Date(reservation.check_out).toLocaleDateString('pt-BR')}
+                                         <strong>Check-in:</strong> {new Date(reservation.check_in + "T12:00:00").toLocaleDateString('pt-BR')}
                                        </p>
+                                        <p className="check-out" style={{ marginLeft: "10%" }}>
+                                       <strong>Check-out:</strong> {new Date(reservation.check_out + "T12:00:00").toLocaleDateString('pt-BR')}
+                                      </p>
+
 
                                         
                                     </div>
@@ -543,13 +554,13 @@ const resolveRoomCapacity = (roomId: number) => {
                             <p>
                                 <strong>Check-in:</strong>{" "}
                                 {reservation.check_in
-                                    ? new Date(reservation.check_in).toLocaleDateString("pt-BR")
+                                    ? new Date(reservation.check_in + "T12:00:00").toLocaleDateString('pt-BR')
                                     : "Não informado"}
                             </p>
                             <p>
                                 <strong>Check-out:</strong>{" "}
                                 {reservation.check_out
-                                    ? new Date(reservation.check_out).toLocaleDateString("pt-BR")
+                                    ? new Date(reservation.check_out + "T12:00:00").toLocaleDateString('pt-BR')
                                     : "Não informado"}
                             </p>
                             <p className='totalPrice'>

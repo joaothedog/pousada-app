@@ -7,7 +7,7 @@
       display: flex;
       flex-wrap: wrap;
       flex: 1 0 25%;
-      margin-top: -46%;
+      margin-top: -40%;
       margin-left: 24%;
       
    
@@ -15,7 +15,7 @@
     }
   
     .right{
-      margin-top:-92%;
+      margin-top:-83%;
       margin-right:40%;
     }
   

@@ -35,6 +35,8 @@ export function SidebarComponent() {
 
           <Sidebutton tittle="Dashboard" onClick={() => navigate('/')} />
 
+          <Sidebutton tittle="Relatórios" onClick={() => navigate('/relatory')} />
+
           <Sidebutton tittle="Hóspedes" onClick={() => navigate('/guests')} />
 
           <Sidebutton tittle="Estoque" onClick={() => navigate('/inventory')} />
@@ -42,6 +44,8 @@ export function SidebarComponent() {
           <Sidebutton tittle="Quartos" onClick={() => navigate('/rooms')} />
 
           <Sidebutton tittle="Reservas" onClick={() => navigate('/reservations')} />
+
+        
 
 
 

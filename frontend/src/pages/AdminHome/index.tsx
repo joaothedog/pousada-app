@@ -16,6 +16,7 @@ import { BsPersonSquare } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
 import { MdOutlineInventory } from "react-icons/md";
 import { MdOutlineEventAvailable } from "react-icons/md";
+import { TbReport } from 'react-icons/tb';
 
 export function AdminHome() {
   const [open, setOpen] = useState(false);
@@ -34,7 +35,9 @@ export function AdminHome() {
     
     <PageContainer className='admin' padding="0px"   >
      
-     <SidebarComponent  />
+     <div style={{height:"90%",width:"94.8%",marginTop:"10px",marginLeft:"10px"}}>
+        <SidebarComponent  />
+        </div>
       <TopContainer>
       <div className="right">
           <div className="search">
@@ -48,12 +51,12 @@ export function AdminHome() {
 
       <div className='dash' >
         
-
+                                  
         <ShowCard title="Hóspedes"  icon={<BsPersonSquare  onClick={() => navigate('/guests')} style={{ cursor: "pointer" }} />} />
         <ShowCard title="Quartos"  icon={<FaHome  onClick={() => navigate('/rooms')} style={{ cursor: "pointer" }} />} />
         <ShowCard title="Estoque"  icon={<MdOutlineInventory  onClick={() => navigate('/inventory')} style={{ cursor: "pointer" }} />} />
         <ShowCard title="Reservas"  icon={<MdOutlineEventAvailable  onClick={() => navigate('/reservations')} style={{ cursor: "pointer" }} />} />
-     
+        <ShowCard title="Relatórios"  icon={<TbReport onClick={() => navigate('/relatory')} style={{ cursor: "pointer" }} />} />     
       
         
         
