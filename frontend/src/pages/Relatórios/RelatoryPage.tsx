@@ -4,7 +4,6 @@ import { SidebarComponent } from '../../components/sidebar';
 import { getReservations, getGuests, getRooms } from '../../services/api'; 
 import './styles.css';
 
-// Definição das interfaces para tipagem correta
 interface Reservation {
   id: number;
   guest: number;
@@ -29,6 +28,8 @@ export function RelatoryPage() {
   const [guests, setGuests] = useState<Guest[]>([]);
   const [rooms, setRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState(false);
+  const [filteredReservations, setFilteredReservations] = useState<Reservation[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     carregarReservas();
@@ -44,9 +45,9 @@ export function RelatoryPage() {
         id: item.id,
         guest: item.guest,
         room: item.room,
-        check_in: item.check_in,
-        check_out: item.check_out,
-        total_price: item.total_price ?? 0, // Garante que não seja null
+        check_in: new Date(item.check_in + "T12:00:00").toLocaleDateString('pt-BR'),
+        check_out: new Date(item.check_out + "T12:00:00").toLocaleDateString('pt-BR'),
+        total_price: item.total_price ?? 0,
       }));
       setReservations(reservations);
     } catch (error) {
@@ -84,6 +85,32 @@ export function RelatoryPage() {
     return room ? room.name : 'Quarto não encontrado';
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setFilteredReservations(reservations);
+      return;
+    }
+
+    const filtered = reservations.filter((reservation) => {
+      const guestName = getGuestName(reservation.guest).toLowerCase();
+      const roomNumber = getRoomName(reservation.room).toLowerCase();
+      const checkInDate = reservation.check_in.replace(/\//g, '-').toLowerCase();
+      const searchQueryFormatted = searchQuery.replace(/\//g, '-').toLowerCase();
+      
+      return (
+        guestName.includes(searchQuery.toLowerCase()) ||
+        roomNumber.includes(searchQuery.toLowerCase()) ||
+        checkInDate.includes(searchQueryFormatted)
+      );
+    });
+
+    setFilteredReservations(filtered);
+  }, [searchQuery, reservations, guests, rooms]);
+
   return (
     <PageContainer padding="0px">
       <div style={{ height: "90%", width: "94.8%", marginTop: "10px", marginLeft: "10px" }}>
@@ -92,18 +119,25 @@ export function RelatoryPage() {
 
       <div className="content-1">
         <section className="cadastro-1">
-          <h1 style={{ marginLeft: "-3%" }}>Relatórios das Reservas</h1>
-
+          <h1 style={{ marginLeft: "1%" }}>Relatórios das Reservas</h1>
+          <div className="search-bar">
+            <input
+              type="text"
+              placeholder=" hóspede , quarto ou data..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+          </div>
           {loading ? (
             <p>Carregando reservas...</p>
           ) : (
             <ul className="reservation-list">
-              {reservations.map((reservation) => (
+              {filteredReservations.map((reservation) => (
                 <li key={reservation.id} className="reservation-item">
                   <strong>Hóspede:</strong> {getGuestName(reservation.guest)} - 
                   <strong> Quarto:</strong> {getRoomName(reservation.room)} - 
-                  <strong> Check-in:</strong> {new Date(reservation.check_in).toLocaleDateString('pt-BR')} - 
-                  <strong> Check-out:</strong> {new Date(reservation.check_out).toLocaleDateString('pt-BR')} - 
+                  <strong> Check-in:</strong> {reservation.check_in} - 
+                  <strong> Check-out:</strong> {reservation.check_out} - 
                   <strong> Total:</strong> R$ {typeof reservation.total_price === "number" 
                       ? reservation.total_price.toFixed(2) 
                       : "N/A"}
@@ -116,4 +150,3 @@ export function RelatoryPage() {
     </PageContainer>
   );
 }
-
