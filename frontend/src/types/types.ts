@@ -1,6 +1,6 @@
 export interface Room {
     id: number;
-    room_type: 'SIMPLES' | 'DUPLO' | 'LUXO';
+    room_type: 'SIMPLES' | 'DUPLO' | 'TRIPLO'|"QUADRUPLO"|"QUINTUPLO"|"SEXTUPLO";
     name: string;
     capacity: number;
     daily_rate: number;

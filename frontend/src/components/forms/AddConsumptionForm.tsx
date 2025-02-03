@@ -54,7 +54,7 @@ const AddConsumptionForm: React.FC<AddConsumptionFormProps> = ({
         setItemQuantity(parseInt(e.target.value) || 1);
     };
 
-    const handleAddItem = async () => {
+    const handleAddItemToReservation = async () => {
         if (!selectedItem || itemQuantity <= 0) {
             alert("Selecione um item e insira uma quantidade válida.");
             return;
@@ -65,83 +65,57 @@ const AddConsumptionForm: React.FC<AddConsumptionFormProps> = ({
             return;
         }
     
-        // Verifica se há estoque suficiente antes de adicionar à reserva
-        if (selectedItem.quantity < itemQuantity) {
-            alert("Quantidade insuficiente no estoque.");
-            return;
-        }
+        const payload = {
+            reservation: reservationData.id,
+            item: selectedItem.id,
+            quantity: itemQuantity,
+            total_price: selectedItem.price * itemQuantity,
+        };
+    
+        console.log("Enviando payload:", payload); // 🔥 Debug para verificar os dados enviados
     
         try {
-            // **Novo estoque após adição**
-            const updatedQuantity = selectedItem.quantity - itemQuantity;
+            // 🔥 Adiciona o item consumido na reserva e atualiza o estoque no backend
+            const response = await createReservationItem(payload);
+            const newItem = response.data;
     
-            // **Requisição para atualizar a quantidade no backend**
-            await fetch(`/api/inventory/${selectedItem.id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ quantity: updatedQuantity }),
-            });
+            console.log("Resposta do backend:", newItem);
     
-            // **Cria o novo item consumido no backend**
-            const newConsumedItem = {
-                reservation: reservationData.id,
-                item: selectedItem.id,
-                quantity: itemQuantity,
-                total_price: selectedItem.price * itemQuantity,
-            };
+            alert("Item adicionado com sucesso!");
     
-            const response = await createReservationItem(newConsumedItem);
-
-            if (!response || !response.data || !response.data.id) { 
-                alert("Erro ao salvar item consumido no backend.");
-                return;
-            }
-            const newItemId = response.data.id;
-            // **Garante que os itens já consumidos sejam mantidos e adiciona o novo item**
-            const updatedItems = [...selectedItems, {
-                 id: newItemId,  // Agora usamos o ID correto
-                reservation: reservationData,
-                item: selectedItem,
-                item_details: selectedItem,
-                quantity: itemQuantity,
-                total_price: selectedItem.price * itemQuantity,
-            }];
+            // 🔥 Atualiza o estado local para exibir o item consumido na UI
+            setSelectedItems((prev) => [...prev, newItem]);
     
-            // **Atualiza o estado corretamente**
-            setSelectedItems(updatedItems);
-            onItemsAdded(updatedItems);
+            // 🔥 Atualiza a reserva para exibir os itens consumidos corretamente
+            const updatedReservation = await getReservationById(reservationData.id);
+            setReservationData(updatedReservation.data);
+            setSelectedItems(updatedReservation.data.consumed_items || []);
     
-            // **Atualiza localmente a lista de estoque**
-            const updatedInventory = inventoryItems.map((item) =>
-                item.id === selectedItem.id ? { ...item, quantity: updatedQuantity } : item
-            );
-            setInventoryItems(updatedInventory);
-            localStorage.setItem("inventoryItems", JSON.stringify(updatedInventory));
-    
-            // **Atualiza a reserva no backend (mantendo os itens já consumidos)**
-            await fetch(`/api/reservations/${reservationData.id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    consumed_items: updatedItems.map(item => ({
-                        id: item.id,
-                        item: item.item.id,
-                        quantity: item.quantity,
-                        total_price: item.total_price,
-                    }))
-                }),
-            });
-    
-            // Resetando os campos após a adição
-            setSelectedItem(null);
-            setItemQuantity(1);
-    
-            alert("Item adicionado com sucesso e estoque atualizado!");
         } catch (error) {
             console.error("Erro ao adicionar item à reserva:", error);
-            alert("Erro ao adicionar item. Tente novamente.");
+            alert("Erro ao adicionar item. Verifique os dados.");
         }
     };
+    
+    useEffect(() => {
+        const fetchReservationData = async () => {
+            try {
+                const reservation = await getReservationById(reservationId);
+                const inventoryData = await getInventoryItems();
+    
+                const receptionItems = inventoryData.filter((item) => item.location === 'RECEPCAO');
+    
+                setReservationData(reservation.data);
+                setInventoryItems(receptionItems);
+                setSelectedItems(reservation.data.consumed_items || []);
+            } catch (error) {
+                console.error('Erro ao carregar dados da reserva:', error);
+            }
+        };
+    
+        fetchReservationData();
+    }, [reservationId, selectedItems]); // 🔥 Agora, o efeito roda sempre que um item for adicionado.
+    
     
     
     if (!reservationData) return <p>Carregando...</p>;
@@ -175,7 +149,7 @@ const AddConsumptionForm: React.FC<AddConsumptionFormProps> = ({
             {/* Botão para adicionar o item consumido */}
             <button
                 style={{ marginTop: "4%", width: "71%", cursor: "pointer",marginLeft:"3%" }}
-                onClick={handleAddItem}
+                onClick={handleAddItemToReservation}
             >
                 Adicionar
             </button>

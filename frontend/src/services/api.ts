@@ -17,6 +17,20 @@ export const getInventoryItemById = (id: number) => api.get(`/inventory/${id}/`)
 export const updateInventoryItem = (id: number, data: any) => api.put(`/inventory/${id}/`, data);
 export const deleteInventoryItem = (id: number) => api.delete(`/inventory/${id}/`);
 
+
+
+
+// Inventory Consumption Endpoints
+export const getInventoryConsumptions = async () => {
+    const response: AxiosResponse<any[]> = await api.get('/inventory/inventory-consumptions/');
+    return response.data;
+};
+export const createInventoryConsumption = (data: any) => api.post('/inventory/inventory-consumptions/', data);
+export const getInventoryConsumptionById = (id: number) => api.get(`/inventory/inventory-consumptions/${id}/`);
+export const updateInventoryConsumption = (id: number, data: any) => api.put(`/inventory/inventory-consumptions/${id}/`, data);
+export const deleteInventoryConsumption = (id: number) => api.delete(`/inventory/inventory-consumptions/${id}/`);
+
+
 // Reservations Endpoints
 export const getReservations = async (): Promise<Reservation[]> => {
     const response: AxiosResponse<Reservation[]> = await api.get('/reservations/');

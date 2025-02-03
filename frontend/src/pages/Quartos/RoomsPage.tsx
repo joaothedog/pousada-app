@@ -216,9 +216,12 @@ export function GerenciaQuartos() {
                                         onChange={handleInputChange}
                                         style={{width:"109%"}}
                                     >
-                                        <option value="SIMPLES">Simples</option>
+                                        <option value="SIMPLES">Individual</option>
                                         <option value="DUPLO">Duplo</option>
-                                        <option value="LUXO">Luxo</option>
+                                        <option value="TRIPLO">Triplo</option>
+                                        <option value="QUADRUPLO">Quádruplo</option>
+                                        <option value="QUINTUPLO">Quíntuplo</option>
+                                        <option value="SEXTUPLO">Sêxtuplo</option>
                                     </select>
                                 </div><br></br>
                             </div>

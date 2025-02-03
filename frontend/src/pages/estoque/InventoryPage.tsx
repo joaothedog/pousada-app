@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getInventoryItems, createInventoryItem, deleteInventoryItem } from '../../services/api';
+import { getInventoryItems, createInventoryItem, deleteInventoryItem,createInventoryConsumption, getInventoryConsumptions,deleteInventoryConsumption  } from '../../services/api';
+
+
 import { PageContainer } from '../../components/PageContainer';
 import { SidebarComponent } from '../../components/sidebar/index';
 import { Container, Containerr } from './styles';
@@ -15,11 +17,12 @@ interface InventoryItem {
     price: number;
     originalQuantity: number;
 }
-
 interface InventoryReduction {
-    date: string;
+    id: number;
     quantity: number;
+    date: string;
 }
+
 
 export function GerenciaInventario() {
     const [formData, setFormData] = useState({
@@ -63,12 +66,43 @@ export function GerenciaInventario() {
             setLoading(false);
         }
     };
-    
-    
-
     useEffect(() => {
-        fetchInventoryItems();
+        const fetchData = async () => {
+            try {
+                await fetchInventoryItems();
+                await fetchInventoryConsumptions();
+            } catch (error) {
+                console.error('Erro ao carregar os dados do inventário:', error);
+            }
+        };
+    
+        fetchData();
     }, []);
+    
+    
+    const fetchInventoryConsumptions = async () => {
+        try {
+            const consumptionData = await getInventoryConsumptions();
+            const groupedConsumptions = consumptionData.reduce(
+                (acc: { [key: number]: InventoryReduction[] }, item: any) => {
+                    if (!acc[item.item]) {
+                        acc[item.item] = [];
+                    }
+                    acc[item.item].push({
+                        id: item.id, // 🔥 Adicionando o ID
+                        quantity: item.quantity,
+                        date: item.consumed_at,
+                    });
+                    return acc;
+                },
+                {}
+            );
+            setReductions(groupedConsumptions);
+        } catch (error) {
+            console.error('Erro ao carregar as baixas de inventário:', error);
+        }
+    };
+    
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -143,32 +177,27 @@ export function GerenciaInventario() {
         localStorage.setItem('totalReductionsValue', JSON.stringify(total));
     };
 
-    const handleConfirmReduction = () => {
+    const handleConfirmReduction = async () => {
         if (selectedItem) {
-            const formattedDate = new Date(reductionData.date).toLocaleDateString('pt-BR');
-            const newReduction = { ...reductionData, date: formattedDate };
-
-            const updatedReductions = {
-                ...reductions,
-                [selectedItem.id]: [...(reductions[selectedItem.id] || []), newReduction],
-            };
-
-            setReductions(updatedReductions);
-            localStorage.setItem('reductions', JSON.stringify(updatedReductions));
-
-            const updatedInventoryItems = inventoryItems.map((item) =>
-                item.id === selectedItem.id
-                    ? { ...item, quantity: item.quantity - newReduction.quantity }
-                    : item
-            );
-            setInventoryItems(updatedInventoryItems);
-            setFilteredItems(updatedInventoryItems);
-            localStorage.setItem('inventoryItems', JSON.stringify(updatedInventoryItems));
-
-            setReductionData({ quantity: 0, date: '' });
-            calculateTotalReductionsValue(updatedInventoryItems, updatedReductions);
+            try {
+                const newConsumption = {
+                    item: selectedItem.id,
+                    quantity: reductionData.quantity,
+                };
+                await createInventoryConsumption(newConsumption);
+                alert('Baixa registrada com sucesso!');
+                
+                // Atualiza a lista de itens e baixas
+                fetchInventoryItems();
+                fetchInventoryConsumptions();
+                setSelectedItem(null);
+            } catch (error) {
+                console.error('Erro ao registrar a baixa:', error);
+                alert('Erro ao registrar a baixa. Por favor, tente novamente.');
+            }
         }
     };
+    
 
     const handleConfirmNewQuantity = () => {
         if (selectedItem && newQuantity !== null) {
@@ -189,27 +218,46 @@ export function GerenciaInventario() {
     };
     
 
-    const handleDeleteReduction = (itemId: number, reductionIndex: number) => {
+    const handleDeleteReduction = async (itemId: number, reductionIndex: number) => {
         const reductionToRemove = reductions[itemId][reductionIndex];
-        const updatedReductions = {
-            ...reductions,
-            [itemId]: reductions[itemId].filter((_, index) => index !== reductionIndex),
-        };
-
-        setReductions(updatedReductions);
-        localStorage.setItem('reductions', JSON.stringify(updatedReductions));
-
-        const updatedInventoryItems = inventoryItems.map((item) =>
-            item.id === itemId
-                ? { ...item, quantity: item.quantity + reductionToRemove.quantity }
-                : item
-        );
-
-        setInventoryItems(updatedInventoryItems);
-        setFilteredItems(updatedInventoryItems);
-        localStorage.setItem('inventoryItems', JSON.stringify(updatedInventoryItems));
-
-        calculateTotalReductionsValue(updatedInventoryItems, updatedReductions);
+    
+        if (!reductionToRemove || !reductionToRemove.id) {
+            console.error("Erro: ID da redução não encontrado.");
+            return;
+        }
+    
+        const confirmDelete = window.confirm("Tem certeza que deseja remover esta baixa?");
+        if (!confirmDelete) return;
+    
+        try {
+            // Deletar no backend
+            await deleteInventoryConsumption(reductionToRemove.id);
+    
+            // Atualizar estado local após remoção bem-sucedida
+            const updatedReductions = {
+                ...reductions,
+                [itemId]: reductions[itemId].filter((_, index) => index !== reductionIndex),
+            };
+    
+            setReductions(updatedReductions);
+            localStorage.setItem('reductions', JSON.stringify(updatedReductions));
+    
+            const updatedInventoryItems = inventoryItems.map((item) =>
+                item.id === itemId
+                    ? { ...item, quantity: item.quantity + reductionToRemove.quantity }
+                    : item
+            );
+    
+            setInventoryItems(updatedInventoryItems);
+            setFilteredItems(updatedInventoryItems);
+            localStorage.setItem('inventoryItems', JSON.stringify(updatedInventoryItems));
+    
+            calculateTotalReductionsValue(updatedInventoryItems, updatedReductions);
+            alert("Baixa removida com sucesso!");
+        } catch (error) {
+            console.error("Erro ao remover baixa:", error);
+            alert("Erro ao remover a baixa. Por favor, tente novamente.");
+        }
     };
 
     const handleCloseModal = () => {
@@ -219,6 +267,15 @@ export function GerenciaInventario() {
     const handleFilter = (location: string) => {
         setFilteredItems(inventoryItems.filter((item) => item.location === location));
     };
+
+    const formatDate = (dateString: string): string => {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Janeiro é 0
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+    
 
     return (
         <PageContainer padding="0px">
@@ -400,12 +457,13 @@ export function GerenciaInventario() {
                            <div className='baixas-list'>
                               {(reductions[selectedItem.id] || []).map((reduction, index) => (
                               <div key={index} className="reduction-item" >
-                             <FaTrashAlt
+                              {/* <FaTrashAlt
                                 className="lixoBaixa"
                                 onClick={() => handleDeleteReduction(selectedItem.id, index)}
-                                 />
+                                 /> */}  
+                             
                                   <p style={{marginTop:"-9%",marginLeft:"17%"}}>
-                                  <strong>Data:</strong> {reduction.date} - <strong>Qntd:</strong> {reduction.quantity}
+                                  <strong>Data:</strong> {formatDate(reduction.date)} - <strong>Qntd:</strong> {reduction.quantity}
                                  </p>
                              </div>
                             ))}

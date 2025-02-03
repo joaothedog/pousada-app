@@ -338,7 +338,7 @@ const resolveRoomCapacity = (roomId: number) => {
                                      name="existingGuest" 
                                      value={selectedGuestId || ""}
                                      onChange={handleInputChange}
-                                     required
+                                    
                                      style={{width:"247%",height:"25px"}}
                                      >
                                         <option value="">Selecione um Hóspede</option>
