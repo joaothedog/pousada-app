@@ -1,0 +1,187 @@
+
+
+@media  (min-width: 1681px) and (max-width: 1920px) {
+
+    .admin .dash {
+      font-size: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1 0 25%;
+      margin-top: -40%;
+      margin-left: 24%;
+      
+   
+    
+    }
+  
+    .right{
+      margin-top:-83%;
+      margin-right:40%;
+    }
+  
+    .top-image{
+      width: 90%;
+    }
+  
+  }
+  
+  
+  @media  (min-width: 1601px) and (max-width: 1680px) {
+  
+    .admin .dash {
+      font-size: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1 0 25%;
+      margin-top: -46%;
+      margin-left: 24%;
+   
+    
+    }
+  
+    .right{
+      margin-top:-94%;
+      margin-right:40%;
+    }
+  
+    .top-image{
+      width: 90%;
+    }
+  
+  }
+  
+  
+  @media  (min-width: 1441px) and (max-width: 1600px) {
+  
+    .admin .dash {
+      font-size: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1 0 25%;
+      margin-top: -43%;
+      margin-left: 24%;
+   
+    
+    }
+  
+    .right{
+      margin-top:-90%;
+      margin-right:38%;
+    }
+  
+    .top-image{
+      width: 90%;
+    }
+  
+  }
+  
+  
+  @media  (min-width: 1367px) and (max-width: 1440px) {
+  
+    .admin .dash {
+      font-size: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1 0 25%;
+      margin-top: -60%;
+      margin-left: 24%;
+   
+    
+    }
+  
+    .right{
+      margin-top:-124%;
+      margin-right:38%;
+    }
+  
+    .top-image{
+      width: 90%;
+    }
+  
+  }
+  
+  
+  @media  (min-width: 1361px) and (max-width: 1366px) {
+  
+    .admin .dash {
+      font-size: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1 0 25%;
+      margin-top: -40%;
+      margin-left: 24%;
+   
+    
+    }
+  
+    .right{
+      margin-top:-86%;
+      margin-right:38%;
+    }
+  
+    .top-image{
+      width: 90%;
+    }
+  
+  }
+  
+  
+  @media  (min-width: 1281px) and (max-width: 1360px) {
+  
+    .admin .dash {
+      font-size: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1 0 25%;
+      margin-top: -40%;
+      margin-left: 24%;
+   
+    
+    }
+  
+    .right{
+      margin-top:-86%;
+      margin-right:38%;
+    }
+  
+    .top-image{
+      width: 90%;
+    }
+  
+  }
+  
+  
+  
+  
+  @media  (max-width: 1280px) {
+  
+    .admin .dash {
+      font-size: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1 0 25%;
+      margin-top: -60%;
+      margin-left: 24%;
+   
+    
+    }
+  
+    .right{
+      margin-top:-130%;
+      margin-right:38%;
+    }
+  
+    .top-image{
+      width: 90%;
+    }
+  
+  }
+  
+  
+  
+    
+  
+  
+  
+  
+  

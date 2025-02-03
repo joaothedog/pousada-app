@@ -1,0 +1,234 @@
+.cadastro {
+    width: 100%;
+    margin-top: 6%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .cadastro .input {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+  
+  
+  .cadastro .input input {
+    width: 100%;
+    height: 1rem;
+    padding: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  
+  .main2 {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
+  
+  
+  
+  .main2 .separator {
+    height: 100%;
+    width: 1px;
+    background-color: #ccc;
+  }
+  
+  
+  
+  .main2 .criar,
+  .main2 .gerenciar {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  
+  
+  .cadastro .submit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    align-items: center; /* Centraliza os filhos de .submit ao longo do eixo transversal */
+  }
+  
+  
+  
+   .button-cadastro {
+    margin-top:15%;
+    font-size: 25px;
+    width: 30%;
+    height: 3rem;
+    border-radius: 5px;
+    background:#007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .buttons {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 7%;
+   
+ 
+   
+
+
+  }
+
+  .buttons-re {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: -14%;
+    margin-left: -3%;
+   
+ 
+   
+
+
+  }
+
+
+  .details{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #007bff ;
+      cursor:pointer;
+    }
+  }
+
+  
+  .lixeira-re{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #800000;
+      cursor:pointer;
+    }
+ 
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+.faixa {
+    position: relative;
+    width: 96.7%;
+    height: 60px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0 30px;
+    margin-top: -9%;
+    margin-bottom: 0%;
+    margin-left: -3.2%;
+    /* Adicionei um espaço interno para melhorar a aparência */
+  }
+
+
+  .gastosex{
+    margin-left: 60%;
+    margin-top: -79%;
+  }
+
+  .gasto-titulo{
+    margin-left: 14%;
+  }
+
+
+  .divider-vertical-reservation{
+    margin-top: -59%;
+    width: 1px;
+    margin-left: 47%;
+    height: 400px;
+    background-color: #ccc;
+    
+  }
+
+
+  .divider-horizontal-reservation {
+    margin-top: 10%;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+  .totalPrice{
+    margin-top:19%;
+    margin-bottom: -20%;
+    margin-left: 30%;
+    
+  }
+
+
+  .userdados{
+    margin-left: 10%;
+  }
+
+
+  .consumed-items-list {
+    margin-top: -5%;
+    margin-left: -14%;
+    min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
+    height: 175px; /* Limita a altura da lista para não empurrar o preço total */
+    overflow-y: auto; /* Garante que o scroll sempre apareça */
+    border: 1px solid #ccc; /* Opcional: Adiciona um contorno para melhor visualização */
+    padding: 5px;
+    width: 240px;
+    background-color: white;
+}
+
+.closeModal{
+
+  margin-top: 8%;
+  
+}

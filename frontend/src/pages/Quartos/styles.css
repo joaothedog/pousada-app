@@ -1,0 +1,154 @@
+.cadastro {
+    width: 100%;
+    margin-top: 6%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .cadastro .input {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+  
+  
+  .cadastro .input input {
+    width: 100%;
+    height: 1rem;
+    padding: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  
+  .main2 {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
+  
+  
+  
+  .main2 .separator {
+    height: 100%;
+    width: 1px;
+    background-color: #ccc;
+  }
+  
+  
+  
+  .main2 .criar,
+  .main2 .gerenciar {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  
+  
+  .cadastro .submit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    align-items: center; /* Centraliza os filhos de .submit ao longo do eixo transversal */
+  }
+  
+  
+  
+   .button-cadastro {
+    margin-top:15%;
+    font-size: 25px;
+    width: 30%;
+    height: 3rem;
+    border-radius: 5px;
+    background:#007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .buttons {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 7%;
+   
+ 
+   
+
+
+  }
+
+  .user{
+    width: 80px;
+    height: 50px;
+    margin-left: 10%;
+   
+  }
+  
+  .lixo{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: black;
+      cursor:pointer;
+    }
+ 
+
+    
+
+  }
+
+  .detail{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: gray;
+      cursor:pointer;
+    }
+ 
+    }
+
+    .closeModal{
+      margin-top:15%;
+      font-size: 18px;
+      margin-left: 39%;
+      width: 20%;
+      height: 2rem;
+      border-radius: 5px;
+      background:#007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+     .reservasCad{
+      margin-left: 13%;
+     }
+  
+
+     .msg-n{
+      margin-left: 32%;
+     }
