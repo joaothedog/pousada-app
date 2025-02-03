@@ -4,9 +4,13 @@ from reservations.models import Reservation
 
 class Room(models.Model):
     ROOM_TYPES = [
-        ('SIMPLES', 'Simples'),
-        ('DUPLO', 'Duplo'),
-        ('LUXO', 'Luxo'),
+        ('SIMPLES', 'Individual (1)'),
+        ('DUPLO', 'Duplo (2)'),
+        ('TRIPLO', 'Triplo (3)'),
+        ('QUADRUPLO', 'Quadruplo (4)'),
+        ('QUINTUPLO', 'Quintuplo (5)'),
+        ('SEXTUPLO', 'Sextuplo (6)'),
+        
     ]
     
     name = models.CharField(max_length=255)
