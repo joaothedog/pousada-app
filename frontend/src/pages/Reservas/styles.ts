@@ -15,7 +15,7 @@ export const Container = styled.div`
   }
 `;
 export const Containerr = styled.div `
-  width: 75%;
+  width: 70%;
   height: 15%;
   display: flex;
   border-radius:3px;

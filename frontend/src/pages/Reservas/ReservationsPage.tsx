@@ -29,8 +29,8 @@ export function GerenciaReservas() {
         id: 0,
         guest: { id: 0, name: '', cpf: '', phone: '', email: '' },
         room: { id: 0, room_type: 'SIMPLES', name: '', capacity: 0, daily_rate: 0, is_available: true },
-        guest_details: { id: 0, name: '', cpf: '', phone: '', email: '' },
-        room_details: { id: 0, room_type: 'SIMPLES', name: '', capacity: 0, daily_rate: 0, is_available: true },
+        guest_details: { id: 0, name: '', cpf: '', phone: '', email: '' }, // Adicionado para evitar erro
+        room_details: { id: 0, room_type: 'SIMPLES', name: '', capacity: 0, daily_rate: 0, is_available: true }, // Adicionado para evitar erro
         check_in: '',
         check_out: '',
         payment_status: 'CONFIRMADA',
@@ -38,7 +38,10 @@ export function GerenciaReservas() {
         extra_charges: 0,
         extra_details: '',
         consumed_items: [],
+        num_people: 1, 
     });
+    
+    
     
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(false);
@@ -51,6 +54,53 @@ export function GerenciaReservas() {
     const [selectedGuestId, setSelectedGuestId] = useState<number | null>(null); // ID do hóspede selecionado
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
+
+
+
+    const roomRates: Record<number, number> = {
+        1: 80,    // Individual
+        2: 150,   // Duplo
+        3: 200,   // Triplo
+        4: 250,   // Quádruplo
+        5: 300,   // Quíntuplo
+        6: 350    // Sêxtuplo
+    };
+    
+    // Função para calcular a diária correta com base no número de pessoas
+    const calcularDiaria = (numPeople: number, roomCapacity: number) => {
+        if (numPeople === 1) return 80;
+
+        const diariaAjustada = roomRates[numPeople] || roomRates[roomCapacity];
+        
+        return diariaAjustada;
+    };
+    
+ 
+    const handleNumPeopleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value, 10);
+        if (value > 0 && value <= reservationData.room.capacity) {
+            setReservationData((prevData) => ({
+                ...prevData,
+                num_people: value, // Salva o número de pessoas corretamente
+            }));
+        }
+    };
+    
+
+
+
+const handleRoomChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedRoom = rooms.find((room) => room.id === parseInt(e.target.value));
+    if (selectedRoom) {
+        const novaDiaria = calcularDiaria(reservationData.num_people, selectedRoom.capacity);
+        
+        setReservationData((prevData) => ({
+            ...prevData,
+            room: selectedRoom,
+            total_price: novaDiaria // Atualiza a diária ao selecionar o quarto
+        }));
+    }
+};
 
 
   useEffect(() => {
@@ -167,6 +217,7 @@ export function GerenciaReservas() {
                 extra_charges: reservationData.extra_charges,
                 extra_details: reservationData.extra_details,
                 consumed_items: [],
+                
             };
     
             const newReservation = await createReservation(reservationPayload);
@@ -330,6 +381,10 @@ const resolveRoomCapacity = (roomId: number) => {
 
 
 
+const resolveNumPeople = (reservationId: number) => {
+    const reservation = reservations.find((res) => res.id === reservationId);
+    return reservation ? reservation.num_people : 0;
+};
 
 
   
@@ -347,14 +402,14 @@ const resolveRoomCapacity = (roomId: number) => {
                     <form onSubmit={handleSubmit}>
                         <div className="cadastro">
                             <div className="row">
-                            <div className="input" style={{marginLeft:"-50%"}}>
+                            <div className="input" style={{marginLeft:"-50%",marginTop:"30%"}}>
                                     <label htmlFor="Guest">Hóspede  Existente:</label>
                                     <select 
                                      name="existingGuest" 
                                      value={selectedGuestId || ""}
                                      onChange={handleInputChange}
                                     
-                                     style={{width:"247%",height:"25px"}}
+                                     style={{width:"110%",height:"30px"}}
                                      >
                                         <option value="">Selecione um Hóspede</option>
                                         {guests.map((guest) => (
@@ -406,7 +461,7 @@ const resolveRoomCapacity = (roomId: number) => {
                                         required
                                     />
                                 </div><br></br>
-                                <div className="input" style={{marginLeft:"60%",marginTop:"-144%"}}>
+                                <div className="input" style={{marginLeft:"60%",marginTop:"-179.5%"}}>
                                     <label htmlFor="check_in">Data de Check-in:</label>
                                     <input
                                         type="date"
@@ -432,7 +487,7 @@ const resolveRoomCapacity = (roomId: number) => {
                                     <select
                                         name="room"
                                         value={reservationData.room.id}
-                                        onChange={handleInputChange}
+                                        onChange={handleRoomChange}
                                         required
                                         style={{width:"109%",height:"30px"}}
                                     >
@@ -444,6 +499,20 @@ const resolveRoomCapacity = (roomId: number) => {
                                         ))}
                                     </select>
                                 </div><br></br>
+                                <div className="input" style={{ marginLeft: "60%" }}>
+                               <label htmlFor="num_people">Pessoas No Quarto:</label>
+                               <input
+                                type="number"
+                                name="num_people"
+                                min="1"
+                                max={reservationData.room.capacity} // Limita ao máximo permitido pelo quarto
+                                value={reservationData.num_people || ""}
+                                onChange={handleNumPeopleChange}
+                            required
+                            style={{ width: "100%", height: "17px" }}
+                             />
+                            </div><br></br>
+
                                 <div className="input" style={{ marginLeft: "60%" }}>
                                 <label htmlFor="payment_status">Tipo de Pagamento:</label>
                                 <select
@@ -487,17 +556,18 @@ const resolveRoomCapacity = (roomId: number) => {
                             {filteredReservations.map((reservation) => (
                                 <Containerr key={reservation.id} className="banner">
                                     <div className="row">
-                                        <p className="nome" style={{ marginLeft: "10%",marginTop:"7.8%" }} >
-                                            <strong>Hóspede:</strong> {resolveGuestName(reservation.guest as unknown as number)}
+                                        <p className="nomeReser" style={{ marginLeft: "10%",marginTop:"8%" }} >
+                                            <strong>Hóspede</strong><br></br>  {resolveGuestName(reservation.guest as unknown as number)}
                                         </p>
                                         <p className="quarto" style={{ marginLeft: "10%" }}>
-                                            <strong>Quarto:</strong> {resolveRoomName(reservation.room as unknown as number)}
+                                            <strong>Quarto</strong><br></br>{resolveRoomName(reservation.room as unknown as number)}
                                         </p>
+                                        
                                         <p className="check-in" style={{ marginLeft: "10%" }}>
-                                         <strong>Check-in:</strong> {new Date(reservation.check_in + "T12:00:00").toLocaleDateString('pt-BR')}
+                                         <strong>Check-in</strong> {new Date(reservation.check_in + "T12:00:00").toLocaleDateString('pt-BR')}
                                        </p>
                                         <p className="check-out" style={{ marginLeft: "10%" }}>
-                                       <strong>Check-out:</strong> {new Date(reservation.check_out + "T12:00:00").toLocaleDateString('pt-BR')}
+                                       <strong>Check-out</strong> {new Date(reservation.check_out + "T12:00:00").toLocaleDateString('pt-BR')}
                                       </p>
 
 
@@ -551,11 +621,15 @@ const resolveRoomCapacity = (roomId: number) => {
                                 <strong>Quarto:</strong> {resolveRoomName(reservation.room as unknown as number)}
                             </p>
                             <p>
-                                <strong>Tipo :</strong> {resolveRoomType(reservation.room as unknown as number)}
+                                <strong>Tipo:</strong> {resolveRoomType(reservation.room as unknown as number)}
                             </p>
                             <p>
-                                <strong>Capacidade  :</strong> {resolveRoomCapacity(reservation.room as unknown as number)} pessoas
+                                <strong>Capacidade:</strong> {resolveRoomCapacity(reservation.room as unknown as number)} pessoas
                             </p>
+                            <p>
+                            <strong>Presentes:</strong> {resolveNumPeople(reservation.id as unknown as number)}
+                            </p>
+
                           
                             <p>
                          <strong>Pagamento :</strong> {reservation.payment_status === "CONFIRMADA" 

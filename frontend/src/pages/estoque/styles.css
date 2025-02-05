@@ -89,11 +89,15 @@
     width: 20%;
     display: flex;
     justify-content: space-evenly;
-    margin-top: 13%;
+    margin-top: 15%;
     margin-left: 0%;
     
   
 
+  }
+
+  .nome{
+    margin-top: 8%;
   }
 
   .preco{

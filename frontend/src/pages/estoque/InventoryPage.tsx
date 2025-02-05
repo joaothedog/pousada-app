@@ -364,16 +364,16 @@ export function GerenciaInventario() {
                                     <Containerr key={item.id} className="banner">
                                         <div className="row">
                                             <p className="nome">
-                                                <strong>Item:</strong> {item.name}
+                                                <strong>Item</strong><br></br> {item.name}
                                             </p>
                                             <p className="localizacao">
-                                                <strong>Local:</strong> {item.location === 'RECEPCAO' ? 'Recepção' : 'Cozinha'}
+                                                <strong>Local</strong> {item.location === 'RECEPCAO' ? 'Recepção' : 'Cozinha'}
                                             </p>
                                             <p className="quantidade">
-                                                <strong>Quantidade:</strong> {item.quantity}
+                                                <strong>Quantidade</strong> {item.quantity}
                                             </p>
                                             <p className="preco">
-                                             <strong>Preço:</strong> R$ {typeof item.price === 'number' ? item.price.toFixed(2) : "N/A"}
+                                             <strong>Preço</strong>  R$.{typeof item.price === 'number' ? item.price.toFixed(2) : "N/A"}
                                             </p>
 
                                             <div className="buttons-inv">

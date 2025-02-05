@@ -275,17 +275,17 @@ export function GerenciaQuartos() {
                             {filteredRooms.map((room) => (
                                 <Containerr key={room.id} className="banner" isAvailable={room.is_available}>
                                     <div className="row">
-                                        <p className="nome">
-                                            <strong>Número:</strong> {room.name}
+                                        <p className="numero">
+                                            <strong>Número</strong> {room.name}
                                         </p>
                                         <p className="tipo">
-                                            <strong>Tipo:</strong> {room.room_type}
+                                            <strong>Tipo</strong> {room.room_type}
                                         </p>
                                         <p className="capacidade">
-                                            <strong>Capacidade:</strong> {room.capacity} pessoas
+                                            <strong>Capacidade</strong> {room.capacity}.Pessoas
                                         </p>
                                         <p className="diaria">
-                                            <strong>Diária:</strong> R$ {Number(room.daily_rate).toFixed(2)}
+                                            <strong>Diária</strong> R$.{Number(room.daily_rate).toFixed(2)}
                                         </p>
                                           {/* <p className="disponivel">
                                             <strong>Disponível:</strong> {room.is_available ? 'Sim' : 'Não'}

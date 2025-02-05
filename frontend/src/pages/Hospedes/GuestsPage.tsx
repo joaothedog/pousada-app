@@ -168,11 +168,12 @@ export function GerenciaHospedes() {
                                         <img src='/icon.png' alt='logo' className='user'>
                                         </img>
                                         <p className="nomeHosp" style={{ marginLeft: "10%" }}>
-                                            <strong>Nome:</strong><br></br> {guest.name}
+                                            <strong>Nome</strong><br></br> {guest.name}
                                         </p>
                                         <p className="phone" style={{ marginLeft: "10%" }} >
                                             <strong>Telefone:</strong> {guest.phone}
                                         </p>
+                                        <p></p>
                                     </div>
                                     <div className='buttons'>
                                         <FaTrashAlt className='lixeira' size={20} onClick={() => handleDelete(guest.id)}/>
