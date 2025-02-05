@@ -9,6 +9,7 @@ import { CgDetailsMore } from "react-icons/cg";
 import {  Guest, Room, ReservationItem, Reservation, InventoryItem } from '../../types/types';
 import { createInventoryItem,getInventoryItems,updateReservation } from '../../services/api'; 
 import AddConsumptionForm from '../../components/forms/AddConsumptionForm';
+import { VscArrowCircleLeft, VscArrowCircleRight } from 'react-icons/vsc';
 
 
 
@@ -48,6 +49,8 @@ export function GerenciaReservas() {
     const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
     const [itemQuantity, setItemQuantity] = useState<number>(1);
     const [selectedGuestId, setSelectedGuestId] = useState<number | null>(null); // ID do hóspede selecionado
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
 
 
   useEffect(() => {
@@ -209,35 +212,42 @@ export function GerenciaReservas() {
         setDetalhesSelecionados(null); // fechar modal
     };
   
+    const getGuestName = (guestId:any) => {
+        const guest = guests.find((g) => g.id === guestId);
+        return guest ? guest.name.toLowerCase() : '';
+    };
 
+    const getRoomName = (roomId:any) => {
+        const room = rooms.find((r) => r.id === roomId);
+        return room ? room.name.toLowerCase() : '';
+    };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
     };
 
-    const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-    
-            if (searchTerm.trim() === '') {
-                setFilteredReservations(reservations); // Mostra todas as reservas se o termo de busca estiver vazio
-            } else {
-                const searchTermLower = searchTerm.toLowerCase();
-    
-                setFilteredReservations(
-                    reservations.filter((reservation) => {
-                        const guestName = reservation.guest?.name?.toLowerCase() || '';
-                        const roomNumber = reservation.room?.name?.toLowerCase() || '';
-    
-                        return (
-                            guestName.includes(searchTermLower) || // Busca pelo nome do hóspede
-                            roomNumber.includes(searchTermLower)  // Busca pelo número do quarto
-                        );
-                    })
-                );
-            }
+    useEffect(() => {
+        if (!searchTerm.trim()) {
+            setFilteredReservations(reservations);
+            return;
         }
-    };
+
+        const searchLower = searchTerm.toLowerCase();
+        setFilteredReservations(
+            reservations.filter((reservation) => {
+                const guestName = getGuestName(reservation.guest);
+                const roomNumber = getRoomName(reservation.room);
+                const checkInDate = reservation.check_in.replace(/\//g, '-').toLowerCase();
+                const formattedSearchTerm = searchTerm.replace(/\//g, '-').toLowerCase();
+                
+                return (
+                    guestName.includes(searchLower) ||
+                    roomNumber.includes(searchLower) ||
+                    checkInDate.includes(formattedSearchTerm)
+                );
+            })
+        );
+    }, [searchTerm, reservations, guests, rooms]);
     
     
 
@@ -318,6 +328,11 @@ const resolveRoomCapacity = (roomId: number) => {
     return room ? room.capacity : 0;
 };
 
+
+
+
+
+  
 
 
 
@@ -463,7 +478,6 @@ const resolveRoomCapacity = (roomId: number) => {
                             placeholder="Buscar por Nome ou Quarto..."
                             value={searchTerm}
                             onChange={handleSearchChange}
-                            onKeyDown={handleSearch}
                         />
                     </div>
                     {loading ? (
@@ -504,6 +518,7 @@ const resolveRoomCapacity = (roomId: number) => {
 
                                 </Containerr>
                             )).reverse()}
+                              
                         </Container>
                     )}
                 </div>

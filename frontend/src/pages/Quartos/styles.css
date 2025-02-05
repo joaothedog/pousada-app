@@ -69,7 +69,7 @@
   
   
    .button-cadastro {
-    margin-top:15%;
+    margin-top:10%;
     font-size: 25px;
     width: 30%;
     height: 3rem;
@@ -105,10 +105,11 @@
   }
   
   .lixo{
+    margin-top: -14%;
     transition: calc(0.3s);
     color:black;
     &:hover{
-      color: black;
+      color: #800000;
       cursor:pointer;
     }
  
@@ -118,10 +119,11 @@
   }
 
   .detail{
+    margin-top: -14%;
     transition: calc(0.3s);
     color:black;
     &:hover{
-      color: gray;
+      color: #007bff;
       cursor:pointer;
     }
  
@@ -152,3 +154,20 @@
      .msg-n{
       margin-left: 32%;
      }
+
+     .pagina-room{
+      font-size: 35px;
+      margin-top: 26%;
+      transition: 0.4s;
+      margin-left: -30%;
+      color: grey;
+      &:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+        color: black;
+      }
+  
+      
+    }
+     
+    

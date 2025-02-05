@@ -28,7 +28,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: -26%;
+      margin-top: -24%;
       margin-bottom: 50px;
       height: 20%;
       margin-left: 10%;
@@ -41,8 +41,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 50%;
-      min-height: 50rem;
+      width: 60%;
+      max-height: 0;
+      min-height: 53rem;
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0px 0px 10px #000;
@@ -51,11 +52,32 @@
     
   .reservation-item{
     margin-top: 2%;
+    color: #111;
+    width: 85%;
+    margin: 20px;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+    padding: 0px 5px;
+    transition: 0.4s;
+    margin-left: 7%;
+    &:hover{
+      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+      transform: scale(1.01);
+     
+    }
   }
     
   .reservation-list{
     margin-top: 5%;
+  min-height: 80%; 
+  height: 273px; 
+  overflow-y: auto; 
+  padding: 5px;
+  width: 94%;
+  background-color: white;
+    
   }
     
+
    
   

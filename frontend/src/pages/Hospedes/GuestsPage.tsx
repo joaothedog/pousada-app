@@ -99,6 +99,7 @@ export function GerenciaHospedes() {
                                     <input
                                         type="text"
                                         name="name"
+                                        placeholder='Nome e Sobrenome'
                                         value={formData.name}
                                         onChange={handleInputChange}
                                         required
@@ -150,7 +151,7 @@ export function GerenciaHospedes() {
                     <div className="search-bar">
                         <input
                             type="text"
-                            placeholder="Buscar..."
+                            placeholder="Buscar por Nome..."
                             value={searchName}
                             onChange={handleSearchChange}
                             onKeyDown={handleSearch}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getInventoryItems, createInventoryItem, deleteInventoryItem,createInventoryConsumption, getInventoryConsumptions,deleteInventoryConsumption  } from '../../services/api';
+import { getInventoryItems, createInventoryItem, deleteInventoryItem,createInventoryConsumption, getInventoryConsumptions,deleteInventoryConsumption, updateInventoryItem   } from '../../services/api';
 
 
 import { PageContainer } from '../../components/PageContainer';
@@ -41,6 +41,7 @@ export function GerenciaInventario() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [totalReductionsValue, setTotalReductionsValue] = useState<number | null>(null);
+    
 
     const fetchInventoryItems = async () => {
         setLoading(true);
@@ -148,7 +149,7 @@ export function GerenciaInventario() {
     const handleOpenModal = (item: InventoryItem) => {
         setSelectedItem(item);
         setReductionData({ quantity: 0, date: '' });
-        setNewQuantity(null);
+        setNewQuantity(item.quantity);
     };
 
     const handleReductionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,6 +163,7 @@ export function GerenciaInventario() {
     const handleNewQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewQuantity(parseInt(e.target.value) || 0);
     };
+    
 
     const calculateTotalReductionsValue = (items: InventoryItem[], reductionsData: { [key: number]: InventoryReduction[] }) => {
         let total = 0;
@@ -198,26 +200,30 @@ export function GerenciaInventario() {
         }
     };
     
-
-    const handleConfirmNewQuantity = () => {
+    const handleConfirmNewQuantity = async () => {
         if (selectedItem && newQuantity !== null) {
-            const updatedInventoryItems = inventoryItems.map((item) =>
-                item.id === selectedItem.id
-                    ? { ...item, quantity: newQuantity }
-                    : item
-            );
-            setInventoryItems(updatedInventoryItems);
-            setFilteredItems(updatedInventoryItems);
+            try {
+                console.log("Enviando payload para atualização:", { quantity: newQuantity });
     
-            // Atualizar o localStorage com o novo estado
-            localStorage.setItem('inventoryItems', JSON.stringify(updatedInventoryItems));
+                await updateInventoryItem(selectedItem.id, { quantity: newQuantity });
     
-            setNewQuantity(null);
-            alert('Quantidade do estoque atualizada com sucesso!');
+                setInventoryItems((prev) =>
+                    prev.map((item) =>
+                        item.id === selectedItem.id ? { ...item, quantity: newQuantity } : item
+                    )
+                );
+    
+                setSelectedItem(null);
+                alert('Quantidade atualizada com sucesso!');
+            } catch (error) {
+                console.error('Erro ao atualizar a quantidade:', error);
+                alert('Erro ao atualizar a quantidade.');
+            }
         }
     };
     
-
+    
+    
     const handleDeleteReduction = async (itemId: number, reductionIndex: number) => {
         const reductionToRemove = reductions[itemId][reductionIndex];
     
@@ -303,7 +309,7 @@ export function GerenciaInventario() {
                                         name="location"
                                         value={formData.location}
                                         onChange={handleInputChange}
-                                        style={{width:"109%"}}
+                                        style={{width:"109%",height:"30px"}}
                                     >
                                         <option value="RECEPCAO">Recepção</option>
                                         <option value="COZINHA">Cozinha</option>
@@ -431,23 +437,22 @@ export function GerenciaInventario() {
                                 <button className='confBaixa' onClick={handleConfirmReduction}>Confirmar</button>
                                
                             </div>
+                            {/*  */}
                             <div className='ajuste-qntd'>
-                                <h3>Nova Quantidade</h3>
-                                <div className='input'style={{marginLeft:"6%"}} >
-                                <label>
-                                    Novo Valor
-                                    </label>
-                                    <input
-                                     style={{width:"64%"}}
-                                        type="number"
-                                        value={newQuantity || ''}
-                                        onChange={handleNewQuantityChange}
-                                        min="0"
-                                    />
-                                    </div>
-                                <br />
-                                <button  className='att-qntd' onClick={handleConfirmNewQuantity}>Atualizar</button>
+                            <h3>Nova Quantidade</h3>
+                            <div className='input' style={{ marginLeft: "7%" }}>
+                                <label>Novo Valor</label>
+                                <input
+                                    style={{ width: "64%" }}
+                                    type="number"
+                                    value={newQuantity || ''}
+                                    onChange={handleNewQuantityChange}
+                                    min="0"
+                                />
                             </div>
+                            <br />
+                            <button className='att-qntd' onClick={handleConfirmNewQuantity}>Atualizar</button>
+                        </div>
                             </div>
                             </div>
                             <div className='divider-vertical'></div>

@@ -6,6 +6,7 @@ import { Container, Containerr } from './styles';
 import "./styles.css";
 import { FaTrashAlt } from 'react-icons/fa';
 import { TbListDetails } from "react-icons/tb";
+import { VscArrowCircleLeft, VscArrowCircleRight } from 'react-icons/vsc';
 
 export function GerenciaQuartos() {
     interface Room {
@@ -44,7 +45,10 @@ export function GerenciaQuartos() {
     const [reservations, setReservations] = useState<Reservation[]>([]);
     const [guests, setGuests] = useState<Guest[]>([]);
     const [selectedRoomReservations, setSelectedRoomReservations] = useState<Reservation[] | null>(null);
+    const [searchQuery, setSearchQuery] = useState('');
+    
 
+  
     useEffect(() => {
         carregarQuartos();
         carregarReservas();
@@ -100,8 +104,22 @@ export function GerenciaQuartos() {
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchName(e.target.value);
+        const query = e.target.value.toLowerCase(); // Converte tudo para minúsculo para busca case-insensitive
+        setSearchQuery(query);
+  
+    
+        if (!query.trim()) {
+            setFilteredRooms(rooms); // Se a pesquisa estiver vazia, mostrar todos os quartos
+        } else {
+            // Filtra quartos pelo número (name) ou tipo (room_type)
+            const filtered = rooms.filter(room => 
+                room.name.toLowerCase().includes(query) || 
+                room.room_type.toLowerCase().includes(query)
+            );
+            setFilteredRooms(filtered);
+        }
     };
+    
 
     const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -163,6 +181,12 @@ export function GerenciaQuartos() {
         return guest ? guest.name : 'Hóspede não encontrado';
     };
 
+
+
+
+ 
+  
+
     return (
         <PageContainer padding="0px">
             <div className="main2">
@@ -214,7 +238,7 @@ export function GerenciaQuartos() {
                                         name="room_type"
                                         value={formData.room_type}
                                         onChange={handleInputChange}
-                                        style={{width:"109%"}}
+                                        style={{width:"109%",height:"30px"}}
                                     >
                                         <option value="SIMPLES">Individual</option>
                                         <option value="DUPLO">Duplo</option>
@@ -238,8 +262,8 @@ export function GerenciaQuartos() {
                     <div className="search-bar">
                         <input
                             type="text"
-                            placeholder="Buscar..."
-                            value={searchName}
+                            placeholder="Buscar por Número ou Tipo..."
+                            value={searchQuery}
                             onChange={handleSearchChange}
                             onKeyDown={handleSearch}
                         />
@@ -263,10 +287,10 @@ export function GerenciaQuartos() {
                                         <p className="diaria">
                                             <strong>Diária:</strong> R$ {Number(room.daily_rate).toFixed(2)}
                                         </p>
-
-                                        <p className="disponivel">
+                                          {/* <p className="disponivel">
                                             <strong>Disponível:</strong> {room.is_available ? 'Sim' : 'Não'}
-                                        </p>
+                                        </p>  */}
+                                       
                                     </div>
                                     <div className='buttons'>
                                        <TbListDetails 
@@ -275,16 +299,21 @@ export function GerenciaQuartos() {
                                            onClick={() => handleShowRoomDetails(room.id)} 
                                        />
                                        <FaTrashAlt 
-                                           className='lixeira' 
+                                           className='lixo' 
                                            size={20} 
                                            onClick={() => handleDelete(room.id)} 
                                        />
                                     </div>
+                                    
                                 </Containerr>
-                            )).reverse()}
+                                
+                            ) ).reverse()}  
+                               
                         </Container>
-                    )}
+                            
+                    )}                    
                 </div>
+                
                 {/*Modal para exibir reservas relacionadas ao quarto selecionado*/}
                 {selectedRoomReservations && (
                     <div className="modal-overlay" onClick={handleCloseModal}>
@@ -294,9 +323,9 @@ export function GerenciaQuartos() {
                             </div>
                             
                             {selectedRoomReservations.length > 0 ? (
-                                <ul>
+                                <ul style={{height:"200px",minHeight:"90px",overflowY:"auto"}} >
                                     {selectedRoomReservations.map((reservation) => (
-                                        <li key={reservation.id}>
+                                        <li key={reservation.id} style={{marginTop:"10px"}}>
                                             <strong>Hóspede:</strong> {getGuestName(reservation.guest)} -
                                             <strong> Check-in:</strong> {new Date(reservation.check_in).toLocaleDateString('pt-BR')} -
                                             <strong> Check-out:</strong> {new Date(reservation.check_out).toLocaleDateString('pt-BR')}
@@ -311,6 +340,7 @@ export function GerenciaQuartos() {
                     </div>
                 )}
             </div>
+            
         </PageContainer>
     );
 }

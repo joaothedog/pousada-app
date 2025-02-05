@@ -20,7 +20,8 @@ export const Containerr = styled.div <{ isAvailable: boolean }>`
   display: flex;
   border-radius:3px;
   flex-direction: row;
-   background-color: ${(props) => (props.isAvailable ? "#d4edda" : "#FA8072")};
+  {/*   background-color: ${(props) => (props.isAvailable ? "#d4edda" : "#FA8072")}; */}
+
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
   margin-top: 20px;
   

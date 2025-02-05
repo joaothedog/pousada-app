@@ -232,3 +232,17 @@
   margin-top: 8%;
   
 }
+
+
+.pagina-reservation{
+  font-size: 35px;
+    margin-top: 20%;
+    margin-left: -30%;
+    transition: 0.4s;
+    color: grey;
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.1);
+      color: black;
+    }
+}

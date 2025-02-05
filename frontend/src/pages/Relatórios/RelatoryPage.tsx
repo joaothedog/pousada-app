@@ -3,6 +3,8 @@ import { PageContainer } from '../../components/PageContainer';
 import { SidebarComponent } from '../../components/sidebar';
 import { getReservations, getGuests, getRooms } from '../../services/api'; 
 import './styles.css';
+import { VscArrowCircleRight } from "react-icons/vsc";
+import { VscArrowCircleLeft } from "react-icons/vsc";
 
 interface Reservation {
   id: number;
@@ -31,6 +33,33 @@ export function RelatoryPage() {
   const [filteredReservations, setFilteredReservations] = useState<Reservation[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 
+
+  {/* // Estado para paginação
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 27; 
+    //**Paginação (somente se não houver pesquisa ativa)**
+  const totalPages = Math.ceil(filteredReservations.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = searchQuery ? filteredReservations : filteredReservations.slice(indexOfFirstItem, indexOfLastItem);
+  
+    
+    <div className="pagination">
+    <VscArrowCircleLeft 
+        className='pagina-relatory'
+        onClick={() => setCurrentPage((prev) => prev - 1)}
+        />
+      <span style={{color:"ghostwhite"}}>--------</span>
+      
+      <VscArrowCircleRight 
+        className='pagina-relatory'
+        onClick={() => setCurrentPage((prev) => prev + 1)}
+        />
+      
+    </div>
+  */}
+ 
+
   useEffect(() => {
     carregarReservas();
     carregarHospedes();
@@ -50,6 +79,7 @@ export function RelatoryPage() {
         total_price: item.total_price ?? 0,
       }));
       setReservations(reservations);
+      setFilteredReservations(reservations); // Define os dados iniciais filtrados
     } catch (error) {
       console.error('Erro ao carregar reservas:', error);
     } finally {
@@ -87,6 +117,7 @@ export function RelatoryPage() {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
+    
   };
 
   useEffect(() => {
@@ -111,6 +142,9 @@ export function RelatoryPage() {
     setFilteredReservations(filtered);
   }, [searchQuery, reservations, guests, rooms]);
 
+
+
+
   return (
     <PageContainer padding="0px">
       <div style={{ height: "90%", width: "94.8%", marginTop: "10px", marginLeft: "10px" }}>
@@ -119,11 +153,13 @@ export function RelatoryPage() {
 
       <div className="content-1">
         <section className="cadastro-1">
+          
           <h1 style={{ marginLeft: "1%" }}>Relatórios das Reservas</h1>
           <div className="search-bar">
             <input
+            style={{width:"140%",marginLeft:"-20%"}}
               type="text"
-              placeholder=" hóspede , quarto ou data..."
+              placeholder=" Buscar por Hóspede, quarto ou data..."
               value={searchQuery}
               onChange={handleSearchChange}
             />
@@ -131,19 +167,23 @@ export function RelatoryPage() {
           {loading ? (
             <p>Carregando reservas...</p>
           ) : (
-            <ul className="reservation-list">
-              {filteredReservations.map((reservation) => (
-                <li key={reservation.id} className="reservation-item">
-                  <strong>Hóspede:</strong> {getGuestName(reservation.guest)} - 
-                  <strong> Quarto:</strong> {getRoomName(reservation.room)} - 
-                  <strong> Check-in:</strong> {reservation.check_in} - 
-                  <strong> Check-out:</strong> {reservation.check_out} - 
-                  <strong> Total:</strong> R$ {typeof reservation.total_price === "number" 
-                      ? reservation.total_price.toFixed(2) 
-                      : "N/A"}
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="reservation-list">
+                {filteredReservations.map((reservation) => (
+                  <li key={reservation.id} className="reservation-item">
+                    <strong>Hóspede:</strong> {getGuestName(reservation.guest)} - 
+                    <strong> Quarto:</strong> {getRoomName(reservation.room)} - 
+                    <strong> Check-in:</strong> {reservation.check_in} - 
+                    <strong> Check-out:</strong> {reservation.check_out} - 
+                    <strong> Total:</strong> R$ {typeof reservation.total_price === "number" 
+                        ? reservation.total_price.toFixed(2) 
+                        : "N/A"}
+                  </li>
+                )).reverse()}
+              </ul>
+
+            
+            </>
           )}
         </section>
       </div>
