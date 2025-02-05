@@ -15,7 +15,7 @@ export const Container = styled.div`
   }
 `;
 export const Containerr = styled.div <{ isAvailable: boolean }>`
-  width: 67%;
+  width: 70%;
   height: 15%;
   display: flex;
   border-radius:3px;

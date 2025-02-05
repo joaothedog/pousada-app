@@ -18,7 +18,7 @@ class Room(models.Model):
     
     name = models.CharField(max_length=255)
     room_type = models.CharField(max_length=10, choices=ROOM_TYPES)
-    cooling_type = models.CharField(max_length=15, choices=COOLING_CHOICES, default=1)  # Ar-condicionado ou ventilador
+    cooling_type = models.CharField(max_length=15, choices=COOLING_CHOICES, default="VENTILADOR")  # Ar-condicionado ou ventilador
     capacity = models.PositiveIntegerField()
     is_available = models.BooleanField(default=True)
     

@@ -3,7 +3,7 @@ export interface Room {
     room_type: 'SIMPLES' | 'DUPLO' | 'TRIPLO'|"QUADRUPLO"|"QUINTUPLO"|"SEXTUPLO";
     name: string;
     capacity: number;
-    daily_rate: number;
+    cooling_type:"AR_CONDICIONADO"|"VENTILADOR";
     is_available: boolean;
 }
 
@@ -38,6 +38,9 @@ export interface Reservation {
     extra_charges: number;
     extra_details?: string;
     consumed_items?: ReservationItem[];
+    daily_rate:number,
+    number_of_guests:number,
+    number_of_children:number,
     
 }
 

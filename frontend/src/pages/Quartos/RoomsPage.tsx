@@ -14,7 +14,7 @@ export function GerenciaQuartos() {
         name: string;
         room_type: string;
         capacity: number;
-        daily_rate: number;
+        cooling_type:string;
         is_available: boolean;
     }
 
@@ -35,8 +35,8 @@ export function GerenciaQuartos() {
         room_type: 'SIMPLES',
         name: '',
         capacity: 1,
-        daily_rate: 0,
         is_available: true,
+        cooling_type:"AR_CONDICIONADO"
     });
     const [rooms, setRooms] = useState<Room[]>([]);
     const [filteredRooms, setFilteredRooms] = useState<Room[]>([]);
@@ -136,6 +136,7 @@ export function GerenciaQuartos() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        console.log("Dados enviados:", formData);
         try {
             await createRoom(formData);
             alert('Quarto criado com sucesso!');
@@ -143,16 +144,16 @@ export function GerenciaQuartos() {
                 room_type: 'SIMPLES',
                 name: '',
                 capacity: 1,
-                daily_rate: 0,
+                cooling_type: "AR_CONDICIONADO",
                 is_available: true,
             });
             carregarQuartos();
-        } catch (error) {
-            console.error('Erro ao criar quarto:', error);
-            alert('Erro ao criar o quarto. Por favor, tente novamente.');
+        } catch (error: any) {
+            console.error('Erro ao criar quarto:', error.response?.data || error);
+            alert(`Erro ao criar o quarto: ${JSON.stringify(error.response?.data)}`);
         }
     };
-
+    
     const handleDelete = async (roomId: number) => {
         if (window.confirm('Tem certeza que deseja excluir este quarto?')) {
             try {
@@ -220,16 +221,17 @@ export function GerenciaQuartos() {
                                     />
                                 </div><br></br>
                                 <div className="input">
-                                    <label htmlFor="daily_rate">Taxa Diária (R$):</label>
-                                    <input
-                                        type="number"
-                                        name="daily_rate"
-                                        value={formData.daily_rate}
+                                    <label htmlFor="cooling_type">Tipo de Ventilação:</label>
+                                    <select
+                                        name="cooling_type"
+                                        value={formData.cooling_type}
                                         onChange={handleInputChange}
-                                        min="0"
-                                        step="0.01"
                                         required
-                                    />
+                                        style={{width:"109%",height:"30px"}}
+                                    > 
+                                    <option value="AR_CONDICIONADO">Ar Condicionado</option>
+                                    <option value="VENTILADOR">Ventilador</option>
+                                    </select>
                                 </div><br></br>
 
                                 <div className="input">
@@ -278,14 +280,15 @@ export function GerenciaQuartos() {
                                         <p className="numero">
                                             <strong>Número</strong> {room.name}
                                         </p>
-                                        <p className="tipo">
-                                            <strong>Tipo</strong> {room.room_type}
-                                        </p>
-                                        <p className="capacidade">
+                                        
+                                        <p className="capacidade" style={{marginLeft:"3%"}}>
                                             <strong>Capacidade</strong> {room.capacity}.Pessoas
                                         </p>
-                                        <p className="diaria">
-                                            <strong>Diária</strong> R$.{Number(room.daily_rate).toFixed(2)}
+                                        <p className="tipo" style={{marginLeft:"3%"}}>
+                                            <strong>Tipo</strong> {room.room_type}
+                                        </p>
+                                        <p className="ventilacao" style={{marginLeft:"3%"}}>
+                                            <strong>Ventilação</strong> {room.cooling_type}
                                         </p>
                                           {/* <p className="disponivel">
                                             <strong>Disponível:</strong> {room.is_available ? 'Sim' : 'Não'}
