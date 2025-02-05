@@ -55,59 +55,7 @@ export function GerenciaReservas() {
     const itemsPerPage = 5;
 
 
-{/*    const roomRates: Record<number, number> = {
-        1: 80,    // Individual
-        2: 150,   // Duplo
-        3: 200,   // Triplo
-        4: 250,   // Quádruplo
-        5: 300,   // Quíntuplo
-        6: 350    // Sêxtuplo
-    };
-    
-     // Função para calcular a diária correta com base no número de pessoas
-    const calcularDiaria = (numPeople: number, roomCapacity: number) => {
-        if (numPeople === 1) return 80;
 
-        const diariaAjustada = roomRates[numPeople] || roomRates[roomCapacity];
-        
-        return diariaAjustada;
-    };
-    
- 
-    const handleNumPeopleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(e.target.value, 10);
-        if (value > 0 && value <= reservationData.room.capacity) {
-            const novaDiaria = calcularDiaria(value, reservationData.room.capacity);
-            
-            setReservationData((prevData) => ({
-                ...prevData,
-                num_people: value,
-                total_price: novaDiaria // Atualiza o preço da diária
-            }));
-        }
-    };
-
-
-
-const handleRoomChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedRoom = rooms.find((room) => room.id === parseInt(e.target.value));
-    if (selectedRoom) {
-        const novaDiaria = calcularDiaria(reservationData.num_people, selectedRoom.capacity);
-        
-        setReservationData((prevData) => ({
-            ...prevData,
-            room: selectedRoom,
-            total_price: novaDiaria // Atualiza a diária ao selecionar o quarto
-        }));
-    }
-};
-    
-const resolveNumPeople = (reservationId: number) => {
-    const reservation = reservations.find((res) => res.id === reservationId);
-    return reservation ? reservation.num_people : 0;
-};
-    */}
- 
     
    
 
