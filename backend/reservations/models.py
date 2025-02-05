@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from decimal import Decimal
 from datetime import date
 
-
 class Reservation(models.Model):
     STATUS_CHOICES = [
         ("CONFIRMADA", "Confirmada"),
@@ -15,25 +14,20 @@ class Reservation(models.Model):
     room = models.ForeignKey("rooms.Room", on_delete=models.CASCADE)
     check_in = models.DateField()
     check_out = models.DateField()
-    payment_status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default="PENDENTE"
-    )
-    total_price = models.DecimalField(
-        max_digits=10, decimal_places=2, blank=True, null=True
-    )
+    number_of_guests = models.PositiveIntegerField(default=1)
+    number_of_children = models.PositiveIntegerField(default=0) 
+    daily_rate = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    payment_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="PENDENTE")
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     extra_charges = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-    extra_details = models.TextField(
-        blank=True, null=True
-    )  # Para registrar detalhes dos itens consumidos
-    
+    extra_details = models.TextField(blank=True, null=True)
 
     def delete(self, *args, **kwargs):
-        # devolve a disponibilidade do quarto
+        # Devolve a disponibilidade do quarto
         if self.room:
             self.room.is_available = True
             self.room.save()
         super().delete(*args, **kwargs)
-
 
     def save(self, *args, **kwargs):
         if self.check_in < date.today():
@@ -50,15 +44,15 @@ class Reservation(models.Model):
 
         # Calcula o preço total
         total_days = (self.check_out - self.check_in).days
-        room_price = total_days * self.room.daily_rate if total_days > 0 else 0
-        self.total_price = room_price + Decimal(self.extra_charges)
+        adult_price = self.daily_rate * (self.number_of_guests - self.number_of_children)
+        child_price = (self.daily_rate * Decimal(0.5)) * self.number_of_children
+        self.total_price = (adult_price + child_price) * total_days + Decimal(self.extra_charges)
 
         # Atualiza a disponibilidade do quarto
         self.room.is_available = False
         self.room.save()
 
         super().save(*args, **kwargs)
-
 
     def __str__(self):
         return f"Reserva de {self.guest.name} no quarto {self.room.name} ({self.check_in} a {self.check_out})"

@@ -1,7 +1,6 @@
 #rooms/models.py
 from django.db import models
 from reservations.models import Reservation
-
 class Room(models.Model):
     ROOM_TYPES = [
         ('SIMPLES', 'Individual (1)'),
@@ -10,17 +9,21 @@ class Room(models.Model):
         ('QUADRUPLO', 'Quadruplo (4)'),
         ('QUINTUPLO', 'Quintuplo (5)'),
         ('SEXTUPLO', 'Sextuplo (6)'),
-        
+    ]
+    
+    COOLING_CHOICES = [
+        ('AR_CONDICIONADO', 'Ar-condicionado'),
+        ('VENTILADOR', 'Ventilador'),
     ]
     
     name = models.CharField(max_length=255)
     room_type = models.CharField(max_length=10, choices=ROOM_TYPES)
+    cooling_type = models.CharField(max_length=15, choices=COOLING_CHOICES, default=1)  # Ar-condicionado ou ventilador
     capacity = models.PositiveIntegerField()
-    daily_rate = models.DecimalField(max_digits=10, decimal_places=2)
     is_available = models.BooleanField(default=True)
     
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.get_room_type_display()} ({self.get_cooling_type_display()})"
     
     def is_available_for_period(self, check_in, check_out):
         overlapping_reservation = Reservation.objects.filter(

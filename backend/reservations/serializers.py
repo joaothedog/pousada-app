@@ -27,28 +27,31 @@ class ReservationItemSerializer(serializers.ModelSerializer):
 
 
 class ReservationSerializer(serializers.ModelSerializer):
-    # Para leitura: inclui detalhes do hóspede e do quarto
     guest_details = GuestSerializer(source="guest", read_only=True)
     room_details = RoomSerializer(source="room", read_only=True)
-
-    # Para escrita: permite enviar os IDs de guest e room
     guest = serializers.PrimaryKeyRelatedField(queryset=Guest.objects.all())
     room = serializers.PrimaryKeyRelatedField(queryset=Room.objects.all())
-
     consumed_items = ReservationItemSerializer(many=True, read_only=True)
-
 
     def validate(self, data):
         room = data["room"]
         check_in = data["check_in"]
         check_out = data["check_out"]
+        number_of_guests = data.get("number_of_guests", 1)
+        number_of_children = data.get("number_of_children", 0)
 
         if check_in < date.today():
             raise serializers.ValidationError(
                 "A data de check-in deve ser a partir de hoje ou uma data futura."
             )
 
-        # Exclui a reserva atual da verificação (caso seja uma edição)
+        # Verifica se o número de hóspedes não excede a capacidade do quarto
+        if number_of_guests > room.capacity:
+            raise serializers.ValidationError(
+                f"O quarto {room.name} suporta no máximo {room.capacity} hóspedes."
+            )
+
+        # Verifica se há reservas conflitantes
         overlapping_reservations = Reservation.objects.filter(
             room=room, check_in__lt=check_out, check_out__gt=check_in
         )
@@ -72,13 +75,12 @@ class ReservationSerializer(serializers.ModelSerializer):
             "room_details",
             "check_in",
             "check_out",
+            "number_of_guests",
+            "number_of_children",
+            "daily_rate",
             "payment_status",
             "total_price",
             "extra_charges",
             "extra_details",
             "consumed_items",
         ]
-
-    def create(self, validated_data):
-        # Criação da reserva com os dados validados
-        return Reservation.objects.create(**validated_data)
