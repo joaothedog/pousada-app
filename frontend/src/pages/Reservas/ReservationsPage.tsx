@@ -38,7 +38,6 @@ export function GerenciaReservas() {
         extra_charges: 0,
         extra_details: '',
         consumed_items: [],
-        num_people: 1, 
     });
     
     
@@ -56,8 +55,7 @@ export function GerenciaReservas() {
     const itemsPerPage = 5;
 
 
-
-    const roomRates: Record<number, number> = {
+{/*    const roomRates: Record<number, number> = {
         1: 80,    // Individual
         2: 150,   // Duplo
         3: 200,   // Triplo
@@ -66,7 +64,7 @@ export function GerenciaReservas() {
         6: 350    // Sêxtuplo
     };
     
-    // Função para calcular a diária correta com base no número de pessoas
+     // Função para calcular a diária correta com base no número de pessoas
     const calcularDiaria = (numPeople: number, roomCapacity: number) => {
         if (numPeople === 1) return 80;
 
@@ -79,13 +77,15 @@ export function GerenciaReservas() {
     const handleNumPeopleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value, 10);
         if (value > 0 && value <= reservationData.room.capacity) {
+            const novaDiaria = calcularDiaria(value, reservationData.room.capacity);
+            
             setReservationData((prevData) => ({
                 ...prevData,
-                num_people: value, // Salva o número de pessoas corretamente
+                num_people: value,
+                total_price: novaDiaria // Atualiza o preço da diária
             }));
         }
     };
-    
 
 
 
@@ -101,6 +101,15 @@ const handleRoomChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         }));
     }
 };
+    
+const resolveNumPeople = (reservationId: number) => {
+    const reservation = reservations.find((res) => res.id === reservationId);
+    return reservation ? reservation.num_people : 0;
+};
+    */}
+ 
+    
+   
 
 
   useEffect(() => {
@@ -217,7 +226,6 @@ const handleRoomChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
                 extra_charges: reservationData.extra_charges,
                 extra_details: reservationData.extra_details,
                 consumed_items: [],
-                
             };
     
             const newReservation = await createReservation(reservationPayload);
@@ -381,10 +389,6 @@ const resolveRoomCapacity = (roomId: number) => {
 
 
 
-const resolveNumPeople = (reservationId: number) => {
-    const reservation = reservations.find((res) => res.id === reservationId);
-    return reservation ? reservation.num_people : 0;
-};
 
 
   
@@ -487,7 +491,7 @@ const resolveNumPeople = (reservationId: number) => {
                                     <select
                                         name="room"
                                         value={reservationData.room.id}
-                                        onChange={handleRoomChange}
+                                        onChange={handleInputChange}
                                         required
                                         style={{width:"109%",height:"30px"}}
                                     >
@@ -504,13 +508,14 @@ const resolveNumPeople = (reservationId: number) => {
                                <input
                                 type="number"
                                 name="num_people"
-                                min="1"
-                                max={reservationData.room.capacity} // Limita ao máximo permitido pelo quarto
-                                value={reservationData.num_people || ""}
-                                onChange={handleNumPeopleChange}
+                                min="1"  
                             required
                             style={{ width: "100%", height: "17px" }}
                              />
+                              {/*max={reservationData.room.capacity} // Limita ao máximo permitido pelo quarto
+                                value={reservationData.num_people || ""}
+                                onChange={handleNumPeopleChange} */}
+                                
                             </div><br></br>
 
                                 <div className="input" style={{ marginLeft: "60%" }}>
@@ -627,7 +632,7 @@ const resolveNumPeople = (reservationId: number) => {
                                 <strong>Capacidade:</strong> {resolveRoomCapacity(reservation.room as unknown as number)} pessoas
                             </p>
                             <p>
-                            <strong>Presentes:</strong> {resolveNumPeople(reservation.id as unknown as number)}
+                            <strong>Presentes:</strong> 
                             </p>
 
                           

@@ -38,7 +38,7 @@ export interface Reservation {
     extra_charges: number;
     extra_details?: string;
     consumed_items?: ReservationItem[];
-    num_people: number; 
+    
 }
 
 export interface ReservationItem {
