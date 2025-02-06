@@ -46,9 +46,10 @@ export function GerenciaQuartos() {
     const [guests, setGuests] = useState<Guest[]>([]);
     const [selectedRoomReservations, setSelectedRoomReservations] = useState<Reservation[] | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedRoomType, setSelectedRoomType] = useState<string | null>(null);
     
 
-  
+  //usado para carregar os dados ao entrar na página
     useEffect(() => {
         carregarQuartos();
         carregarReservas();
@@ -67,7 +68,7 @@ export function GerenciaQuartos() {
             setLoading(false);
         }
     };
-
+   //carregar as reservas no modal
     const carregarReservas = async () => {
         try {
             const data = await getReservations();
@@ -103,36 +104,36 @@ export function GerenciaQuartos() {
         });
     };
 
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const query = e.target.value.toLowerCase(); // Converte tudo para minúsculo para busca case-insensitive
-        setSearchQuery(query);
-  
-    
-        if (!query.trim()) {
-            setFilteredRooms(rooms); // Se a pesquisa estiver vazia, mostrar todos os quartos
-        } else {
-            // Filtra quartos pelo número (name) ou tipo (room_type)
-            const filtered = rooms.filter(room => 
-                room.name.toLowerCase().includes(query) || 
-                room.room_type.toLowerCase().includes(query)
-            );
-            setFilteredRooms(filtered);
-        }
-    };
-    
+// filtrar as buscas por searchterm e buttons
+useEffect(() => {
+    let updatedRooms = rooms;
 
-    const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            if (searchName.trim() === '') {
-                setFilteredRooms(rooms);
-            } else {
-                setFilteredRooms(rooms.filter((room) => 
-                    room.name.toLowerCase().includes(searchName.toLowerCase())
-                ));
-            }
-        }
+    if (selectedRoomType) {
+        updatedRooms = updatedRooms.filter(room => 
+            room.room_type.toLowerCase() === selectedRoomType.toLowerCase()
+        );
+    }
+
+    if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase();
+        updatedRooms = updatedRooms.filter(room =>
+            room.name.toLowerCase().includes(query) ||
+            room.room_type.toLowerCase().includes(query)
+        );
+    }
+
+    setFilteredRooms(updatedRooms);
+}, [selectedRoomType, searchQuery, rooms]);
+
+// Manipular mudança no input de pesquisa
+const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+};
+
+    const handleFilterRoomType = (roomType:any) => {
+        setSelectedRoomType(roomType); // Atualiza o estado do tipo de quarto
     };
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -267,8 +268,17 @@ export function GerenciaQuartos() {
                             placeholder="Buscar por Número ou Tipo..."
                             value={searchQuery}
                             onChange={handleSearchChange}
-                            onKeyDown={handleSearch}
+                           
                         />
+                    </div><br></br>
+                    <div className="filters-reservation">
+                    <button onClick={() => handleFilterRoomType(null)}>Todos</button>
+                    <button onClick={() => handleFilterRoomType("SIMPLES")}>Simples</button>
+                    <button onClick={() => handleFilterRoomType("DUPLO")}>Duplo</button>
+                    <button onClick={() => handleFilterRoomType("TRIPLO")}>Triplo</button>
+                    <button onClick={() => handleFilterRoomType("QUADRUPLO")}>Quádruplo</button>
+                    <button onClick={() => handleFilterRoomType("QUINTUPLO")}>Quíntuplo</button>
+                    <button onClick={() => handleFilterRoomType("SEXTUPLO")}>Sêxtuplo</button>
                     </div>
                     {loading ? (
                         <p>Carregando quartos...</p>
@@ -290,10 +300,7 @@ export function GerenciaQuartos() {
                                         <p className="ventilacao" style={{marginLeft:"3%"}}>
                                             <strong>Ventilação</strong> {room.cooling_type}
                                         </p>
-                                          {/* <p className="disponivel">
-                                            <strong>Disponível:</strong> {room.is_available ? 'Sim' : 'Não'}
-                                        </p>  */}
-                                       
+                                      
                                     </div>
                                     <div className='buttons'>
                                        <TbListDetails 

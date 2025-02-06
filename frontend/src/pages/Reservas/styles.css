@@ -177,7 +177,7 @@
 
   .gastosex{
     margin-left: 60%;
-    margin-top: -80%;
+    margin-top: -85%;
   }
 
   .gasto-titulo{
@@ -186,10 +186,10 @@
 
 
   .divider-vertical-reservation{
-    margin-top: -59%;
+    margin-top: -68%;
     width: 1px;
     margin-left: 47%;
-    height: 400px;
+    height: 440px;
     background-color: #ccc;
     
   }
@@ -220,7 +220,7 @@
     margin-top: -5%;
     margin-left: -14%;
     min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
-    height: 175px; /* Limita a altura da lista para não empurrar o preço total */
+    height: 220px; /* Limita a altura da lista para não empurrar o preço total */
     overflow-y: auto; /* Garante que o scroll sempre apareça */
     border: 1px solid #ccc; /* Opcional: Adiciona um contorno para melhor visualização */
     padding: 5px;
@@ -246,4 +246,21 @@
       transform: scale(1.1);
       color: black;
     }
+}
+.filters-reservation{
+  margin-left: 5%;
+}
+
+.filters-reservation button{
+  cursor: pointer;
+   width: 10.5%;
+   height: 1.5rem;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
 }

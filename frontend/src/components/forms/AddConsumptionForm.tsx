@@ -72,10 +72,10 @@ const AddConsumptionForm: React.FC<AddConsumptionFormProps> = ({
             total_price: selectedItem.price * itemQuantity,
         };
     
-        console.log("Enviando payload:", payload); // 🔥 Debug para verificar os dados enviados
+        console.log("Enviando payload:", payload); //  Debug para verificar os dados enviados
     
         try {
-            // 🔥 Adiciona o item consumido na reserva e atualiza o estoque no backend
+            //  Adiciona o item consumido na reserva e atualiza o estoque no backend
             const response = await createReservationItem(payload);
             const newItem = response.data;
     
@@ -83,10 +83,10 @@ const AddConsumptionForm: React.FC<AddConsumptionFormProps> = ({
     
             alert("Item adicionado com sucesso!");
     
-            // 🔥 Atualiza o estado local para exibir o item consumido na UI
+            //  Atualiza o estado local para exibir o item consumido na UI
             setSelectedItems((prev) => [...prev, newItem]);
     
-            // 🔥 Atualiza a reserva para exibir os itens consumidos corretamente
+            //  Atualiza a reserva para exibir os itens consumidos corretamente
             const updatedReservation = await getReservationById(reservationData.id);
             setReservationData(updatedReservation.data);
             setSelectedItems(updatedReservation.data.consumed_items || []);
@@ -114,7 +114,7 @@ const AddConsumptionForm: React.FC<AddConsumptionFormProps> = ({
         };
     
         fetchReservationData();
-    }, [reservationId, selectedItems]); // 🔥 Agora, o efeito roda sempre que um item for adicionado.
+    }, [reservationId, selectedItems]); //  Agora, o efeito roda sempre que um item for adicionado.
     
     
     
@@ -125,7 +125,7 @@ const AddConsumptionForm: React.FC<AddConsumptionFormProps> = ({
         
             {/* Seleção de itens da recepção */}
             
-            <select onChange={handleItemSelect} value={selectedItem?.id || ''} style={{marginLeft:"3%"}}>
+            <select onChange={handleItemSelect} value={selectedItem?.id || ''} style={{marginLeft:"3%",width:"170px"}}>
                 <option value="">Selecione um item</option>
                 {inventoryItems.map((item) => (
                     <option key={item.id} value={item.id}>

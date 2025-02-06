@@ -65,7 +65,13 @@ export function GerenciaReservas() {
     const [DetalhesSelecionados, setDetalhesSelecionados] = useState<any | null>(null);
     const [isAddingConsumption, setIsAddingConsumption] = useState<boolean>(false); 
     const [selectedGuestId, setSelectedGuestId] = useState<number | null>(null); // ID do hóspede selecionado
-    
+    const [selectedRoomType, setSelectedRoomType] = useState<string | null>(null);
+
+
+
+
+
+    //função para calcular o preço total
     const resolveTotalPrice = (reservation: Reservation) => {
         if (!reservation) return "Não disponível";
     
@@ -109,9 +115,7 @@ export function GerenciaReservas() {
     };
     
     
-    
-    
-
+//usado para carregar os items no modal 
   useEffect(() => {
     const fetchInventoryItems = async () => {
         try {
@@ -130,36 +134,7 @@ export function GerenciaReservas() {
 }, []);
 
 
- useEffect(() => {
-        carregarDados();
-    }, []);
 
-
-    const carregarDados = async () => {
-            setLoading(true);
-            try {
-                const data = await getReservations();
-                setReservations(data);
-                setFilteredReservations(data);
-            } catch (error) {
-                console.error('Erro ao carregar hóspedes:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-   
-       useEffect(() => {
-           const fetchRooms = async () => {
-               try {
-                   const roomsData = await getRooms();
-                   setRooms(roomsData);
-               } catch (error) {
-                   console.error('Erro ao carregar dados:', error);
-               }
-           };
-   
-           fetchRooms();
-       }, []);
    
        const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -288,8 +263,8 @@ export function GerenciaReservas() {
     
 
 
-
- useEffect(() => {
+ //useEffect feito para carregar os dados 
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 const [reservationsData, guestsData, roomsData] = await Promise.all([
@@ -323,34 +298,52 @@ export function GerenciaReservas() {
         const room = rooms.find((r) => r.id === roomId);
         return room ? room.name.toLowerCase() : '';
     };
-
+    const getRoomType = (roomId: any) => {
+        const room = rooms.find((r) => r.id === roomId);
+        return room ? room.room_type.toLowerCase() : '';
+    };
+    
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
     };
+    
 
+    //useEffect para que a busca seja filtrada tanto pelo searchterm (buscador) quanto pelo roomtype (buttons)
     useEffect(() => {
-        if (!searchTerm.trim()) {
+        if (!searchTerm.trim() && !selectedRoomType) {
             setFilteredReservations(reservations);
             return;
         }
-
+    
         const searchLower = searchTerm.toLowerCase();
+        const formattedSearchTerm = searchTerm.replace(/\//g, '-').toLowerCase();
+    
         setFilteredReservations(
             reservations.filter((reservation) => {
-                const guestName = getGuestName(reservation.guest);
-                const roomNumber = getRoomName(reservation.room);
+                const guestName = getGuestName(reservation.guest).toLowerCase();
+                const roomNumber = getRoomName(reservation.room).toLowerCase();
+                const roomType = getRoomType(reservation.room).toLowerCase();
                 const checkInDate = reservation.check_in.replace(/\//g, '-').toLowerCase();
-                const formattedSearchTerm = searchTerm.replace(/\//g, '-').toLowerCase();
-                
-                return (
-                    guestName.includes(searchLower) ||
-                    roomNumber.includes(searchLower) ||
-                    checkInDate.includes(formattedSearchTerm)
-                );
+    
+                const matchesSearchTerm =
+                    searchLower &&
+                    (roomType.includes(searchLower) ||
+                     guestName.includes(searchLower) ||
+                     roomNumber.includes(searchLower) ||
+                     checkInDate.includes(formattedSearchTerm));
+    
+                const matchesRoomType = selectedRoomType
+                    ? roomType === selectedRoomType.toLowerCase()
+                    : true;
+    
+                return matchesRoomType && (!searchTerm.trim() || matchesSearchTerm);
             })
         );
-    }, [searchTerm, reservations, guests, rooms]);
+    }, [searchTerm, selectedRoomType, reservations, guests, rooms]);
     
+    const handleFilterRoomType = (roomType:any) => {
+        setSelectedRoomType(roomType); // Atualiza o estado do tipo de quarto
+    };
     
 
    
@@ -469,7 +462,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                      value={selectedGuestId || ""}
                                      onChange={handleInputChange}
                                     
-                                     style={{width:"246%",height:"30px"}}
+                                     style={{width:"105%",height:"30px"}}
                                      >
                                         <option value="">Selecione um Hóspede</option>
                                         {guests.map((guest) => (
@@ -534,7 +527,19 @@ const resolveDailyRate = (reservation: Reservation) => {
                                   />
                                  </div>
                                 <br></br>
-                                <div className="input" style={{marginLeft:"60%",marginTop:"-116.5%"}}>
+                                <div className="input" style={{ marginLeft: "60%",marginTop:"-140%" }}>
+                               <label htmlFor="number_of_guests">Quantidade de Pessoas:</label>
+                                <input
+                                 type="number"
+                                 name="number_of_guests"
+                                 min="0"
+                                 value={reservationData.number_of_guests}  
+                                 onChange={handleInputChange} 
+                                 style={{ width: "103%", height: "17px" }}
+                                  />
+                                 </div>
+                                <br></br>
+                                <div className="input" style={{marginLeft:"60%"}}>
                                     <label htmlFor="check_in">Data de Check-in:</label>
                                     <input
                                         type="date"
@@ -556,18 +561,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                         style={{width:"103%"}}
                                     />
                                 </div><br></br>
-                                <div className="input" style={{ marginLeft: "60%" }}>
-                               <label htmlFor="number_of_guests">Número de Hóspedes:</label>
-                                <input
-                                 type="number"
-                                 name="number_of_guests"
-                                 min="0"
-                                 value={reservationData.number_of_guests}  
-                                 onChange={handleInputChange} 
-                                 style={{ width: "100%", height: "17px" }}
-                                  />
-                                 </div>
-                                <br></br>
+                                
                                 <div className="input" style={{marginLeft:"60%"}}>
                                     <label htmlFor="room">Quarto:</label>
                                     <select
@@ -641,11 +635,21 @@ const resolveDailyRate = (reservation: Reservation) => {
                     <div className="search-bar">
                         <input
                             type="text"
-                            placeholder="Buscar por Nome ou Quarto..."
+                            placeholder="Buscar..."
                             value={searchTerm}
                             onChange={handleSearchChange}
                         />
+                    </div><br></br>
+                    <div className="filters-reservation">
+                    <button onClick={() => handleFilterRoomType(null)}>Todos</button>
+                    <button onClick={() => handleFilterRoomType("SIMPLES")}>Simples</button>
+                    <button onClick={() => handleFilterRoomType("DUPLO")}>Duplo</button>
+                    <button onClick={() => handleFilterRoomType("TRIPLO")}>Triplo</button>
+                    <button onClick={() => handleFilterRoomType("QUADRUPLO")}>Quádruplo</button>
+                    <button onClick={() => handleFilterRoomType("QUINTUPLO")}>Quíntuplo</button>
+                    <button onClick={() => handleFilterRoomType("SEXTUPLO")}>Sêxtuplo</button>
                     </div>
+
                     {loading ? (
                         <p>Carregando reservas...</p>
                     ) : (

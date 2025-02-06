@@ -80,7 +80,7 @@ export function GerenciaInventario() {
         fetchData();
     }, []);
     
-    
+    //adicionar as baixas no estoque
     const fetchInventoryConsumptions = async () => {
         try {
             const consumptionData = await getInventoryConsumptions();
@@ -90,7 +90,7 @@ export function GerenciaInventario() {
                         acc[item.item] = [];
                     }
                     acc[item.item].push({
-                        id: item.id, // 🔥 Adicionando o ID
+                        id: item.id, 
                         quantity: item.quantity,
                         date: item.consumed_at,
                     });
@@ -223,7 +223,7 @@ export function GerenciaInventario() {
     };
     
     
-    
+    //usado para apagar e remover a baixa (desfazendo)
     const handleDeleteReduction = async (itemId: number, reductionIndex: number) => {
         const reductionToRemove = reductions[itemId][reductionIndex];
     

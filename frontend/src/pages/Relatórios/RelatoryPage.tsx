@@ -34,32 +34,8 @@ export function RelatoryPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
 
-  {/* // Estado para paginação
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 27; 
-    //**Paginação (somente se não houver pesquisa ativa)**
-  const totalPages = Math.ceil(filteredReservations.length / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = searchQuery ? filteredReservations : filteredReservations.slice(indexOfFirstItem, indexOfLastItem);
-  
-    
-    <div className="pagination">
-    <VscArrowCircleLeft 
-        className='pagina-relatory'
-        onClick={() => setCurrentPage((prev) => prev - 1)}
-        />
-      <span style={{color:"ghostwhite"}}>--------</span>
-      
-      <VscArrowCircleRight 
-        className='pagina-relatory'
-        onClick={() => setCurrentPage((prev) => prev + 1)}
-        />
-      
-    </div>
-  */}
  
-
+// usado para carregar os dados ao entrar na página
   useEffect(() => {
     carregarReservas();
     carregarHospedes();
@@ -120,6 +96,7 @@ export function RelatoryPage() {
     
   };
 
+//usado para filtrar a buscar no searchterm
   useEffect(() => {
     if (!searchQuery.trim()) {
       setFilteredReservations(reservations);
