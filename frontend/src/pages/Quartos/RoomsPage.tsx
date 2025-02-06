@@ -283,17 +283,14 @@ const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                     {loading ? (
                         <p>Carregando quartos...</p>
                     ) : (
-                        <Container>
+                        <Container >
                             {filteredRooms.map((room) => (
-                                <Containerr key={room.id} className="banner" isAvailable={room.is_available}>
+                                <Containerr key={room.id} className="banner-rooms" isAvailable={room.is_available}>
                                     <div className="row">
                                         <p className="numero">
                                             <strong>Número</strong> {room.name}
                                         </p>
                                         
-                                        <p className="capacidade" style={{marginLeft:"3%"}}>
-                                            <strong>Capacidade</strong> {room.capacity}.Pessoas
-                                        </p>
                                         <p className="tipo" style={{marginLeft:"3%"}}>
                                             <strong>Tipo</strong> {room.room_type}
                                         </p>
@@ -304,12 +301,12 @@ const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                                     </div>
                                     <div className='buttons'>
                                        <TbListDetails 
-                                           className='detail' 
+                                           className='detail-room' 
                                            size={20} 
                                            onClick={() => handleShowRoomDetails(room.id)} 
                                        />
                                        <FaTrashAlt 
-                                           className='lixo' 
+                                           className='lixo-room' 
                                            size={20} 
                                            onClick={() => handleDelete(room.id)} 
                                        />
@@ -327,13 +324,13 @@ const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 {/*Modal para exibir reservas relacionadas ao quarto selecionado*/}
                 {selectedRoomReservations && (
                     <div className="modal-overlay" onClick={handleCloseModal}>
-                        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-content-rooms" onClick={(e) => e.stopPropagation()}>
                             <div className='faixa'>
                             <h2   style={{marginTop:"1%"}}>Reservas Relacionadas</h2>
                             </div>
                             
                             {selectedRoomReservations.length > 0 ? (
-                                <ul style={{height:"200px",minHeight:"90px",overflowY:"auto"}} >
+                                <ul style={{height:"200px",minHeight:"140px",overflowY:"auto"}} >
                                     {selectedRoomReservations.map((reservation) => (
                                         <li key={reservation.id} style={{marginTop:"10px"}}>
                                             <strong>Hóspede:</strong> {getGuestName(reservation.guest)} -

@@ -453,16 +453,16 @@ const resolveDailyRate = (reservation: Reservation) => {
                     {/*Aba de cadastro dos cards das reservas */}
                     <h1>Cadastrar Reserva</h1>
                     <form onSubmit={handleSubmit}>
-                        <div className="cadastro">
+                        <div className="cadastro-reservation">
                             <div className="row">
-                            <div className="input" style={{marginLeft:"-50%",marginTop:"-1%"}}>
+                            <div className="input" style={{marginLeft:"-20%",marginTop:"-1%"}}>
                                     <label htmlFor="Guest">Hóspede  Existente:</label>
                                     <select 
                                      name="existingGuest" 
                                      value={selectedGuestId || ""}
                                      onChange={handleInputChange}
                                     
-                                     style={{width:"105%",height:"30px"}}
+                                     style={{width:"90%",height:"30px"}}
                                      >
                                         <option value="">Selecione um Hóspede</option>
                                         {guests.map((guest) => (
@@ -472,7 +472,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                         ))}
                                     </select>
                                 </div><br></br>
-                                <div className="input" style={{marginLeft:"-50%"}}>
+                                <div className="input" style={{marginLeft:"-20%"}}>
                                     <label htmlFor="guest.name">Nome do Hóspede:</label>
                                     <input
                                         type="text"
@@ -480,9 +480,10 @@ const resolveDailyRate = (reservation: Reservation) => {
                                         value={reservationData.guest.name}
                                         onChange={handleInputChange}
                                         required
+                                        style={{width:"84%",}}
                                     />
                                 </div><br></br>
-                                <div className="input" style={{marginLeft:"-50%"}}>
+                                <div className="input" style={{marginLeft:"-20%"}}>
                                     <label htmlFor="guest.cpf">CPF:</label>
                                     <input
                                         type="text"
@@ -490,9 +491,10 @@ const resolveDailyRate = (reservation: Reservation) => {
                                         value={reservationData.guest.cpf}
                                         onChange={handleInputChange}
                                         required
+                                        style={{width:"84%",}}
                                     />
                                 </div><br></br>
-                                <div className="input" style={{marginLeft:"-50%"}}>
+                                <div className="input" style={{marginLeft:"-20%"}}>
                                     <label htmlFor="guest.phone">Telefone:</label>
                                     <input
                                         placeholder='ex:(77)78898989'
@@ -501,10 +503,11 @@ const resolveDailyRate = (reservation: Reservation) => {
                                         value={reservationData.guest.phone}
                                         onChange={handleInputChange}
                                         required
+                                        style={{width:"84%",}}
                                     />
                                 </div><br></br>
                                 
-                                <div className="input" style={{marginLeft:"-50%"}}>
+                                <div className="input" style={{marginLeft:"-20%"}}>
                                     <label htmlFor="guest.email">Email:</label>
                                     <input
                                         placeholder='ex:@email.com'
@@ -513,9 +516,10 @@ const resolveDailyRate = (reservation: Reservation) => {
                                         value={reservationData.guest.email}
                                         onChange={handleInputChange}
                                         required
+                                        style={{width:"84%",}}
                                     />
                                 </div><br></br>
-                                <div className="input" style={{ marginLeft: "-50%" }}>
+                                <div className="input" style={{ marginLeft: "-20%" }}>
                                <label htmlFor="number_of_children">Crianças (10 a 12 anos):</label>
                                 <input
                                  type="number"
@@ -523,7 +527,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                  min="0"
                                  value={reservationData.number_of_children}  
                                  onChange={handleInputChange} 
-                                 style={{ width: "100%", height: "17px" }}
+                                 style={{ width: "84%", height: "17px" }}
                                   />
                                  </div>
                                 <br></br>
@@ -535,7 +539,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                  min="0"
                                  value={reservationData.number_of_guests}  
                                  onChange={handleInputChange} 
-                                 style={{ width: "103%", height: "17px" }}
+                                 style={{ width: "84%", height: "17px" }}
                                   />
                                  </div>
                                 <br></br>
@@ -547,7 +551,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                         value={reservationData.check_in}
                                         onChange={handleInputChange}
                                         required
-                                        style={{width:"103%"}}
+                                        style={{width:"84%"}}
                                     />
                                 </div><br></br>
                                 <div className="input" style={{marginLeft:"60%"}}>
@@ -558,7 +562,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                         value={reservationData.check_out}
                                         onChange={handleInputChange}
                                         required
-                                        style={{width:"103%"}}
+                                        style={{width:"84%"}}
                                     />
                                 </div><br></br>
                                 
@@ -569,7 +573,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                         value={reservationData.room.id}
                                         onChange={handleInputChange}
                                         required
-                                        style={{width:"109%",height:"30px"}}
+                                        style={{width:"90%",height:"30px"}}
                                     >
                                         <option value="">Selecione um quarto</option>
                                         {rooms.map((room) => (
@@ -586,7 +590,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                  value={reservationData.daily_rate}
                                  onChange={handleInputChange}
                                  required
-                                 style={{ width: "109%", height: "30px" }}
+                                 style={{ width: "90%", height: "30px" }}
                                  >
                                <option value="">Selecione o preço</option>
                               {/* Iterar sobre os preços de AR_CONDICIONADO */}
@@ -612,7 +616,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                  value={reservationData.payment_status}
                                  onChange={handleInputChange}
                                  required
-                                 style={{ width: "109%", height: "30px" }}
+                                 style={{ width: "90%", height: "30px" }}
                                   >
                               <option value="CONFIRMADA">Cartão</option>
                               {/* por esta no backend setado (confirmada,cancelada,pedente) tive que usar cancelada para pix*/}
@@ -655,7 +659,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                     ) : (
                         <Container>
                             {filteredReservations.map((reservation) => (
-                                <Containerr key={reservation.id} className="banner">
+                                <Containerr key={reservation.id} className="banner-reservation">
                                     <div className="row">
                                         <p className="nomeReser" style={{ marginLeft: "10%",marginTop:"8%" }} >
                                             <strong>Hóspede</strong><br></br>  {resolveGuestName(reservation.guest as unknown as number)}
@@ -673,12 +677,12 @@ const resolveDailyRate = (reservation: Reservation) => {
                                     </div>
                                     <div className="buttons">
                                      <CgDetailsMore
-                                     className="details"
+                                     className="details-reservation"
                                      size={20}
                                     onClick={() => setDetalhesSelecionados(reservation)} // Define a reserva selecionada
                                     />
                                   <FaTrashAlt
-                                  className="lixeira"
+                                  className="lixeira-reservation"
                                   size={20}
                                  onClick={() => handleDelete(reservation.id)}
                                   />
@@ -692,8 +696,8 @@ const resolveDailyRate = (reservation: Reservation) => {
                 {/*Modal para exibir detalhes da reserva*/}
                 {DetalhesSelecionados && (
                 <div className="modal-overlay" onClick={handleFecharModal}>
-                <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                <div className='faixa'> 
+                <div className="modal-content-reservation" onClick={(e) => e.stopPropagation()}>
+                <div className='faixa-reservation'> 
                  <h2 style={{marginTop:"1%"}}>Detalhes da Reserva</h2>
                 </div>
            
@@ -778,7 +782,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                      <div className='divider-vertical-reservation'></div>
                      <div className="divider-horizontal-reservation">  </div>
             </div>
-            <button className='closeModal' onClick={handleFecharModal}>Fechar</button>
+            <button className='closeModal-reservation' onClick={handleFecharModal}>Fechar</button>
           </div>
           </div>
               )}

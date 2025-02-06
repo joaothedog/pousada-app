@@ -361,7 +361,7 @@ export function GerenciaInventario() {
                         <Container>
                             {filteredItems.length > 0 ? (
                                 filteredItems.map((item) => (
-                                    <Containerr key={item.id} className="banner">
+                                    <Containerr key={item.id} className="banner-inventory">
                                         <div className="row">
                                             <p className="nome">
                                                 <strong>Item</strong><br></br> {item.name}
@@ -377,9 +377,9 @@ export function GerenciaInventario() {
                                             </p>
 
                                             <div className="buttons-inv">
-                                                <FaPencil className='edit' size={20} onClick={() => handleOpenModal(item)} />
+                                                <FaPencil className='edit-inv' size={20} onClick={() => handleOpenModal(item)} />
                                                 <FaTrashAlt
-                                                    className="lixeira"
+                                                    className="lixeira-inv"
                                                     size={20}
                                                     onClick={() => handleDelete(item.id)}
                                                 />
@@ -467,7 +467,7 @@ export function GerenciaInventario() {
                                 onClick={() => handleDeleteReduction(selectedItem.id, index)}
                                  /> */}  
                              
-                                  <p style={{marginTop:"-9%",marginLeft:"17%"}}>
+                                  <p style={{marginLeft:"17%"}}>
                                   <strong>Data:</strong> {formatDate(reduction.date)} - <strong>Qntd:</strong> {reduction.quantity}
                                  </p>
                              </div>

@@ -1,6 +1,8 @@
-.cadastro {
+
+@media  (max-width: 1920px) and (max-height: 1080px) {
+  .cadastro-reservation {
     width: 100%;
-    margin-top: 6%;
+    margin-top: 4%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,7 +10,7 @@
   }
   
   
-  .cadastro .input {
+  .cadastro-reservation .input {
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -16,7 +18,7 @@
   }
   
   
-  .cadastro .input input {
+  .cadastro-reservation .input input {
     width: 100%;
     height: 1rem;
     padding: 5px;
@@ -57,7 +59,7 @@
   
   
   
-  .cadastro .submit {
+  .cadastro-reservation .submit {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -69,7 +71,7 @@
   
   
    .button-cadastro {
-    margin-top:15%;
+    margin-top:2% !important;
     font-size: 25px;
     width: 30%;
     height: 3rem;
@@ -113,7 +115,7 @@
   }
 
 
-  .details{
+  .details-reservation{
     transition: calc(0.3s);
     color:black;
     &:hover{
@@ -123,7 +125,7 @@
   }
 
   
-  .lixeira-re{
+  .lixeira-reservation{
     transition: calc(0.3s);
     color:black;
     &:hover{
@@ -146,21 +148,23 @@
     z-index: 1000;
 }
 
-.modal-content {
+.modal-content-reservation {
+  margin-top: 2%;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
     width: 90%;
+    height: 59% !important;
     max-width: 600px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
 
-.faixa {
+.faixa-reservation {
     position: relative;
     width: 96.7%;
-    height: 60px;
+    height: 45px;
     border-radius: 4px;
     background-color: #007bff;
     color: #fff;
@@ -177,7 +181,7 @@
 
   .gastosex{
     margin-left: 60%;
-    margin-top: -85%;
+    margin-top: -77% !important;
   }
 
   .gasto-titulo{
@@ -186,7 +190,7 @@
 
 
   .divider-vertical-reservation{
-    margin-top: -68%;
+    margin-top: -73%;
     width: 1px;
     margin-left: 47%;
     height: 440px;
@@ -204,7 +208,7 @@
 }
 
   .totalPrice{
-    margin-top:14%;
+    margin-top:  4% !important;
     margin-bottom: -20%;
     margin-left: 30%;
     
@@ -213,6 +217,7 @@
 
   .userdados{
     margin-left: 10%;
+    margin-top: 3% !important;
   }
 
 
@@ -228,9 +233,22 @@
     background-color: white;
 }
 
-.closeModal{
-
-  margin-top: 8%;
+.closeModal-reservation{
+   margin-top: 10%;
+  font-size: 18px;
+  margin-left:38%;
+  width: 20%;
+  height: 2rem;
+  border-radius: 5px;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+  
   
 }
 
@@ -264,3 +282,2676 @@
     background-color: #0056b3;
   }
 }
+
+.banner-reservation{
+  width: 70%;
+  height: 16% !important;
+  margin-left: -1.5%;
+}
+
+ 
+  }
+
+
+
+
+@media  (max-width: 1680px) and (max-height: 1050px) {
+  .cadastro-reservation {
+    width: 100%;
+    margin-top: 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .cadastro-reservation .input {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+  
+  
+  .cadastro-reservation .input input {
+    width: 100%;
+    height: 1rem;
+    padding: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  
+  .main2 {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
+  
+  
+  
+  .main2 .separator {
+    height: 100%;
+    width: 1px;
+    background-color: #ccc;
+  }
+  
+  
+  
+  .main2 .criar,
+  .main2 .gerenciar {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  
+  
+  .cadastro-reservation .submit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    align-items: center; /* Centraliza os filhos de .submit ao longo do eixo transversal */
+  }
+  
+  
+  
+   .button-cadastro {
+    margin-top:2% !important;
+    font-size: 25px;
+    width: 30%;
+    height: 3rem;
+    border-radius: 5px;
+    background:#007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .buttons {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 7%;
+    margin-left: 6%;
+   
+ 
+   
+
+
+  }
+
+  .buttons-re {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: -14%;
+    margin-left: -3%;
+   
+ 
+   
+
+
+  }
+
+
+  .details-reservation{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #007bff ;
+      cursor:pointer;
+    }
+  }
+
+  
+  .lixeira-reservation{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #800000;
+      cursor:pointer;
+    }
+ 
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content-reservation {
+  margin-top: 2%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    height: 59% !important;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+.faixa-reservation {
+    position: relative;
+    width: 96.7%;
+    height: 45px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0 30px;
+    margin-top: -9%;
+    margin-bottom: 0%;
+    margin-left: -3.2%;
+    /* Adicionei um espaço interno para melhorar a aparência */
+  }
+
+
+  .gastosex{
+    margin-left: 60%;
+    margin-top: -77% !important;
+  }
+
+  .gasto-titulo{
+    margin-left: 14%;
+  }
+
+
+  .divider-vertical-reservation{
+    margin-top: -73%;
+    width: 1px;
+    margin-left: 47%;
+    height: 440px;
+    background-color: #ccc;
+    
+  }
+
+
+  .divider-horizontal-reservation {
+    margin-top: 10%;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+  .totalPrice{
+    margin-top:  4% !important;
+    margin-bottom: -20%;
+    margin-left: 30%;
+    
+  }
+
+
+  .userdados{
+    margin-left: 10%;
+    margin-top: 3% !important;
+  }
+
+
+  .consumed-items-list {
+    margin-top: -5%;
+    margin-left: -14%;
+    min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
+    height: 220px; /* Limita a altura da lista para não empurrar o preço total */
+    overflow-y: auto; /* Garante que o scroll sempre apareça */
+    border: 1px solid #ccc; /* Opcional: Adiciona um contorno para melhor visualização */
+    padding: 5px;
+    width: 240px;
+    background-color: white;
+}
+
+.closeModal-reservation{
+   margin-top: 7%;
+  font-size: 18px;
+  margin-left:38%;
+  width: 20%;
+  height: 2rem;
+  border-radius: 5px;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+  
+  
+}
+
+
+.pagina-reservation{
+  font-size: 35px;
+    margin-top: 20%;
+    margin-left: -30%;
+    transition: 0.4s;
+    color: grey;
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.1);
+      color: black;
+    }
+}
+.filters-reservation{
+  margin-left: 5%;
+}
+
+.filters-reservation button{
+  cursor: pointer;
+   width: 10.5%;
+   height: 1.5rem;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.banner-reservation{
+  width: 90%;
+  height: 20% !important;
+  margin-left: -1.5%;
+}
+
+ 
+  }
+
+
+
+
+@media  (max-width: 1600px) and (max-height: 1024px) {
+  .cadastro-reservation {
+    width: 100%;
+    margin-top: 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .cadastro-reservation .input {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+  
+  
+  .cadastro-reservation .input input {
+    width: 100%;
+    height: 1rem;
+    padding: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  
+  .main2 {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
+  
+  
+  
+  .main2 .separator {
+    height: 100%;
+    width: 1px;
+    background-color: #ccc;
+  }
+  
+  
+  
+  .main2 .criar,
+  .main2 .gerenciar {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  
+  
+  .cadastro-reservation .submit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    align-items: center; /* Centraliza os filhos de .submit ao longo do eixo transversal */
+  }
+  
+  
+  
+   .button-cadastro {
+    margin-top:2% !important;
+    font-size: 25px;
+    width: 30%;
+    height: 3rem;
+    border-radius: 5px;
+    background:#007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .buttons {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 7%;
+    margin-left: 6%;
+   
+ 
+   
+
+
+  }
+
+  .buttons-re {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: -14%;
+    margin-left: -3%;
+   
+ 
+   
+
+
+  }
+
+
+  .details-reservation{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #007bff ;
+      cursor:pointer;
+    }
+  }
+
+  
+  .lixeira-reservation{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #800000;
+      cursor:pointer;
+    }
+ 
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content-reservation {
+  margin-top: 2%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    height: 59% !important;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+.faixa-reservation {
+    position: relative;
+    width: 96.7%;
+    height: 45px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0 30px;
+    margin-top: -9%;
+    margin-bottom: 0%;
+    margin-left: -3.2%;
+    /* Adicionei um espaço interno para melhorar a aparência */
+  }
+
+
+  .gastosex{
+    margin-left: 60%;
+    margin-top: -77% !important;
+  }
+
+  .gasto-titulo{
+    margin-left: 14%;
+  }
+
+
+  .divider-vertical-reservation{
+    margin-top: -73%;
+    width: 1px;
+    margin-left: 47%;
+    height: 440px;
+    background-color: #ccc;
+    
+  }
+
+
+  .divider-horizontal-reservation {
+    margin-top: 10%;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+  .totalPrice{
+    margin-top:  4% !important;
+    margin-bottom: -20%;
+    margin-left: 30%;
+    
+  }
+
+
+  .userdados{
+    margin-left: 10%;
+    margin-top: 3% !important;
+  }
+
+
+  .consumed-items-list {
+    margin-top: -5%;
+    margin-left: -14%;
+    min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
+    height: 220px; /* Limita a altura da lista para não empurrar o preço total */
+    overflow-y: auto; /* Garante que o scroll sempre apareça */
+    border: 1px solid #ccc; /* Opcional: Adiciona um contorno para melhor visualização */
+    padding: 5px;
+    width: 240px;
+    background-color: white;
+}
+
+.closeModal-reservation{
+   margin-top: 10% !important;
+  font-size: 18px;
+  margin-left:38%;
+  width: 20%;
+  height: 2rem;
+  border-radius: 5px;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+  
+  
+}
+
+
+.pagina-reservation{
+  font-size: 35px;
+    margin-top: 20%;
+    margin-left: -30%;
+    transition: 0.4s;
+    color: grey;
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.1);
+      color: black;
+    }
+}
+.filters-reservation{
+  margin-left: 5%;
+}
+
+.filters-reservation button{
+  cursor: pointer;
+   width: 10.5%;
+   height: 1.5rem;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.banner-reservation{
+  width: 90%;
+  height: 20% !important;
+  margin-left: -1.5%;
+}
+
+ 
+  }
+
+
+@media  (max-width: 1600px) and (max-height: 900px) {
+  .cadastro-reservation {
+    width: 100%;
+    margin-top: 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .cadastro-reservation .input {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+  
+  
+  .cadastro-reservation .input input {
+    width: 100%;
+    height: 1rem;
+    padding: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  
+  .main2 {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
+  
+  
+  
+  .main2 .separator {
+    height: 100%;
+    width: 1px;
+    background-color: #ccc;
+  }
+  
+  
+  
+  .main2 .criar,
+  .main2 .gerenciar {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  
+  
+  .cadastro-reservation .submit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    align-items: center; /* Centraliza os filhos de .submit ao longo do eixo transversal */
+  }
+  
+  
+  
+   .button-cadastro {
+    margin-top:2% !important;
+    font-size: 25px;
+    width: 30%;
+    height: 3rem;
+    border-radius: 5px;
+    background:#007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .buttons {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 7%;
+    margin-left: 6%;
+   
+ 
+   
+
+
+  }
+
+  .buttons-re {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: -14%;
+    margin-left: -3%;
+   
+ 
+   
+
+
+  }
+
+
+  .details-reservation{
+    margin-top: -5%;
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #007bff ;
+      cursor:pointer;
+    }
+  }
+
+  
+  .lixeira-reservation{
+    margin-top: -5%;
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #800000;
+      cursor:pointer;
+    }
+ 
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content-reservation {
+  margin-top: 2%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    height: 69% !important;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+.faixa-reservation {
+    position: relative;
+    width: 96.7%;
+    height: 45px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0 30px;
+    margin-top: -9%;
+    margin-bottom: 0%;
+    margin-left: -3.2%;
+    /* Adicionei um espaço interno para melhorar a aparência */
+  }
+
+
+  .gastosex{
+    margin-left: 60%;
+    margin-top: -77% !important;
+  }
+
+  .gasto-titulo{
+    margin-left: 14%;
+  }
+
+
+  .divider-vertical-reservation{
+    margin-top: -73%;
+    width: 1px;
+    margin-left: 47%;
+    height: 440px;
+    background-color: #ccc;
+    
+  }
+
+
+  .divider-horizontal-reservation {
+    margin-top: 10%;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+  .totalPrice{
+    margin-top:  4% !important;
+    margin-bottom: -20%;
+    margin-left: 30%;
+    
+  }
+
+
+  .userdados{
+    margin-left: 10%;
+    margin-top: 3% !important;
+  }
+
+
+  .consumed-items-list {
+    margin-top: -5%;
+    margin-left: -14%;
+    min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
+    height: 220px; /* Limita a altura da lista para não empurrar o preço total */
+    overflow-y: auto; /* Garante que o scroll sempre apareça */
+    border: 1px solid #ccc; /* Opcional: Adiciona um contorno para melhor visualização */
+    padding: 5px;
+    width: 240px;
+    background-color: white;
+}
+
+.closeModal-reservation{
+   margin-top: 7% !important;
+  font-size: 18px;
+  margin-left:38%;
+  width: 20%;
+  height: 2rem;
+  border-radius: 5px;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+  
+  
+}
+
+
+.pagina-reservation{
+  font-size: 35px;
+    margin-top: 20%;
+    margin-left: -30%;
+    transition: 0.4s;
+    color: grey;
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.1);
+      color: black;
+    }
+}
+.filters-reservation{
+  margin-left: 5%;
+}
+
+.filters-reservation button{
+  cursor: pointer;
+   width: 10.5%;
+   height: 1.5rem;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.banner-reservation{
+  width: 90%;
+  height: 23%;
+  margin-left: -1.5%;
+}
+
+ 
+  }
+
+@media  (max-width: 1440px) and (max-height: 1080px) {
+  .cadastro-reservation {
+    width: 100%;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .cadastro-reservation .input {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+  
+  
+  .cadastro-reservation .input input {
+    width: 100%;
+    height: 1rem;
+    padding: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  
+  .main2 {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
+  
+  
+  
+  .main2 .separator {
+    height: 100%;
+    width: 1px;
+    background-color: #ccc;
+  }
+  
+  
+  
+  .main2 .criar,
+  .main2 .gerenciar {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  
+  
+  .cadastro-reservation .submit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    align-items: center; /* Centraliza os filhos de .submit ao longo do eixo transversal */
+  }
+  
+  
+  
+   .button-cadastro {
+    margin-top:2% !important;
+    font-size: 25px;
+    width: 30%;
+    height: 3rem;
+    border-radius: 5px;
+    background:#007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .buttons {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 7%;
+    margin-left: 6%;
+   
+ 
+   
+
+
+  }
+
+  .buttons-re {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: -14%;
+    margin-left: -3%;
+   
+ 
+   
+
+
+  }
+
+
+  .details-reservation{
+    margin-top: 12%;
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #007bff ;
+      cursor:pointer;
+    }
+  }
+
+  
+  .lixeira-reservation{
+    margin-top: 12%;
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #800000;
+      cursor:pointer;
+    }
+ 
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content-reservation {
+  margin-top: 2%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    height: 58% !important;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+.faixa-reservation {
+    position: relative;
+    width: 96.7%;
+    height: 45px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0 30px;
+    margin-top: -9%;
+    margin-bottom: 0%;
+    margin-left: -3.2%;
+    /* Adicionei um espaço interno para melhorar a aparência */
+  }
+
+
+  .gastosex{
+    margin-left: 60%;
+    margin-top: -77% !important;
+  }
+
+  .gasto-titulo{
+    margin-left: 14%;
+  }
+
+
+  .divider-vertical-reservation{
+    margin-top: -73%;
+    width: 1px;
+    margin-left: 47%;
+    height: 440px;
+    background-color: #ccc;
+    
+  }
+
+
+  .divider-horizontal-reservation {
+    margin-top: 10%;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+  .totalPrice{
+    margin-top:  4% !important;
+    margin-bottom: -20%;
+    margin-left: 30%;
+    
+  }
+
+
+  .userdados{
+    margin-left: 10%;
+    margin-top: 3% !important;
+  }
+
+
+  .consumed-items-list {
+    margin-top: -5%;
+    margin-left: -14%;
+    min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
+    height: 220px; /* Limita a altura da lista para não empurrar o preço total */
+    overflow-y: auto; /* Garante que o scroll sempre apareça */
+    border: 1px solid #ccc; /* Opcional: Adiciona um contorno para melhor visualização */
+    padding: 5px;
+    width: 240px;
+    background-color: white;
+}
+
+.closeModal-reservation{
+   margin-top: 10%;
+  font-size: 18px;
+  margin-left:38%;
+  width: 20%;
+  height: 2rem;
+  border-radius: 5px;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+  
+  
+}
+
+
+.pagina-reservation{
+  font-size: 35px;
+    margin-top: 20%;
+    margin-left: -30%;
+    transition: 0.4s;
+    color: grey;
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.1);
+      color: black;
+    }
+}
+.filters-reservation{
+  margin-left: 5%;
+}
+
+.filters-reservation button{
+  cursor: pointer;
+   width: 10.5%;
+   height: 1.5rem;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.banner-reservation{
+  width: 82% !important;
+  height: 16%;
+  margin-left: -2%;
+}
+
+ 
+  }
+
+
+
+@media  (max-width: 1366px) and (max-height: 768px) {
+  .cadastro-reservation {
+    width: 100%;
+    margin-top: 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .cadastro-reservation .input {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+  
+  
+  .cadastro-reservation .input input {
+    width: 100%;
+    height: 1rem;
+    padding: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  
+  .main2 {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
+  
+  
+  
+  .main2 .separator {
+    height: 100%;
+    width: 1px;
+    background-color: #ccc;
+  }
+  
+  
+  
+  .main2 .criar,
+  .main2 .gerenciar {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  
+  
+  .cadastro-reservation .submit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    align-items: center; /* Centraliza os filhos de .submit ao longo do eixo transversal */
+  }
+  
+  
+  
+   .button-cadastro {
+    margin-top:2% !important;
+    font-size: 25px;
+    width: 30%;
+    height: 3rem;
+    border-radius: 5px;
+    background:#007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .buttons {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 7%;
+    margin-left: 6%;
+   
+ 
+   
+
+
+  }
+
+  .buttons-re {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: -14%;
+    margin-left: -3%;
+   
+ 
+   
+
+
+  }
+
+
+  .details-reservation{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #007bff ;
+      cursor:pointer;
+    }
+  }
+
+  
+  .lixeira-reservation{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #800000;
+      cursor:pointer;
+    }
+ 
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content-reservation {
+  margin-top: 2%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    height: 85% !important;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+.faixa-reservation {
+    position: relative;
+    width: 96.7%;
+    height: 45px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0 30px;
+    margin-top: -9%;
+    margin-bottom: 0%;
+    margin-left: -3.2%;
+    /* Adicionei um espaço interno para melhorar a aparência */
+  }
+
+
+  .gastosex{
+    margin-left: 60%;
+    margin-top: -77% !important;
+  }
+
+  .gasto-titulo{
+    margin-left: 14%;
+  }
+
+
+  .divider-vertical-reservation{
+    margin-top: -73%;
+    width: 1px;
+    margin-left: 47%;
+    height: 440px;
+    background-color: #ccc;
+    
+  }
+
+
+  .divider-horizontal-reservation {
+    margin-top: 10%;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+  .totalPrice{
+    margin-top:  4% !important;
+    margin-bottom: -20%;
+    margin-left: 30%;
+    
+  }
+
+
+  .userdados{
+    margin-left: 10%;
+    margin-top: 3% !important;
+  }
+
+
+  .consumed-items-list {
+    margin-top: -5%;
+    margin-left: -14%;
+    min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
+    height: 220px; /* Limita a altura da lista para não empurrar o preço total */
+    overflow-y: auto; /* Garante que o scroll sempre apareça */
+    border: 1px solid #ccc; /* Opcional: Adiciona um contorno para melhor visualização */
+    padding: 5px;
+    width: 240px;
+    background-color: white;
+}
+
+.closeModal-reservation{
+   margin-top: 7%;
+  font-size: 18px;
+  margin-left:38%;
+  width: 20%;
+  height: 2rem;
+  border-radius: 5px;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+  
+  
+}
+
+
+.pagina-reservation{
+  font-size: 35px;
+    margin-top: 20%;
+    margin-left: -30%;
+    transition: 0.4s;
+    color: grey;
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.1);
+      color: black;
+    }
+}
+.filters-reservation{
+  margin-left: 5%;
+}
+
+.filters-reservation button{
+  cursor: pointer;
+   width: 10.5%;
+   height: 1.5rem;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.banner-reservation{
+  width: 90% !important;
+  height: 27% !important;
+  margin-left: -1.5%;
+}
+
+ 
+  }
+
+
+
+@media  (max-width: 1360px) and (max-height: 768px) {
+  .cadastro-reservation {
+    width: 100%;
+    margin-top: 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .cadastro-reservation .input {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+  
+  
+  .cadastro-reservation .input input {
+    width: 100%;
+    height: 1rem;
+    padding: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  
+  .main2 {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
+  
+  
+  
+  .main2 .separator {
+    height: 100%;
+    width: 1px;
+    background-color: #ccc;
+  }
+  
+  
+  
+  .main2 .criar,
+  .main2 .gerenciar {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  
+  
+  .cadastro-reservation .submit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    align-items: center; /* Centraliza os filhos de .submit ao longo do eixo transversal */
+  }
+  
+  
+  
+   .button-cadastro {
+    margin-top:2% !important;
+    font-size: 25px;
+    width: 30%;
+    height: 3rem;
+    border-radius: 5px;
+    background:#007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .buttons {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 7%;
+    margin-left: 6%;
+   
+ 
+   
+
+
+  }
+
+  .buttons-re {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: -14%;
+    margin-left: -3%;
+   
+ 
+   
+
+
+  }
+
+
+  .details-reservation{
+    margin-top: -5%;
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #007bff ;
+      cursor:pointer;
+    }
+  }
+
+  
+  .lixeira-reservation{
+    margin-top: -5%;
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #800000;
+      cursor:pointer;
+    }
+ 
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content-reservation {
+  margin-top: 2%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    height: 85% !important;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+.faixa-reservation {
+    position: relative;
+    width: 96.7%;
+    height: 45px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0 30px;
+    margin-top: -9%;
+    margin-bottom: 0%;
+    margin-left: -3.2%;
+    /* Adicionei um espaço interno para melhorar a aparência */
+  }
+
+
+  .gastosex{
+    margin-left: 60%;
+    margin-top: -77% !important;
+  }
+
+  .gasto-titulo{
+    margin-left: 14%;
+  }
+
+
+  .divider-vertical-reservation{
+    margin-top: -73%;
+    width: 1px;
+    margin-left: 47%;
+    height: 440px;
+    background-color: #ccc;
+    
+  }
+
+
+  .divider-horizontal-reservation {
+    margin-top: 10%;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+  .totalPrice{
+    margin-top:  4% !important;
+    margin-bottom: -20%;
+    margin-left: 30%;
+    
+  }
+
+
+  .userdados{
+    margin-left: 10%;
+    margin-top: 3% !important;
+  }
+
+
+  .consumed-items-list {
+    margin-top: -5%;
+    margin-left: -14%;
+    min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
+    height: 220px; /* Limita a altura da lista para não empurrar o preço total */
+    overflow-y: auto; /* Garante que o scroll sempre apareça */
+    border: 1px solid #ccc; /* Opcional: Adiciona um contorno para melhor visualização */
+    padding: 5px;
+    width: 240px;
+    background-color: white;
+}
+
+.closeModal-reservation{
+   margin-top: 7%;
+  font-size: 18px;
+  margin-left:38%;
+  width: 20%;
+  height: 2rem;
+  border-radius: 5px;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+  
+  
+}
+
+
+.pagina-reservation{
+  font-size: 35px;
+    margin-top: 20%;
+    margin-left: -30%;
+    transition: 0.4s;
+    color: grey;
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.1);
+      color: black;
+    }
+}
+.filters-reservation{
+  margin-left: 5%;
+}
+
+.filters-reservation button{
+  cursor: pointer;
+   width: 10.5%;
+   height: 1.5rem;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.banner-reservation{
+  width: 90% !important;
+  height: 27% !important;
+  margin-left: -1.5%;
+}
+
+ 
+  }
+
+
+
+
+
+@media  (max-width: 1280px) and (max-height: 1024px) {
+  .cadastro-reservation {
+    width: 100%;
+    margin-top: 14%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .cadastro-reservation .input {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+  
+  
+  .cadastro-reservation .input input {
+    width: 100%;
+    height: 1rem;
+    padding: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  
+  .main2 {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
+  
+  
+  
+  .main2 .separator {
+    height: 100%;
+    width: 1px;
+    background-color: #ccc;
+  }
+  
+  
+  
+  .main2 .criar,
+  .main2 .gerenciar {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  
+  
+  .cadastro-reservation .submit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    align-items: center; /* Centraliza os filhos de .submit ao longo do eixo transversal */
+  }
+  
+  
+  
+   .button-cadastro {
+    margin-top:2% !important;
+    font-size: 25px;
+    width: 30%;
+    height: 3rem;
+    border-radius: 5px;
+    background:#007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .buttons {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 7%;
+    margin-left: 6%;
+   
+ 
+   
+
+
+  }
+
+  .buttons-re {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: -14%;
+    margin-left: -3%;
+   
+ 
+   
+
+
+  }
+
+
+  .details-reservation{
+    margin-top: -5%;
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #007bff ;
+      cursor:pointer;
+    }
+  }
+
+  
+  .lixeira-reservation{
+    margin-top: -5%;
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #800000;
+      cursor:pointer;
+    }
+ 
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content-reservation {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    height: 68% !important;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+.faixa-reservation {
+    position: relative;
+    width: 96.7%;
+    height: 45px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0 30px;
+    margin-top: -9%;
+    margin-bottom: 0%;
+    margin-left: -3.2%;
+    /* Adicionei um espaço interno para melhorar a aparência */
+  }
+
+
+  .gastosex{
+    margin-left: 60%;
+    margin-top: -86% !important;
+  }
+
+  .gasto-titulo{
+    margin-left: 14%;
+  }
+
+
+  .divider-vertical-reservation{
+    margin-top: -68%;
+    width: 1px;
+    margin-left: 47%;
+    height: 440px;
+    background-color: #ccc;
+    
+  }
+
+
+  .divider-horizontal-reservation {
+    margin-top: 10%;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+  .totalPrice{
+    margin-top:  15% !important;
+    margin-bottom: -20%;
+    margin-left: 30%;
+    
+  }
+
+
+  .userdados{
+    margin-left: 10%;
+    margin-top: 3% !important;
+  }
+
+
+  .consumed-items-list {
+    margin-top: -5%;
+    margin-left: -14%;
+    min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
+    height: 220px; /* Limita a altura da lista para não empurrar o preço total */
+    overflow-y: auto; /* Garante que o scroll sempre apareça */
+    border: 1px solid #ccc; /* Opcional: Adiciona um contorno para melhor visualização */
+    padding: 5px;
+    width: 240px;
+    background-color: white;
+}
+
+.closeModal-reservation{
+   margin-top: 13% !important;
+  font-size: 18px;
+  margin-left:38%;
+  width: 20%;
+  height: 2rem;
+  border-radius: 5px;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+  
+  
+}
+
+
+.pagina-reservation{
+  font-size: 35px;
+    margin-top: 20%;
+    margin-left: -30%;
+    transition: 0.4s;
+    color: grey;
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.1);
+      color: black;
+    }
+}
+.filters-reservation{
+  margin-left: 5%;
+}
+
+.filters-reservation button{
+  cursor: pointer;
+   width: 10.5%;
+   height: 1.5rem;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.banner-reservation{
+  width: 90% !important;
+  height: 16% !important;
+  margin-left: -8%;
+}
+
+ 
+  }
+
+
+
+
+@media  (max-width: 1280px) and (max-height: 768px) {
+  .cadastro-reservation {
+    width: 100%;
+    margin-top: -1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .cadastro-reservation .input {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+  
+  
+  .cadastro-reservation .input input {
+    width: 100%;
+    height: 1rem;
+    padding: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  
+  .main2 {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
+  
+  
+  
+  .main2 .separator {
+    height: 100%;
+    width: 1px;
+    background-color: #ccc;
+  }
+  
+  
+  
+  .main2 .criar,
+  .main2 .gerenciar {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  
+  
+  .cadastro-reservation .submit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    align-items: center; /* Centraliza os filhos de .submit ao longo do eixo transversal */
+  }
+  
+  
+  
+   .button-cadastro {
+    margin-top:2% !important;
+    font-size: 25px;
+    width: 30%;
+    height: 3rem;
+    border-radius: 5px;
+    background:#007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .buttons {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 7%;
+    margin-left: 6%;
+   
+ 
+   
+
+
+  }
+
+  .buttons-re {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: -14%;
+    margin-left: -3%;
+   
+ 
+   
+
+
+  }
+
+
+  .details-reservation{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #007bff ;
+      cursor:pointer;
+    }
+  }
+
+  
+  .lixeira-reservation{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #800000;
+      cursor:pointer;
+    }
+ 
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content-reservation {
+  
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    height: 82% !important;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+.faixa-reservation {
+    position: relative;
+    width: 96.7%;
+    height: 45px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0 30px;
+    margin-top: -9%;
+    margin-bottom: 0%;
+    margin-left: -3.2%;
+    /* Adicionei um espaço interno para melhorar a aparência */
+  }
+
+
+  .gastosex{
+    margin-left: 60%;
+    margin-top: -75% !important;
+  }
+
+  .gasto-titulo{
+    margin-left: 14%;
+  }
+
+
+  .divider-vertical-reservation{
+    margin-top: -74%;
+    width: 1px;
+    margin-left: 47%;
+    height: 440px;
+    background-color: #ccc;
+    
+  }
+
+
+  .divider-horizontal-reservation {
+    margin-top: 10%;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+  .totalPrice{
+    margin-top:2% !important;
+    margin-bottom: -20%;
+    margin-left: 30%;
+    
+  }
+
+
+  .userdados{
+    margin-left: 10%;
+    margin-top: 3% !important;
+  }
+
+
+  .consumed-items-list {
+    margin-top: -5%;
+    margin-left: -14%;
+    min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
+    height: 220px; /* Limita a altura da lista para não empurrar o preço total */
+    overflow-y: auto; /* Garante que o scroll sempre apareça */
+    border: 1px solid #ccc; /* Opcional: Adiciona um contorno para melhor visualização */
+    padding: 5px;
+    width: 240px;
+    background-color: white;
+}
+
+.closeModal-reservation{
+ 
+  font-size: 18px;
+  margin-left:38%;
+  width: 20%;
+  height: 2rem;
+  border-radius: 5px;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+  
+  
+}
+
+
+.pagina-reservation{
+  font-size: 35px;
+    margin-top: 20%;
+    margin-left: -30%;
+    transition: 0.4s;
+    color: grey;
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.1);
+      color: black;
+    }
+}
+.filters-reservation{
+  margin-left: 5%;
+}
+
+.filters-reservation button{
+  cursor: pointer;
+   width: 10.5%;
+   height: 1.5rem;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.banner-reservation{
+  width: 95%;
+  height: 30%;
+  margin-left: -5%;
+}
+
+ 
+  }
+
+
+
+@media  (max-width: 1280px) and (max-height: 720px) {
+  .cadastro-reservation {
+    width: 100%;
+    margin-top: -1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .cadastro-reservation .input {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+  
+  
+  .cadastro-reservation .input input {
+    width: 100%;
+    height: 1rem;
+    padding: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  
+  .main2 {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
+  
+  
+  
+  .main2 .separator {
+    height: 100%;
+    width: 1px;
+    background-color: #ccc;
+  }
+  
+  
+  
+  .main2 .criar,
+  .main2 .gerenciar {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  
+  
+  .cadastro-reservation .submit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    align-items: center; /* Centraliza os filhos de .submit ao longo do eixo transversal */
+  }
+  
+  
+  
+   .button-cadastro {
+    margin-top:2% !important;
+    font-size: 25px;
+    width: 30%;
+    height: 3rem;
+    border-radius: 5px;
+    background:#007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .buttons {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 7%;
+    margin-left: 6%;
+   
+ 
+   
+
+
+  }
+
+  .buttons-re {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: -14%;
+    margin-left: -3%;
+   
+ 
+   
+
+
+  }
+
+
+  .details-reservation{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #007bff ;
+      cursor:pointer;
+    }
+  }
+
+  
+  .lixeira-reservation{
+    transition: calc(0.3s);
+    color:black;
+    &:hover{
+      color: #800000;
+      cursor:pointer;
+    }
+ 
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content-reservation {
+  
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    height: 86% !important;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+.faixa-reservation {
+    position: relative;
+    width: 96.7%;
+    height: 35px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0 30px;
+    margin-top: -9%;
+    margin-bottom: 0%;
+    margin-left: -3.2%;
+    /* Adicionei um espaço interno para melhorar a aparência */
+  }
+
+
+  .gastosex{
+    margin-left: 60%;
+    margin-top: -75%;
+  }
+
+  .gasto-titulo{
+    margin-left: 14%;
+  }
+
+
+  .divider-vertical-reservation{
+    margin-top: -74%;
+    width: 1px;
+    margin-left: 47%;
+    height: 440px;
+    background-color: #ccc;
+    
+  }
+
+
+  .divider-horizontal-reservation {
+    margin-top: 10%;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+  .totalPrice{
+    margin-top:2%;
+    margin-bottom: -20%;
+    margin-left: 30%;
+    
+  }
+
+
+  .userdados{
+    margin-left: 10%;
+    margin-top: -3%;
+  }
+
+
+  .consumed-items-list {
+    margin-top: -5%;
+    margin-left: -14%;
+    min-height: 75px; /* Mantém o espaço sempre visível mesmo sem itens */
+    height: 220px; /* Limita a altura da lista para não empurrar o preço total */
+    overflow-y: auto; /* Garante que o scroll sempre apareça */
+    border: 1px solid #ccc; /* Opcional: Adiciona um contorno para melhor visualização */
+    padding: 5px;
+    width: 240px;
+    background-color: white;
+}
+
+.closeModal-reservation{
+  margin-top: 4.8% !important;
+  font-size: 18px;
+  margin-left:38%;
+  width: 20%;
+  height: 2rem;
+  border-radius: 5px;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+  
+  
+}
+
+
+.pagina-reservation{
+  font-size: 35px;
+    margin-top: 20%;
+    margin-left: -30%;
+    transition: 0.4s;
+    color: grey;
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.1);
+      color: black;
+    }
+}
+.filters-reservation{
+  margin-left: 5%;
+}
+
+.filters-reservation button{
+  cursor: pointer;
+   width: 10.5%;
+   height: 1.5rem;
+  background:#007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.banner-reservation{
+  width: 95% !important;
+  height: 30% !important;
+  margin-left: -5%;
+}
+
+ 
+  }

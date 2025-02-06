@@ -129,7 +129,7 @@ export function RelatoryPage() {
       </div>
 
       <div className="content-1">
-        <section className="cadastro-1">
+        <section className="cadastro-1-relatory">
           
           <h1 style={{ marginLeft: "1%" }}>Relatórios das Reservas</h1>
           <div className="search-bar">

@@ -53,8 +53,8 @@ export function AdminHome() {
         
                                   
         <ShowCard title="Hóspedes"  icon={<BsPersonSquare  onClick={() => navigate('/guests')} style={{ cursor: "pointer" }} />} />
-        <ShowCard title="Quartos"  icon={<FaHome  onClick={() => navigate('/rooms')} style={{ cursor: "pointer" }} />} />
         <ShowCard title="Estoque"  icon={<MdOutlineInventory  onClick={() => navigate('/inventory')} style={{ cursor: "pointer" }} />} />
+        <ShowCard title="Quartos"  icon={<FaHome  onClick={() => navigate('/rooms')} style={{ cursor: "pointer" }} />} />
         <ShowCard title="Reservas"  icon={<MdOutlineEventAvailable  onClick={() => navigate('/reservations')} style={{ cursor: "pointer" }} />} />
         <ShowCard title="Relatórios"  icon={<TbReport onClick={() => navigate('/relatory')} style={{ cursor: "pointer" }} />} />     
       

@@ -163,7 +163,7 @@ export function GerenciaHospedes() {
                     ) : (
                         <Container>
                             {filteredGuests.map((guest) => (
-                                <Containerr key={guest.id} className="banner">
+                                <Containerr key={guest.id} className="banner-guest">
                                     <div className="row">
                                         <img src='/icon.png' alt='logo' className='user'>
                                         </img>
