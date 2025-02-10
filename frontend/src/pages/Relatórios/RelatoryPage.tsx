@@ -5,14 +5,26 @@ import { getReservations, getGuests, getRooms } from '../../services/api';
 import './styles.css';
 import { VscArrowCircleRight } from "react-icons/vsc";
 import { VscArrowCircleLeft } from "react-icons/vsc";
+import  '../Reservas/ReservationsPage';
 
-interface Reservation {
+
+
+
+
+export interface Reservation {
   id: number;
-  guest: number;
-  room: number;
+  guest: number | { id: number; name: string; cpf: string; phone: string; email: string };
+  room: number | { id: number; room_type: string; name: string; capacity: number; cooling_type: string; is_available: boolean };
   check_in: string;
   check_out: string;
+  payment_status: "CONFIRMADA" | "CANCELADA" | "PENDENTE";
   total_price: number | null;
+  extra_charges: number;
+  extra_details: string;
+  consumed_items: { id: number; name: string; price: number }[];
+  daily_rate: number;
+  number_of_children: number;
+  number_of_guests: number;
 }
 
 interface Guest {
@@ -45,23 +57,32 @@ export function RelatoryPage() {
   const carregarReservas = async () => {
     setLoading(true);
     try {
-      const data = await getReservations();
-      const reservations: Reservation[] = data.map((item: any) => ({
-        id: item.id,
-        guest: item.guest,
-        room: item.room,
-        check_in: new Date(item.check_in + "T12:00:00").toLocaleDateString('pt-BR'),
-        check_out: new Date(item.check_out + "T12:00:00").toLocaleDateString('pt-BR'),
-        total_price: item.total_price ?? 0,
-      }));
-      setReservations(reservations);
-      setFilteredReservations(reservations); // Define os dados iniciais filtrados
+        const data = await getReservations();
+        const reservations: Reservation[] = data.map((item: any) => ({
+            id: item.id,
+            guest: item.guest,
+            room: item.room,
+            check_in: new Date(item.check_in + "T12:00:00").toLocaleDateString('pt-BR'),
+            check_out: new Date(item.check_out + "T12:00:00").toLocaleDateString('pt-BR'),
+            payment_status: item.payment_status ?? "PENDENTE", // Definir padrão
+            total_price: item.total_price ?? 0,
+            daily_rate: item.daily_rate ?? 0, // Adicionado para garantir cálculo correto
+            number_of_guests: item.number_of_guests ?? 1, // Definir padrão caso seja nulo
+            number_of_children: item.number_of_children ?? 0, // Definir padrão caso seja nulo
+            extra_charges: item.extra_charges ?? 0, // Adicionado
+            extra_details: item.extra_details ?? "", // Adicionado para evitar erro
+            consumed_items: item.consumed_items ?? [], // Certificar que a lista não seja undefined
+        }));
+
+        setReservations(reservations);
+        setFilteredReservations(reservations); // Define os dados iniciais filtrados
     } catch (error) {
-      console.error('Erro ao carregar reservas:', error);
+        console.error("Erro ao carregar reservas:", error);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
+
 
   const carregarHospedes = async () => {
     try {
@@ -81,15 +102,22 @@ export function RelatoryPage() {
     }
   };
 
-  const getGuestName = (guestId: number): string => {
-    const guest = guests.find((g) => g.id === guestId);
-    return guest ? guest.name : 'Hóspede não encontrado';
-  };
+  const getGuestName = (guest: number | { id: number; name: string }) => {
+    if (typeof guest === "number") {
+        const foundGuest = guests.find((g) => g.id === guest);
+        return foundGuest ? foundGuest.name : "Hóspede não encontrado";
+    }
+    return guest.name;
+};
 
-  const getRoomName = (roomId: number): string => {
-    const room = rooms.find((r) => r.id === roomId);
-    return room ? room.name : 'Quarto não encontrado';
-  };
+const getRoomName = (room: number | { id: number; name: string }) => {
+  if (typeof room === "number") {
+      const foundRoom = rooms.find((r) => r.id === room);
+      return foundRoom ? foundRoom.name : "Quarto não encontrado";
+  }
+  return room.name;
+};
+
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -118,6 +146,14 @@ export function RelatoryPage() {
 
     setFilteredReservations(filtered);
   }, [searchQuery, reservations, guests, rooms]);
+
+  const resolveNumberOfGuests = (reservation: Reservation) => {
+    return reservation ? reservation.number_of_guests : 1; 
+};
+
+const resolveNumberOfChildren = (reservation: Reservation) => {
+    return reservation.number_of_children ?? 0; 
+};
 
 
 
@@ -152,9 +188,6 @@ export function RelatoryPage() {
                     <strong> Quarto:</strong> {getRoomName(reservation.room)} - 
                     <strong> Check-in:</strong> {reservation.check_in} - 
                     <strong> Check-out:</strong> {reservation.check_out} - 
-                    <strong> Total:</strong> R$ {typeof reservation.total_price === "number" 
-                        ? reservation.total_price.toFixed(2) 
-                        : "N/A"}
                   </li>
                 )).reverse()}
               </ul>

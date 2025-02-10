@@ -515,7 +515,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                         name="guest.email"
                                         value={reservationData.guest.email}
                                         onChange={handleInputChange}
-                                        required
+                                     
                                         style={{width:"84%",}}
                                     />
                                 </div><br></br>
