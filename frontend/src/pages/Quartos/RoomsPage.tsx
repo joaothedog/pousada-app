@@ -334,8 +334,8 @@ const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                                     {selectedRoomReservations.map((reservation) => (
                                         <li key={reservation.id} style={{marginTop:"10px"}}>
                                             <strong>Hóspede:</strong> {getGuestName(reservation.guest)} -
-                                            <strong> Check-in:</strong> {new Date(reservation.check_in).toLocaleDateString('pt-BR')} -
-                                            <strong> Check-out:</strong> {new Date(reservation.check_out).toLocaleDateString('pt-BR')}
+                                            <strong> Check-in:</strong> {new Date(reservation.check_in + "T12:00:00").toLocaleDateString('pt-BR')} -
+                                            <strong> Check-out:</strong> {new Date(reservation.check_out + "T12:00:00").toLocaleDateString('pt-BR')}
                                         </li>
                                     ))}
                                 </ul>
