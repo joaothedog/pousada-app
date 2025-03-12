@@ -63,7 +63,10 @@ export function GerenciaHospedes() {
         try {
             await createGuest(formData);
             alert('Hóspede criado com sucesso!');
-            setFormData({ name: '', cpf: '', phone: '', email: '' });
+            setFormData({ name: '',
+                 cpf: '',
+                  phone: '',
+                   email: '' });
             carregarHospedes();
         } catch (error) {
             console.error('Erro ao criar hóspede:', error);

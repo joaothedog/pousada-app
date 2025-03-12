@@ -340,7 +340,7 @@ const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                                     ))}
                                 </ul>
                             ) : (
-                                <p className="msg-n">Não há reservas para este quarto.</p>
+                                <p className="msg-n" style={{height:"200px",minHeight:"140px",overflowY:"auto"}}>Não há reservas para este quarto.</p>
                             )}
                             <button className='closeModal' onClick={handleCloseModal}>Fechar</button>
                         </div>

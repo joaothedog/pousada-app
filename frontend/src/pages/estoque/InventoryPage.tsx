@@ -47,6 +47,7 @@ export function GerenciaInventario() {
         setLoading(true);
         setError(null);
         try {
+          
             const items = await getInventoryItems();
             if (Array.isArray(items)) {
                 const sanitizedItems = items.map((item) => ({
