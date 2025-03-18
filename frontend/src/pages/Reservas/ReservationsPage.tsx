@@ -283,7 +283,12 @@ export function GerenciaReservas() {
     }, []);
 
 
-
+    const handleAbrirModal = (reservationId: number) => {
+        const selectedReservation = filteredReservations.find(reservation => reservation.id === reservationId);
+     
+        setDetalhesSelecionados(selectedReservation);
+    };
+    
    
     const handleFecharModal = () => {
         setDetalhesSelecionados(null); // fechar modal
@@ -679,7 +684,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                      <CgDetailsMore
                                      className="details-reservation"
                                      size={20}
-                                    onClick={() => setDetalhesSelecionados(reservation)} // Define a reserva selecionada
+                                    onClick={() => handleAbrirModal(reservation.id)} // Define a reserva selecionada
                                     />
                                   <FaTrashAlt
                                   className="lixeira-reservation"
@@ -704,7 +709,6 @@ const resolveDailyRate = (reservation: Reservation) => {
            
               <div>
                 {filteredReservations
-                    .filter((reservation) => reservation.id === DetalhesSelecionados.id)
                     .map((reservation) => (
                         <div key={reservation.id}>
                            <div className='userdados'>
@@ -734,7 +738,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                             </p>
 
                             <p>
-                           <strong>Diária:</strong> {resolveDailyRate(DetalhesSelecionados)}
+                           <strong>Diária:</strong> {resolveDailyRate(reservation)}
                           </p>
                             <p>
                          <strong>Pagamento :</strong> {reservation.payment_status === "CONFIRMADA" 
@@ -767,7 +771,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                             <h3 className='gasto-titulo'>Gastos Extras</h3>
 
                             <AddConsumptionForm
-                             reservationId={DetalhesSelecionados.id}
+                             reservationId={reservation.id}
                              onClose={() => setIsAddingConsumption(false)}
                              onItemsAdded={(updatedItems) => {
                              setDetalhesSelecionados((prev: Reservation) => ({

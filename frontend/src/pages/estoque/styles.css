@@ -190,6 +190,9 @@
     cursor: pointer;
   }
 
+  .filters{
+    margin-left: 3%;
+  }
   .filters button{
     cursor: pointer;
      width: 10%;
@@ -480,6 +483,10 @@ margin-bottom: -34%;
     width: 60%;
     margin-left: 6%;
     cursor: pointer;
+  }
+
+  .filters{
+    margin-left: 3%;
   }
 
   .filters button{
@@ -1071,6 +1078,10 @@ margin-bottom: -34%;
     cursor: pointer;
   }
 
+  .filters{
+    margin-left: 3%;
+  }
+
   .filters button{
     cursor: pointer;
      width: 10%;
@@ -1385,6 +1396,9 @@ margin-bottom: -34%;
     margin-left: 6%;
     cursor: pointer;
   }
+  .filters{
+    margin-left: 1%;
+  }
 
   .filters button{
     cursor: pointer;
@@ -1450,6 +1464,7 @@ margin-bottom: -34%;
 .banner-inventory{
   width: 80%;
   height: 14%;
+  margin-right: 3.5%;
 }
 .faixa {
   position: relative;
@@ -1669,6 +1684,9 @@ margin-bottom: -34%;
     width: 60%;
     margin-left: 6%;
     cursor: pointer;
+  }
+  .filters{
+    margin-left: 0%;
   }
 
   .filters button{
@@ -1973,6 +1991,9 @@ margin-bottom: -34%;
     margin-left: 6%;
     cursor: pointer;
   }
+  .filters{
+    margin-left: 0%;
+  }
 
   .filters button{
     cursor: pointer;
@@ -2270,6 +2291,9 @@ margin-bottom: -34%;
     width: 60%;
     margin-left: 6%;
     cursor: pointer;
+  }
+  .filters{
+    margin-left: 0%;
   }
 
   .filters button{
@@ -2569,6 +2593,9 @@ margin-bottom: -34%;
     cursor: pointer;
   }
 
+  .filters{
+    margin-left: 0%;
+  }
   .filters button{
     cursor: pointer;
      width: 20%;
@@ -2883,6 +2910,9 @@ margin-bottom: -34%;
     width: 60%;
     margin-left: 6%;
     cursor: pointer;
+  }
+  .filters{
+    margin-left: 0%;
   }
 
   .filters button{
