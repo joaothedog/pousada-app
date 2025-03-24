@@ -1,6 +1,12 @@
 import styled from '@emotion/styled';
 
-export const TopContainer = styled.div`
+type TopContainerProps = {
+  darkMode: boolean;  
+};
+type CardContainerProps = {
+  darkMode: boolean;  
+};
+export const TopContainer = styled.div<TopContainerProps>`
   width: 100%;
   height: 0.4%;
   display: flex;
@@ -8,10 +14,11 @@ export const TopContainer = styled.div`
   padding: 3rem;
   border-bottom: 0.1rem solid #ccc;
 
+  
+
   .right {
     display: flex;
     align-items: center;
-
 
     .search {
       width: 20rem;
@@ -23,6 +30,9 @@ export const TopContainer = styled.div`
       position: relative;
 
       input {
+      color:${({ darkMode }) => (darkMode ? '#fff' : '#333')};
+      background-color: ${({ darkMode }) => (darkMode ? '#333' : '#fff')}; 
+      border: ${({ darkMode }) => (darkMode ? '#333' : '#fff')}; 
         height: 100%;
         width: 100%;
         padding: 0 1rem;
@@ -84,15 +94,15 @@ export const TopContainer = styled.div`
 
 
 
-export const CardContainer = styled.div`
+export const CardContainer = styled.div<CardContainerProps>`
   width: 20%;
   height: 10vh;
   margin: 0.5rem;
-  background-color: #fff;
+  background-color: ${({ darkMode }) => (darkMode ? '#333' : '#fff')};
   border-radius: 0.5rem;
   display: flex;
   box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.1);
-  transition: all 0.4s ease-in-out;
+  transition: all 0.1s ease-in-out;
   &:hover {
     transform: scale(1.02);
   }

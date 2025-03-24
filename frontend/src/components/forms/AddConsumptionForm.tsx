@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { getReservationById, getInventoryItems, createReservationItem } from '../../services/api';
 import { Reservation, InventoryItem, ReservationItem } from '../../types/types';
 import { FaTrashAlt } from 'react-icons/fa';
+import { ThemeContext } from "../../components/ThemeContext/ThemeContext";
 
 interface AddConsumptionFormProps {
+    darkMode: boolean;  
     reservationId: number;
     onClose: () => void;
     onItemsAdded: (updatedItems: ReservationItem[]) => void;
@@ -20,6 +22,13 @@ const AddConsumptionForm: React.FC<AddConsumptionFormProps> = ({
     const [itemQuantity, setItemQuantity] = useState<number>(1);
     const [selectedItems, setSelectedItems] = useState<ReservationItem[]>([]);
 
+const themeContext = useContext(ThemeContext);
+        
+          if (!themeContext) {
+            throw new Error("useContext must be used within a ThemeProvider");
+          }
+        
+          const { darkMode } = themeContext;
 
 
     

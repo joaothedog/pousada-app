@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { getGuests, deleteGuest, createGuest } from '../../services/api';
 import { PageContainer } from '../../components/PageContainer';
 import { SidebarComponent } from '../../components/sidebar/index';
-import { Container, Containerr } from './styles';
+import { Container, Containerr, Main,} from './styles';
 import "./styles.css"
 import { FaTrashAlt } from 'react-icons/fa';
 import { FaUserAlt } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
+import { ThemeContext } from "../../components/ThemeContext/ThemeContext";
 
 export function GerenciaHospedes() {
     interface Guest {
@@ -22,6 +23,15 @@ export function GerenciaHospedes() {
     const [filteredGuests, setFilteredGuests] = useState<Guest[]>([]);
     const [searchName, setSearchName] = useState('');
     const [loading, setLoading] = useState(false);
+
+      const themeContext = useContext(ThemeContext);
+    
+      if (!themeContext) {
+        throw new Error("useContext must be used within a ThemeProvider");
+      }
+    
+      const { darkMode } = themeContext;
+      
 
     useEffect(() => {
         carregarHospedes();
@@ -89,7 +99,8 @@ export function GerenciaHospedes() {
     };
 
     return (
-        <PageContainer padding="0px">
+        <PageContainer padding="0px" darkMode={darkMode}>
+            <Main darkMode={darkMode}>
             <div className="main2">
                 <SidebarComponent />
                 <div className="criar">
@@ -164,9 +175,9 @@ export function GerenciaHospedes() {
                     {loading ? (
                         <p>Carregando hóspedes...</p>
                     ) : (
-                        <Container>
+                        <Container >
                             {filteredGuests.map((guest) => (
-                                <Containerr key={guest.id} className="banner-guest">
+                                <Containerr key={guest.id} className="banner-guest" darkMode={darkMode}>
                                     <div className="row">
                                         <img src='/icon.png' alt='logo' className='user'>
                                         </img>
@@ -187,6 +198,7 @@ export function GerenciaHospedes() {
                     )}
                 </div>
             </div>
+            </Main>
         </PageContainer>
     );
 }

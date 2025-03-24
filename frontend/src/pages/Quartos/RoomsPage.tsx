@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { getRooms, deleteRoom, createRoom, getReservations, getGuests } from '../../services/api';
 import { PageContainer } from '../../components/PageContainer';
 import { SidebarComponent } from '../../components/sidebar/index';
-import { Container, Containerr } from './styles';
+import { Container, Containerr, Main, Modal } from './styles';
 import "./styles.css";
 import { FaTrashAlt } from 'react-icons/fa';
 import { TbListDetails } from "react-icons/tb";
 import { VscArrowCircleLeft, VscArrowCircleRight } from 'react-icons/vsc';
+import { ThemeContext } from "../../components/ThemeContext/ThemeContext";
 
 export function GerenciaQuartos() {
     interface Room {
@@ -47,7 +48,13 @@ export function GerenciaQuartos() {
     const [selectedRoomReservations, setSelectedRoomReservations] = useState<Reservation[] | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRoomType, setSelectedRoomType] = useState<string | null>(null);
-    
+          const themeContext = useContext(ThemeContext);
+        
+          if (!themeContext) {
+            throw new Error("useContext must be used within a ThemeProvider");
+          }
+        
+          const { darkMode } = themeContext;
 
   //usado para carregar os dados ao entrar na página
     useEffect(() => {
@@ -190,7 +197,8 @@ const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   
 
     return (
-        <PageContainer padding="0px">
+        <PageContainer padding="0px" darkMode={darkMode}>
+            <Main darkMode={darkMode}>
             <div className="main2">
                 <SidebarComponent />
                 <div className="criar">
@@ -285,7 +293,7 @@ const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                     ) : (
                         <Container >
                             {filteredRooms.map((room) => (
-                                <Containerr key={room.id} className="banner-rooms" isAvailable={room.is_available}>
+                                <Containerr key={room.id} className="banner-rooms"  darkMode={darkMode}>
                                     <div className="row">
                                         <p className="numero">
                                             <strong>Número</strong> {room.name}
@@ -324,6 +332,7 @@ const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 {/*Modal para exibir reservas relacionadas ao quarto selecionado*/}
                 {selectedRoomReservations && (
                     <div className="modal-overlay" onClick={handleCloseModal}>
+                        <Modal darkMode={darkMode}>
                         <div className="modal-content-rooms" onClick={(e) => e.stopPropagation()}>
                             <div className='faixa'>
                             <h2   style={{marginTop:"1%"}}>Reservas Relacionadas</h2>
@@ -343,11 +352,13 @@ const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                                 <p className="msg-n" style={{height:"200px",minHeight:"140px",overflowY:"auto"}}>Não há reservas para este quarto.</p>
                             )}
                             <button className='closeModal' onClick={handleCloseModal}>Fechar</button>
-                        </div>
+                        </div>     
+                        </Modal>
                     </div>
                 )}
+                
             </div>
-            
+            </Main>
         </PageContainer>
     );
 }

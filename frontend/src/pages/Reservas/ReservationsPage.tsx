@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { getReservations, createReservation, deleteReservation, getRooms, createGuest, getGuests } from '../../services/api';
 import { PageContainer } from '../../components/PageContainer';
 import { SidebarComponent } from '../../components/sidebar/index';
-import { Container, Containerr } from './styles';
+import { Container, Containerr, Main, Modal } from './styles';
 import "./styles.css";
 import { FaTrashAlt } from 'react-icons/fa';
 import { CgDetailsMore } from "react-icons/cg";
@@ -10,7 +10,7 @@ import {  Guest, Room, ReservationItem, Reservation, InventoryItem } from '../..
 import { createInventoryItem,getInventoryItems,updateReservation } from '../../services/api'; 
 import AddConsumptionForm from '../../components/forms/AddConsumptionForm';
 import { VscArrowCircleLeft, VscArrowCircleRight } from 'react-icons/vsc';
-
+import { ThemeContext } from "../../components/ThemeContext/ThemeContext";
 
 
 
@@ -66,7 +66,13 @@ export function GerenciaReservas() {
     const [isAddingConsumption, setIsAddingConsumption] = useState<boolean>(false); 
     const [selectedGuestId, setSelectedGuestId] = useState<number | null>(null); // ID do hóspede selecionado
     const [selectedRoomType, setSelectedRoomType] = useState<string | null>(null);
-
+              const themeContext = useContext(ThemeContext);
+                      
+                        if (!themeContext) {
+                          throw new Error("useContext must be used within a ThemeProvider");
+                        }
+                      
+                        const { darkMode } = themeContext;
 
 
 
@@ -451,7 +457,8 @@ const resolveDailyRate = (reservation: Reservation) => {
 
 
     return (
-        <PageContainer padding="0px">
+        <PageContainer padding="0px" darkMode={darkMode}>
+             <Main darkMode={darkMode}>
             <div className="main2">
                 <SidebarComponent />
                 <div className="criar">
@@ -536,7 +543,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                                   />
                                  </div>
                                 <br></br>
-                                <div className="input" style={{ marginLeft: "60%",marginTop:"-140%" }}>
+                                <div className="input" style={{ marginLeft: "60%",marginTop:"-141.4%" }}>
                                <label htmlFor="number_of_guests">Quantidade de Pessoas:</label>
                                 <input
                                  type="number"
@@ -664,7 +671,7 @@ const resolveDailyRate = (reservation: Reservation) => {
                     ) : (
                         <Container>
                             {filteredReservations.map((reservation) => (
-                                <Containerr key={reservation.id} className="banner-reservation">
+                                <Containerr key={reservation.id} className="banner-reservation" darkMode={darkMode}>
                                     <div className="row">
                                         <p className="nomeReser" style={{ marginLeft: "10%",marginTop:"8%" }} >
                                             <strong>Hóspede</strong><br></br>  {resolveGuestName(reservation.guest as unknown as number)}
@@ -701,14 +708,15 @@ const resolveDailyRate = (reservation: Reservation) => {
                 {/*Modal para exibir detalhes da reserva*/}
                 {DetalhesSelecionados && (
                 <div className="modal-overlay" onClick={handleFecharModal}>
-                <div className="modal-content-reservation" onClick={(e) => e.stopPropagation()}>
-                <div className='faixa-reservation'> 
-                 <h2 style={{marginTop:"1%"}}>Detalhes da Reserva</h2>
-                </div>
+                 <Modal darkMode={darkMode}>
+                  <div className="modal-content-reservation" onClick={(e) => e.stopPropagation()}>
+                  <div className='faixa-reservation'> 
+                  <h2 style={{marginTop:"1%"}}>Detalhes da Reserva</h2>
+                  </div>
            
            
-              <div>
-                {filteredReservations
+                 <div>
+                 {filteredReservations
                     .map((reservation) => (
                         <div key={reservation.id}>
                            <div className='userdados'>
@@ -770,7 +778,8 @@ const resolveDailyRate = (reservation: Reservation) => {
                             <div className='gastosex'> 
                             <h3 className='gasto-titulo'>Gastos Extras</h3>
 
-                            <AddConsumptionForm
+                            <AddConsumptionForm 
+                            darkMode={darkMode}
                              reservationId={reservation.id}
                              onClose={() => setIsAddingConsumption(false)}
                              onItemsAdded={(updatedItems) => {
@@ -781,18 +790,20 @@ const resolveDailyRate = (reservation: Reservation) => {
                             }}
                            />
                         </div>
-                 </div>
+                     </div>
                     ))}
                      <div className='divider-vertical-reservation'></div>
                      <div className="divider-horizontal-reservation">  </div>
-            </div>
-            <button className='closeModal-reservation' onClick={handleFecharModal}>Fechar</button>
-          </div>
-          </div>
-              )}
-
-            </div>
-
+                 </div>
+             
+                 <button className='closeModal-reservation' onClick={handleFecharModal}>Fechar</button>
+                 
+                 </div>
+                 </Modal>
+                 </div>
+                )}
+              </div>
+            </Main>
         </PageContainer>
     );
 }

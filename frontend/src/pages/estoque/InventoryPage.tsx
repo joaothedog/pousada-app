@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { getInventoryItems, createInventoryItem, deleteInventoryItem,createInventoryConsumption, getInventoryConsumptions,deleteInventoryConsumption, updateInventoryItem   } from '../../services/api';
 
-
+import { ThemeContext } from "../../components/ThemeContext/ThemeContext";
 import { PageContainer } from '../../components/PageContainer';
 import { SidebarComponent } from '../../components/sidebar/index';
-import { Container, Containerr } from './styles';
+import { Container, Containerr, Main, Modal } from './styles';
 import "./styles.css";
 import { FaTrashAlt } from 'react-icons/fa';
 import { FaPencil } from "react-icons/fa6";
@@ -41,7 +41,13 @@ export function GerenciaInventario() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [totalReductionsValue, setTotalReductionsValue] = useState<number | null>(null);
+     const themeContext = useContext(ThemeContext);
     
+      if (!themeContext) {
+        throw new Error("useContext must be used within a ThemeProvider");
+      }
+    
+      const { darkMode } = themeContext;
 
     const fetchInventoryItems = async () => {
         setLoading(true);
@@ -285,7 +291,8 @@ export function GerenciaInventario() {
     
 
     return (
-        <PageContainer padding="0px">
+        <PageContainer padding="0px" darkMode={darkMode}>
+          <Main darkMode={darkMode}>
             <div className="main2">
                 <SidebarComponent />
                 <div className="criar">
@@ -362,7 +369,7 @@ export function GerenciaInventario() {
                         <Container>
                             {filteredItems.length > 0 ? (
                                 filteredItems.map((item) => (
-                                    <Containerr key={item.id} className="banner-inventory">
+                                    <Containerr key={item.id} className="banner-inventory" darkMode={darkMode}>
                                         <div className="row">
                                             <p className="nome">
                                                 <strong>Item</strong><br></br> {item.name}
@@ -397,6 +404,7 @@ export function GerenciaInventario() {
 
                 {selectedItem && (
                     <div className="modal-overlay" onClick={handleCloseModal}>
+                        <Modal darkMode={darkMode}>
                         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                             <div className='faixa'>
                                 <h2 style={{marginTop:"1%"}}> Estoque {selectedItem.name}</h2>
@@ -487,9 +495,11 @@ export function GerenciaInventario() {
 
                             <button className='closeModalinv' onClick={handleCloseModal}>Fechar</button>
                         </div>
+                        </Modal>
                     </div>
                 )}
             </div>
+            </Main>
         </PageContainer>
     );
 }

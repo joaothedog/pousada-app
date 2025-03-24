@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { IoChevronForwardSharp } from 'react-icons/io5';
 import { useSelector } from 'react-redux';
 
@@ -6,15 +6,17 @@ import { useSelector } from 'react-redux';
 
 interface SidebuttonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   tittle: string;
+    icon: ReactNode;
 }
 
-export default function Sidebutton({ tittle, onClick }: SidebuttonProps) {
+export default function Sidebutton({ tittle,icon, onClick }: SidebuttonProps) {
 
 
   return (
     <button type="button" className="sideButton" onClick={onClick}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        {tittle}
+      <div className="icon-Sidebar">{icon}</div>
+       <div className='title-Sidebar'> {tittle}</div> 
       </div>
 
       <IoChevronForwardSharp />
