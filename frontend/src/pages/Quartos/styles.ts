@@ -57,7 +57,7 @@ export const Main = styled.div<MainProps>`
 
 export const Modal = styled.div<ModalProps>`
     width: 100%;
-    height: 90%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;

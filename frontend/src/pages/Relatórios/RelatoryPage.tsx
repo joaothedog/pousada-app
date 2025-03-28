@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PageContainer } from '../../components/PageContainer';
 import { SidebarComponent } from '../../components/sidebar';
 import { getReservations, getGuests, getRooms } from '../../services/api'; 
@@ -6,6 +6,8 @@ import './styles.css';
 import { VscArrowCircleRight } from "react-icons/vsc";
 import { VscArrowCircleLeft } from "react-icons/vsc";
 import  '../Reservas/ReservationsPage';
+import { ThemeContext } from "../../components/ThemeContext/ThemeContext";
+import { Relatory } from './styles';
 
 
 
@@ -44,6 +46,13 @@ export function RelatoryPage() {
   const [loading, setLoading] = useState(false);
   const [filteredReservations, setFilteredReservations] = useState<Reservation[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+            const themeContext = useContext(ThemeContext);
+          
+            if (!themeContext) {
+              throw new Error("useContext must be used within a ThemeProvider");
+            }
+          
+            const { darkMode } = themeContext;
 
 
  
@@ -159,14 +168,13 @@ const resolveNumberOfChildren = (reservation: Reservation) => {
 
 
   return (
-    <PageContainer padding="0px">
+    <PageContainer padding="0px" darkMode={darkMode}>
       <div style={{ height: "90%", width: "94.8%", marginTop: "10px", marginLeft: "10px" }}>
         <SidebarComponent />
       </div>
-
       <div className="content-1">
+      <Relatory darkMode={darkMode}>
         <section className="cadastro-1-relatory">
-          
           <h1 style={{ marginLeft: "1%" }}>Relatórios das Reservas</h1>
           <div className="search-bar">
             <input
@@ -195,7 +203,9 @@ const resolveNumberOfChildren = (reservation: Reservation) => {
             
             </>
           )}
+         
         </section>
+        </Relatory>
       </div>
     </PageContainer>
   );

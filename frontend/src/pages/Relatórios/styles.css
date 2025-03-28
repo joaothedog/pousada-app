@@ -199,7 +199,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: -24%;
+      margin-top: -24.5%;
       margin-bottom: 50px;
       height: 20%;
       margin-left: 10%;
@@ -225,13 +225,13 @@
   .reservation-item{
     margin-top: 2%;
     color: #111;
-    width: 85%;
+    width: 58%;
     margin: 20px;
     cursor: pointer;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     padding: 0px 5px;
     transition: 0.4s;
-    margin-left: 7%;
+    margin-left: 25%;
     &:hover{
       box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
       transform: scale(1.01);
@@ -289,7 +289,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: -24%;
+      margin-top: -30% !important;
       margin-bottom: 50px;
       height: 20%;
       margin-left: 10%;
@@ -315,13 +315,13 @@
   .reservation-item{
     margin-top: 2%;
     color: #111;
-    width: 85%;
+    width: 57% !important;
     margin: 20px;
     cursor: pointer;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     padding: 0px 5px;
     transition: 0.4s;
-    margin-left: 7%;
+    margin-left: 25% !important;
     &:hover{
       box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
       transform: scale(1.01);
@@ -378,7 +378,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: -24%;
+      margin-top: -25.5% !important;
       margin-bottom: 50px;
       height: 20%;
       margin-left: 10%;
@@ -404,13 +404,13 @@
   .reservation-item{
     margin-top: 2%;
     color: #111;
-    width: 85%;
+    width: 57% !important;
     margin: 20px;
     cursor: pointer;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     padding: 0px 5px;
     transition: 0.4s;
-    margin-left: 7%;
+    margin-left: 25% !important;
     &:hover{
       box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
       transform: scale(1.01);
@@ -467,7 +467,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: -24%;
+      margin-top: -28% !important;
       margin-bottom: 50px;
       height: 20%;
       margin-left: 10%;
@@ -493,13 +493,13 @@
   .reservation-item{
     margin-top: 2%;
     color: #111;
-    width: 85%;
+    width: 63% !important;
     margin: 20px;
     cursor: pointer;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     padding: 0px 5px;
     transition: 0.4s;
-    margin-left: 7%;
+    margin-left: 25% !important;
     &:hover{
       box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
       transform: scale(1.01);
@@ -557,7 +557,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: -24%;
+      margin-top: -25% !important;
       margin-bottom: 50px;
       height: 20%;
       margin-left: 10%;
@@ -583,13 +583,13 @@
   .reservation-item{
     margin-top: 2%;
     color: #111;
-    width: 85%;
+    width: 66% !important;
     margin: 20px;
     cursor: pointer;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     padding: 0px 5px;
     transition: 0.4s;
-    margin-left: 7%;
+    margin-left: 20% !important;
     &:hover{
       box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
       transform: scale(1.01);
@@ -646,7 +646,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: -24%;
+      margin-top: -25% !important;
       margin-bottom: 50px;
       height: 20%;
       margin-left: 10%;
@@ -672,13 +672,13 @@
   .reservation-item{
     margin-top: 2%;
     color: #111;
-    width: 85%;
+    width: 66% !important;
     margin: 20px;
     cursor: pointer;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     padding: 0px 5px;
     transition: 0.4s;
-    margin-left: 7%;
+    margin-left: 20% !important;
     &:hover{
       box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
       transform: scale(1.01);
@@ -735,7 +735,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: -24%;
+      margin-top: -30% !important;
       margin-bottom: 50px;
       height: 20%;
       margin-left: 10%;
@@ -761,13 +761,13 @@
   .reservation-item{
     margin-top: 2%;
     color: #111;
-    width: 85%;
+    width: 69% !important;
     margin: 20px;
     cursor: pointer;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     padding: 0px 5px;
     transition: 0.4s;
-    margin-left: 7%;
+    margin-left: 20% !important;
     &:hover{
       box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
       transform: scale(1.01);
@@ -822,7 +822,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: -24%;
+      margin-top: -27% !important;
       margin-bottom: 50px;
       height: 20%;
       margin-left: 10%;
@@ -848,13 +848,13 @@
   .reservation-item{
     margin-top: 2%;
     color: #111;
-    width: 85%;
+    width: 69% !important;
     margin: 20px;
     cursor: pointer;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     padding: 0px 5px;
     transition: 0.4s;
-    margin-left: 7%;
+    margin-left: 20% !important;
     &:hover{
       box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
       transform: scale(1.01);
